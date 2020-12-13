@@ -6,12 +6,11 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:30:40 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/12 15:33:11 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/13 18:04:42 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
 
 void	init_struct(t_config *config, t_list *head)
 {
@@ -20,13 +19,19 @@ void	init_struct(t_config *config, t_list *head)
 	config->map.hero_set = "NSEW";
 	config->map.inner_set = "012 NSEW";
 	config->map.space_set = "1 ";
-	config->map.scale = 50;
+	config->map.scale = 30;
+
+
+	config->hero.dirX = 0;
+	config->hero.dirY = -1;
+	config->hero.planeX = 0;
+	config->hero.planeY = 0.66;
 }
 
 void	run_window(t_config *config)
 {
 	config->win.mlx = mlx_init();
-	config->win.window = mlx_new_window(config->win.mlx, 1920, 1080, "Cub3D");
+	config->win.window = mlx_new_window(config->win.mlx, WIDTH, HEIGHT, "Cub3D");
 	if (!parcer(config))
 		return ;//TODO add error and exit programm
 	write_2d_map(config);

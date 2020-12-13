@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:29:33 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/12 14:35:34 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/13 16:30:29 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_check_border(t_config *config, int y, int x)
 		if (x != 0)
 			if (!(ft_strchr(config->map.space_set, config->map.map[y][x - 1])))
 				return (0);
-		if (x != (int)(config->map.max_len - 1))
+		if (x != (int)(config->map.width - 1))
 			if (!(ft_strchr(config->map.space_set, config->map.map[y][x + 1])))
 				return (0);
 		if (y != 0)
@@ -62,7 +62,7 @@ int	ft_check_border(t_config *config, int y, int x)
 int	ft_check_map(t_config *config, int y, int x)
 {
 	if (y == 0 || y == (int)(config->map.height - 1) ||
-	x == (int)(config->map.max_len - 1) || x == 0)
+	x == (int)(config->map.width - 1) || x == 0)
 	{
 		if (!ft_check_border(config, y, x))
 			return (0);

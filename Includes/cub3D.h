@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/12 15:06:53 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/13 17:39:17 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 # include <fcntl.h>
 # include <math.h>
 
-
 #include "stdio.h" //!DEL
+
+# define HEIGHT 1080
+# define WIDTH 1920
 
 typedef struct	s_map {
 	int			nl;
@@ -29,17 +31,36 @@ typedef struct	s_map {
 	char		*hero_set;
 	char		*space_set;
 	char		*inner_set;
-	size_t		max_len;
+	size_t		width;
 	size_t		height;
 }				t_map;
 
 typedef struct	s_hero {
 	double		y;
 	double		x;
+	double		dirX;
+	double		dirY;
 	double		dir;
+	double		planeX;
+	double		planeY;
 	double		start;
 	double		end;
+	double		cameraX;
 }				t_hero;
+
+typedef struct	s_ray {
+	double		rayY;
+	double		rayX;
+	double		deltaX;
+	double		deltaY;
+	double		sideX;
+	double		sideY;
+	double		perpWallDist;
+	double		stepX;
+	double		stepY;
+	double		start;
+	double		end;
+}				t_ray;
 
 typedef struct	s_win {
 	void		*mlx;
@@ -59,6 +80,7 @@ typedef struct	s_config_struct
 	t_map		map;
 	t_win		win;
 	t_data		data;
+	t_ray		ray;
 	t_hero		hero;
 }				t_config;
 
@@ -92,7 +114,7 @@ void	run_window(t_config *config);
 **	utilc.c
 */
 
-void	ft_find_max_len(char *str, t_config	*config);
+void	ft_find_width(char *str, t_config	*config);
 
 /*
 **	cast_ray.c

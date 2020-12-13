@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/12 15:40:08 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/13 18:08:50 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ void	write_2d_map(t_config *config)
 		x = 0;
 		while (config->map.map[y][x])
 		{
-			put_pixel_scale((x) * config->map.scale, (y) * config->map.scale, config);
+			config->hero.cameraX = config->hero.dirX + config->hero.planeX * (x / (double)config->map.width);
+			config->ray.rayY = config->hero.dirY + config->hero.planeY * config->hero.cameraX;
+			config->ray.rayX = config->hero.dirX + config->hero.planeX * config->hero.cameraX;
+			// put_pixel_scale((x) * config->map.scale, (y) * config->map.scale, config);
 			x++;
 		}
 		y++;
@@ -94,17 +97,17 @@ int main(int argc, char *argv[])
 		return (-1);//TODO return error message
 
 
-	config->map.max_len = 0;
+	config->map.width = 0;
 	config->map.nl = 0;
 	while(get_next_line(fd, &map_line))
 	{
-		ft_find_max_len(map_line,config);
+		ft_find_width(map_line,config);
 		if (!*map_line)
 			config->map.nl++;
 		ft_lstadd_back(&head, ft_lstnew(map_line));
 	}
 
-	ft_find_max_len(map_line,config);
+	ft_find_width(map_line,config);
 
 	ft_lstadd_back(&head, ft_lstnew(map_line));
 	init_struct(config, head);

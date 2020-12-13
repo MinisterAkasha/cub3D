@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 19:16:25 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/11 22:07:00 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/13 16:30:29 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**fill_map(t_list *head, int size, t_config *config)
 	i = 0;
 	while (tmp)
 	{
-		len_dif = config->map.max_len - ft_strlen(tmp->content);
+		len_dif = config->map.width - ft_strlen(tmp->content);
 		str = (char *)malloc(sizeof(char) * (len_dif + 1));
 		str[len_dif] = 0;
 		ft_memset(str, ' ', len_dif);
