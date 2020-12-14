@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/13 18:08:50 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/14 19:01:39 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,25 +55,29 @@ void	put_pixel_scale(int x, int y, t_config *config)
 void	write_2d_map(t_config *config)
 {
 	int	x;
-	int	y;
+	// int y = 0;
 
 	init_img(config);
 	x = 0;
-	y = 0;
-	while (config->map.map[y])
+	while (x < WIDTH)
 	{
-		x = 0;
-		while (config->map.map[y][x])
-		{
-			config->hero.cameraX = config->hero.dirX + config->hero.planeX * (x / (double)config->map.width);
-			config->ray.rayY = config->hero.dirY + config->hero.planeY * config->hero.cameraX;
-			config->ray.rayX = config->hero.dirX + config->hero.planeX * config->hero.cameraX;
-			// put_pixel_scale((x) * config->map.scale, (y) * config->map.scale, config);
-			x++;
-		}
-		y++;
+		cast_rays(config, x);
+		config->hero.cameraX = 2 * (x / (double)WIDTH) - 1;
+		config->ray.ray_dir_y = config->hero.dir_y + config->hero.plane_y * config->hero.cameraX;
+		config->ray.ray_dir_x = config->hero.dir_x + config->hero.plane_x * config->hero.cameraX;
+		x++;
 	}
-	cast_rays(config);
+	// while (config->map.map[y])
+	// {
+	// 	x = 0;
+	// 	while (config->map.map[y][x])
+	// 	{
+	// 		cast_rays(config, x);
+	// 		put_pixel_scale(x * config->map.scale, y * config->map.scale, config);
+	// 		x++;
+	// 	}
+	// 	y++;
+	// }
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
 }
 

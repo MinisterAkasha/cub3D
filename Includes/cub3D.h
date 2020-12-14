@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/13 17:39:17 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/14 17:52:16 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,21 @@ typedef struct	s_map {
 typedef struct	s_hero {
 	double		y;
 	double		x;
-	double		dirX;
-	double		dirY;
+	double		dir_x;
+	double		dir_y;
 	double		dir;
-	double		planeX;
-	double		planeY;
+	double		plane_x;
+	double		plane_y;
 	double		start;
 	double		end;
 	double		cameraX;
+	double		move_speed;
+	double		rotate_speed;
 }				t_hero;
 
 typedef struct	s_ray {
-	double		rayY;
-	double		rayX;
+	double		ray_dir_y;
+	double		ray_dir_x;
 	double		deltaX;
 	double		deltaY;
 	double		sideX;
@@ -120,6 +122,7 @@ void	ft_find_width(char *str, t_config	*config);
 **	cast_ray.c
 */
 void	cast_ray(t_config *config, t_hero ray);
-void	cast_rays(t_config *config);
+void	cast_rays(t_config *config, int x);
+void	drow_vertical_line(int x, double start, double end, int color, t_config *config);
 
 #endif
