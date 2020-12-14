@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 14:41:17 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/14 20:32:51 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/14 20:55:58 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,13 @@ int	move_hero(int keycode, t_config *config)
 				config->hero.x += config->hero.dir_x * config->hero.move_speed;
 			if (config->map.map[(int)(config->hero.y + config->hero.dir_y * config->hero.move_speed)][(int)(config->hero.x)] != '1')
 				config->hero.y += config->hero.dir_y * config->hero.move_speed;
-			// config->hero.y -= 0.5;
 		}
 		if (keycode == 0) //go left
 		{
-			// 	config->hero.x -= (config->hero.dir_x - 1) * config->hero.move_speed;
-			// 	config->hero.y -= (config->hero.dir_y - 1) * config->hero.move_speed;
-			if (config->map.map[(int)(config->hero.y)][(int)(config->hero.x - config->hero.plane_x * config->hero.move_speed)] == '0')
+			if (config->map.map[(int)(config->hero.y)][(int)(config->hero.x - config->hero.plane_x * config->hero.move_speed)] != '1')
 				config->hero.x -= config->hero.plane_x * config->hero.move_speed;
 			if (config->map.map[(int)(config->hero.y - config->hero.plane_y * config->hero.move_speed)][(int)(config->hero.x)] != '1')
 				config->hero.y -= config->hero.plane_y * config->hero.move_speed;
-			// if (config->map.map[(int)(config->hero.y - config->hero.dir_y * config->hero.move_speed)][(int)(config->hero.x)] == '0')
-			// 	config->hero.y -= (config->hero.dir_y - 1) * config->hero.move_speed;
 		}
 		if (keycode == 1) // go back
 		{
@@ -47,7 +42,6 @@ int	move_hero(int keycode, t_config *config)
 				config->hero.x -= config->hero.dir_x * config->hero.move_speed;
 			if (config->map.map[(int)(config->hero.y - config->hero.dir_y * config->hero.move_speed)][(int)(config->hero.x)] != '1')
 				config->hero.y -= config->hero.dir_y * config->hero.move_speed;
-			// config->hero.y += 0.5;
 		}
 		if (keycode == 2) // go right
 		{
@@ -55,8 +49,6 @@ int	move_hero(int keycode, t_config *config)
 				config->hero.x += config->hero.plane_x * config->hero.move_speed;
 			if (config->map.map[(int)(config->hero.y + config->hero.plane_y * config->hero.move_speed)][(int)(config->hero.x)] != '1')
 				config->hero.y += config->hero.plane_y * config->hero.move_speed;
-			// if (config->map.map[(int)(config->hero.y - (config->hero.dir_y + 1) * config->hero.move_speed)][(int)(config->hero.x)] != '1')
-			// 	config->hero.y -= (config->hero.dir_y + 1) * config->hero.move_speed;
 		}
 		if (keycode == 123) //rotate left
 		{

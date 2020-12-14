@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:29:33 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/14 19:26:05 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/14 21:11:45 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,33 @@ int	ft_check_map(t_config *config, int y, int x)
 void	get_hero_dir(t_config *config, int y, int x)
 {
 	if (config->map.map[y][x] == 'N')
-		config->hero.dir = 3 * M_PI / 2;
+	{
+		config->hero.dir_x = 0;
+		config->hero.dir_y = -1;
+		config->hero.plane_x = -0.66;
+		config->hero.plane_y = 0;
+	}
 	if (config->map.map[y][x] == 'W')
-		config->hero.dir = M_PI;
+	{
+		config->hero.dir_x = 1;
+		config->hero.dir_y = 0;
+		config->hero.plane_x = 0;
+		config->hero.plane_y = -0.66;
+	}
 	if (config->map.map[y][x] == 'S')
-		config->hero.dir = M_PI / 2;
+	{
+		config->hero.dir_x = 0;
+		config->hero.dir_y = 1;
+		config->hero.plane_x = 0.66;
+		config->hero.plane_y = 0;
+	}
 	if (config->map.map[y][x] == 'E')
-		config->hero.dir = 0;
+	{
+		config->hero.dir_x = -1;
+		config->hero.dir_y = 0;
+		config->hero.plane_x = 0;
+		config->hero.plane_y = 0.66;
+	}
 }
 
 int		parcer(t_config *config)
