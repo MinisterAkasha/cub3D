@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 19:16:25 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/13 16:30:29 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/14 19:47:55 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,6 @@ char	**fill_map(t_list *head, int size, t_config *config)
 		free(str);
 		config->map.height++;
 		tmp = tmp->next;
-	}
-	i = 0;
-	while (map[i])
-	{
-		ft_putendl_fd(map[i], 1);
-		i++;
 	}
 	return (map);
 }
