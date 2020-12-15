@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:30:40 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/14 19:41:40 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/15 16:29:34 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	init_struct(t_config *config, t_list *head)
 	config->hero.dir_y = 0;
 	config->hero.plane_x = 0;
 	config->hero.plane_y = 0.66;
-	config->hero.move_speed = 0.2;
-	config->hero.rotate_speed = M_PI / 90;
+	config->hero.move_speed = 0.5;
+	config->hero.rotate_speed = M_PI / 30;
 }
 
 void	run_window(t_config *config)

@@ -6,31 +6,11 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/14 19:06:55 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/15 17:20:47 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-// void	cast_ray(t_config *config, t_hero ray)
-// {
-// 	while (config->map.map[(int)(ray.y / config->map.scale)][(int)(ray.x / config->map.scale)] != '1' &&
-// 		config->map.map[(int)(ray.y / config->map.scale)][(int)(ray.x / config->map.scale)] != '2')
-// 	{
-// 		ray.x += cos(ray.start);
-// 		ray.y += sin(ray.start);
-// 		my_mlx_pixel_put(&config->data, ray.x, ray.y, 0xEB3434);
-// 	}
-// }
-
-// void	render(t_config *config, int map_x, int map_y)
-// {
-// 	while (config->map.map[map_y][map_x] != '1')
-// 	{
-// 		my_mlx_pixel_put(&config->data, map_x * config->map.scale, map_y * config->map.scale, 0xEB3434);
-// 		map_y--;
-// 	}
-// }
 
 void	cast_rays(t_config *config, int x)
 {
@@ -41,6 +21,19 @@ void	cast_rays(t_config *config, int x)
 	int		side;
 	int		line_height;
 	int		color = 0xFFFFFF;
+
+	
+	uint32_t			tex_color;
+	int					y;
+	int 				tex_x;
+	int 				tex_y;
+	int 				tex_num;
+	double				wall_x;
+	double				step;
+	double				tex_pos;
+
+	
+
 
 	ray = &config->ray;
 	config->hero.cameraX = 2 * x / (double)WIDTH - 1;
@@ -89,8 +82,6 @@ void	cast_rays(t_config *config, int x)
 		}
 		if (config->map.map[map_y][map_x] == '1' || config->map.map[map_y][map_x] == '2')
 			hit = 1;
-		// render(config, map_x, map_y);
-		// my_mlx_pixel_put(&config->data, map_x * config->map.scale, map_y * config->map.scale, 0xFFF333);
 	}
 
 	if (side == 0)
@@ -98,6 +89,20 @@ void	cast_rays(t_config *config, int x)
 	else
 		ray->perpWallDist = (map_y - config->hero.y + (1 - ray->stepY) / 2) / ray->ray_dir_y;
 
+	// tex_num = config->map.map[map_y][map_x] == 1 ? 1 : 2;
+
+	// if (!side)
+	// 	wall_x = config->hero.y + ray->perpWallDist * ray->ray_dir_y;
+	// else
+	// 	wall_x = config->hero.x + ray->perpWallDist * ray->ray_dir_x;
+	// wall_x = floor(wall_x);
+	// tex_x = (int)(wall_x * TEX_WIDTH); 
+    // if(side == 0 && ray->ray_dir_x > 0)
+	// 	tex_x = TEX_WIDTH - tex_x - 1;
+    // if(side == 1 && ray->ray_dir_y < 0)
+	// 	tex_x = TEX_WIDTH - tex_x - 1;
+
+	
 	line_height = (int)(HEIGHT / ray->perpWallDist);
 
 	ray->start = -line_height / 2 + HEIGHT / 2;
@@ -114,8 +119,35 @@ void	cast_rays(t_config *config, int x)
 		color = 0xFFFF22;
 	if (side == 1)
 		color /= 2;
+	
+// 	step = TEX_HEIGHT / line_height;
+
+// 	tex_pos = (ray->start- HEIGHT / 2 + line_height / 2) * step;
+
+// 	y = ray->start;
+// 	while (y < ray->end)
+// 	{
+// 		tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
+// 		tex_pos += step;
+// 		tex_color = texture[0][TEX_HEIGHT * tex_y + tex_x];
+// 		if (side)
+// 			tex_color = (tex_color >> 1) & 8355711;
+// 		buffer[y][x] = tex_color;
+// 		y++;
+// 	}
+// 	drow_buffer(buffer[0], config, x);
 	drow_vertical_line(x, ray->start, ray->end, color, config);
 }
+
+// void	drow_buffer(uint32_t *buffer, t_config *config, int x)
+// {
+// 	int i = 0;
+// 	while (i < WIDTH)
+// 	{
+// 		my_mlx_pixel_put(&config->data, x, i, buffer[i]);
+// 		i++;
+// 	}
+// }
 
 void	drow_vertical_line(int x, double start, double end, int color, t_config *config)
 {
@@ -133,20 +165,3 @@ void	drow_vertical_line(int x, double start, double end, int color, t_config *co
 		i++;
 	}
 }
-// void	cast_rays(t_config *config)
-// {
-// 	t_hero	ray;
-
-// 	ray = config->hero;
-// 	ray.y = (config->hero.y + 0.5) * config->map.scale;
-// 	ray.x = (config->hero.x + 0.5) * config->map.scale;
-// 	ray.start = config->hero.dir - (M_PI / 4);
-// 	ray.end = config->hero.dir + (M_PI / 4);
-// 	while (ray.start <= ray.end)
-// 	{
-// 		ray.y = (config->hero.y + 0.5) * config->map.scale;
-// 		ray.x = (config->hero.x + 0.5) * config->map.scale;
-// 		cast_ray(config, ray);
-// 		ray.start += (M_PI / 2) / 1920;
-// 	}
-// }
