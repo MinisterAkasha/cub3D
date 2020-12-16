@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/15 17:15:02 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/16 19:29:42 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 
 #include "stdio.h" //!DEL
 
-# define HEIGHT 1080
-# define WIDTH 1920
-# define TEX_WIDTH 64
+# define HEIGHT 64
+# define WIDTH 64
 # define TEX_HEIGHT 64
+# define TEX_WIDTH 64
 
 typedef struct	s_map {
 	int			nl;
@@ -125,8 +125,8 @@ void	ft_find_width(char *str, t_config	*config);
 **	cast_ray.c
 */
 void	cast_ray(t_config *config, t_hero ray);
-void	cast_rays(t_config *config, int x);
-void	drow_vertical_line(int x, double start, double end, int color, t_config *config);
-void	drow_buffer(uint32_t *buffer, t_config *config, int x);
+void	cast_rays(t_config *config, int x, int (buffer)[HEIGHT][WIDTH], int texture[2][TEX_HEIGHT * TEX_WIDTH]);
+void	drow_vertical_line(int x, double start, double end, int color, t_config *config, uint32_t (buffer)[HEIGHT][WIDTH]);
+void	drow_buffer(uint32_t (buffer)[HEIGHT][WIDTH], t_config *config, int y, int x);
 
 #endif

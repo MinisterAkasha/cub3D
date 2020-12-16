@@ -6,13 +6,13 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/15 17:20:47 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/16 19:30:22 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	cast_rays(t_config *config, int x)
+void	cast_rays(t_config *config, int x, int (buffer)[HEIGHT][WIDTH], int texture[2][TEX_HEIGHT * TEX_WIDTH])
 {
 	t_ray	*ray;
 	int		map_x;
@@ -22,8 +22,7 @@ void	cast_rays(t_config *config, int x)
 	int		line_height;
 	int		color = 0xFFFFFF;
 
-	
-	uint32_t			tex_color;
+	size_t				tex_color;
 	int					y;
 	int 				tex_x;
 	int 				tex_y;
@@ -33,12 +32,7 @@ void	cast_rays(t_config *config, int x)
 	double				tex_pos;
 
 	
-
-
 	ray = &config->ray;
-	config->hero.cameraX = 2 * x / (double)WIDTH - 1;
-	ray->ray_dir_y = config->hero.dir_y + config->hero.plane_y * config->hero.cameraX;
-	ray->ray_dir_x = config->hero.dir_x + config->hero.plane_x * config->hero.cameraX;
 	hit = 0;
 	ray->deltaX = fabs(1 / ray->ray_dir_x);
 	ray->deltaY = fabs(1 / ray->ray_dir_y);
@@ -89,18 +83,18 @@ void	cast_rays(t_config *config, int x)
 	else
 		ray->perpWallDist = (map_y - config->hero.y + (1 - ray->stepY) / 2) / ray->ray_dir_y;
 
-	// tex_num = config->map.map[map_y][map_x] == 1 ? 1 : 2;
+	tex_num = config->map.map[map_y][map_x] == '1' ? 0 : 1;
 
-	// if (!side)
-	// 	wall_x = config->hero.y + ray->perpWallDist * ray->ray_dir_y;
-	// else
-	// 	wall_x = config->hero.x + ray->perpWallDist * ray->ray_dir_x;
-	// wall_x = floor(wall_x);
-	// tex_x = (int)(wall_x * TEX_WIDTH); 
-    // if(side == 0 && ray->ray_dir_x > 0)
-	// 	tex_x = TEX_WIDTH - tex_x - 1;
-    // if(side == 1 && ray->ray_dir_y < 0)
-	// 	tex_x = TEX_WIDTH - tex_x - 1;
+	if (!side)
+		wall_x = config->hero.y + ray->perpWallDist * ray->ray_dir_y;
+	else
+		wall_x = config->hero.x + ray->perpWallDist * ray->ray_dir_x;
+	wall_x -= floor(wall_x);
+	tex_x = (int)(wall_x * TEX_WIDTH);
+    if(side == 0 && ray->ray_dir_x > 0)
+		tex_x = TEX_WIDTH - tex_x - 1;
+    if(side == 1 && ray->ray_dir_y < 0)
+		tex_x = TEX_WIDTH - tex_x - 1;
 
 	
 	line_height = (int)(HEIGHT / ray->perpWallDist);
@@ -111,53 +105,101 @@ void	cast_rays(t_config *config, int x)
 
 	ray->end = line_height / 2 + HEIGHT / 2;
 	if (ray->end >= HEIGHT)
-		ray->end = HEIGHT - 1;
+		ray->end = HEIGHT - 1; 
 
-	if (config->map.map[map_y][map_x] == '1')
-		color = 0x0000FF;
-	else if (config->map.map[map_y][map_x] == '2')
-		color = 0xFFFF22;
-	if (side == 1)
-		color /= 2;
+	// printf("%f\n", ray->start);
+	// if (config->map.map[map_y][map_x] == '1')
+	// 	color = 0x0000FF;
+	// else if (config->map.map[map_y][map_x] == '2')
+	// 	color = 0xFFFF22;
+	// if (side == 1)
+	// 	color /= 2;
 	
-// 	step = TEX_HEIGHT / line_height;
+	step = TEX_HEIGHT / line_height;
 
-// 	tex_pos = (ray->start- HEIGHT / 2 + line_height / 2) * step;
+	tex_pos = (ray->start - (HEIGHT / 2) + (line_height / 2)) * step;
 
-// 	y = ray->start;
-// 	while (y < ray->end)
-// 	{
-// 		tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
-// 		tex_pos += step;
-// 		tex_color = texture[0][TEX_HEIGHT * tex_y + tex_x];
-// 		if (side)
-// 			tex_color = (tex_color >> 1) & 8355711;
-// 		buffer[y][x] = tex_color;
-// 		y++;
-// 	}
-// 	drow_buffer(buffer[0], config, x);
-	drow_vertical_line(x, ray->start, ray->end, color, config);
+	// printf("%f\n", tex_pos);
+
+	// y = ray->start;
+	y = 0;
+	while (y < HEIGHT)
+	{
+		if (y > ray->end)
+		{
+			buffer[y][x] = 0x00FF00;
+			// my_mlx_pixel_put(&config->data, x, y, 0x00FF00);
+		}
+		else if (y < ray->start)
+		{
+			buffer[y][x] = 0x99CCFF;
+			// my_mlx_pixel_put(&config->data, x, y, 0x99CCFF);
+		}
+		else if (y >= ray->start && y <= ray->end)
+		{
+			tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
+			tex_pos += step;
+			// tex_color = 0x99CCAA;
+			tex_color = texture[0][TEX_HEIGHT * tex_y + tex_x];
+			if (side)
+				tex_color = (tex_color >> 1) & 8355711;
+			// printf("%zu\n", tex_color);
+			buffer[y][x] = tex_color;
+		}
+		my_mlx_pixel_put(&config->data, x, y, buffer[y][x]);
+		y++;
+	}
+	// drow_buffer(buffer, config, y, x);
+	// while (y < ray->end)
+	// {
+	// 	tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
+	// 	tex_pos += step;
+	// 	tex_color = texture[0][TEX_HEIGHT * tex_y + tex_x];
+	// 	if (side)
+	// 		tex_color = (tex_color >> 1) & 8355711;
+	// 	buffer[y][x] = tex_color;
+	// 	y++;
+	// }
+	// drow_vertical_line(x, ray->start, ray->end, color, config, buffer);
+	// drow_buffer(buffer, config, y, x);
 }
 
-// void	drow_buffer(uint32_t *buffer, t_config *config, int x)
-// {
-// 	int i = 0;
-// 	while (i < WIDTH)
-// 	{
-// 		my_mlx_pixel_put(&config->data, x, i, buffer[i]);
-// 		i++;
-// 	}
-// }
+void	drow_buffer(uint32_t (buffer)[HEIGHT][WIDTH], t_config *config, int y, int x)
+{
+	int i = 0;
+	int j = 0;
 
-void	drow_vertical_line(int x, double start, double end, int color, t_config *config)
+	// my_mlx_pixel_put(&config->data, j, i, buffer[i][j]);
+	// while (i < HEIGHT)
+	// {
+	// 	j = 0;
+	// 	while (j < WIDTH)
+	// 	{
+	// 		if (i >= config->ray.start && i <= config->ray.end)
+	// 	}
+	// 	i++;
+	// }
+		my_mlx_pixel_put(&config->data, x, y, buffer[y][x]);
+	// while (i < WIDTH)
+	// {
+	// 	i++;
+	// }
+}
+
+void	drow_vertical_line(int x, double start, double end, int color, t_config *config, uint32_t (buffer)[HEIGHT][WIDTH])
 {
 	int i;
+	int	x_copy;
 
 	i = 0;
+	x_copy = x;
 	while (HEIGHT > i)
 	{
 		if (i >= start && i <= end)
-			my_mlx_pixel_put(&config->data, x, i, color);
+		{
+			my_mlx_pixel_put(&config->data, x, i, buffer[i][x]);
+			// my_mlx_pixel_put(&config->data, x, i, color);
+		}
 		else if (i > end)
 			my_mlx_pixel_put(&config->data, x, i, 0x00FF00);
 		else if (i < start)

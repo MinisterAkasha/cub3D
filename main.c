@@ -6,11 +6,11 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/15 17:20:35 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/16 19:23:11 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/cub3D.h"
+#include "cub3D.h"
 
 #include "stdio.h" //!DEL
 
@@ -55,16 +55,38 @@ void	put_pixel_scale(int x, int y, t_config *config)
 void	write_2d_map(t_config *config)
 {
 	int	x;
-	// int y = 0;
+	int y;
+
+	int			buffer[HEIGHT][WIDTH];
+	int			texture[2][TEX_HEIGHT * TEX_WIDTH];
 
 	init_img(config);
 	x = 0;
+	while (x < TEX_WIDTH)
+	{
+		y = 0;
+		while (y < TEX_HEIGHT)
+		{
+			int xorcolor = (x * 256 / WIDTH) ^ (y * 256 / HEIGHT);
+			int ycolor = y * 256 / HEIGHT;
+			int xycolor = y * 128 / HEIGHT + x * 128 / WIDTH;
+			texture[0][TEX_WIDTH * y + x] = 65536 * ycolor;
+			// texture[0][TEX_WIDTH * y + x] = 65536 * 192 * (x % 16 && y % 16);
+			texture[1][TEX_WIDTH * y + x] = xycolor + 256 * xycolor + 65536 * xycolor; //sloped greyscale
+			// texture[2][WIDTH * y + x] = 256 * xycolor + 65536 * xycolor; //sloped yellow gradient
+			// texture[2][WIDTH * y + x] = 65536 * ycolor;
+			y++;
+		}
+		x++;
+	}
+	// printf("%u\n", texture[0][TEX_HEIGHT * 10]);
+	x = 0;
 	while (x < WIDTH)
 	{
-		cast_rays(config, x);
 		config->hero.cameraX = 2 * (x / (double)WIDTH) - 1;
 		config->ray.ray_dir_y = config->hero.dir_y + config->hero.plane_y * config->hero.cameraX;
 		config->ray.ray_dir_x = config->hero.dir_x + config->hero.plane_x * config->hero.cameraX;
+		cast_rays(config, x, buffer, texture);
 		x++;
 	}
 	// while (config->map.map[y])
