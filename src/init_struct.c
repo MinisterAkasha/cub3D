@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:30:40 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/16 18:16:08 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/16 19:49:00 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ void	run_window(t_config *config)
 	mlx_key_hook(config->win.window, close_win, config);
 	// mlx_hook(config->win.window, 02, 1L<<0,  rotate_hero, config);
 	// mlx_loop_hook (config->win.mlx, write_2d_map, config);
-	mlx_loop(config->win.mlx);
+	// mlx_loop(config->win.mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/16 19:30:22 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/16 19:51:49 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,64 +126,23 @@ void	cast_rays(t_config *config, int x, int (buffer)[HEIGHT][WIDTH], int texture
 	while (y < HEIGHT)
 	{
 		if (y > ray->end)
-		{
 			buffer[y][x] = 0x00FF00;
-			// my_mlx_pixel_put(&config->data, x, y, 0x00FF00);
-		}
 		else if (y < ray->start)
-		{
 			buffer[y][x] = 0x99CCFF;
-			// my_mlx_pixel_put(&config->data, x, y, 0x99CCFF);
-		}
 		else if (y >= ray->start && y <= ray->end)
 		{
 			tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
 			tex_pos += step;
-			// tex_color = 0x99CCAA;
 			tex_color = texture[0][TEX_HEIGHT * tex_y + tex_x];
 			if (side)
 				tex_color = (tex_color >> 1) & 8355711;
-			// printf("%zu\n", tex_color);
 			buffer[y][x] = tex_color;
+			printf("Y: %-5d X: %-5d color: %-12zu buffer: %-5d \n", tex_y, tex_x, tex_color, buffer[y][x]);
+
 		}
 		my_mlx_pixel_put(&config->data, x, y, buffer[y][x]);
 		y++;
 	}
-	// drow_buffer(buffer, config, y, x);
-	// while (y < ray->end)
-	// {
-	// 	tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
-	// 	tex_pos += step;
-	// 	tex_color = texture[0][TEX_HEIGHT * tex_y + tex_x];
-	// 	if (side)
-	// 		tex_color = (tex_color >> 1) & 8355711;
-	// 	buffer[y][x] = tex_color;
-	// 	y++;
-	// }
-	// drow_vertical_line(x, ray->start, ray->end, color, config, buffer);
-	// drow_buffer(buffer, config, y, x);
-}
-
-void	drow_buffer(uint32_t (buffer)[HEIGHT][WIDTH], t_config *config, int y, int x)
-{
-	int i = 0;
-	int j = 0;
-
-	// my_mlx_pixel_put(&config->data, j, i, buffer[i][j]);
-	// while (i < HEIGHT)
-	// {
-	// 	j = 0;
-	// 	while (j < WIDTH)
-	// 	{
-	// 		if (i >= config->ray.start && i <= config->ray.end)
-	// 	}
-	// 	i++;
-	// }
-		my_mlx_pixel_put(&config->data, x, y, buffer[y][x]);
-	// while (i < WIDTH)
-	// {
-	// 	i++;
-	// }
 }
 
 void	drow_vertical_line(int x, double start, double end, int color, t_config *config, uint32_t (buffer)[HEIGHT][WIDTH])
