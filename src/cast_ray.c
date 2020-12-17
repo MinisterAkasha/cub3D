@@ -107,21 +107,10 @@ void	cast_rays(t_config *config, int x, int (buffer)[HEIGHT][WIDTH], int texture
 	if (ray->end >= HEIGHT)
 		ray->end = HEIGHT - 1; 
 
-	// printf("%f\n", ray->start);
-	// if (config->map.map[map_y][map_x] == '1')
-	// 	color = 0x0000FF;
-	// else if (config->map.map[map_y][map_x] == '2')
-	// 	color = 0xFFFF22;
-	// if (side == 1)
-	// 	color /= 2;
-	
-	step = TEX_HEIGHT / line_height;
+	step = 1.0 * TEX_HEIGHT / line_height;
 
 	tex_pos = (ray->start - (HEIGHT / 2) + (line_height / 2)) * step;
 
-	// printf("%f\n", tex_pos);
-
-	// y = ray->start;
 	y = 0;
 	while (y < HEIGHT)
 	{
@@ -137,8 +126,7 @@ void	cast_rays(t_config *config, int x, int (buffer)[HEIGHT][WIDTH], int texture
 			if (side)
 				tex_color = (tex_color >> 1) & 8355711;
 			buffer[y][x] = tex_color;
-			printf("Y: %-5d X: %-5d color: %-12zu buffer: %-5d \n", tex_y, tex_x, tex_color, buffer[y][x]);
-
+			// printf("Y: %-5d X: %-5d color: %-8zu buffer: %-5d TEX_HEIGHT - 1: %-5d tex_pos: %-5d \n", tex_y, tex_x, tex_color, buffer[y][x], TEX_HEIGHT - 1, (int)tex_pos);
 		}
 		my_mlx_pixel_put(&config->data, x, y, buffer[y][x]);
 		y++;

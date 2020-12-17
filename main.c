@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/16 19:46:58 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/17 23:36:54 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,15 @@ void	write_2d_map(t_config *config)
 			int xorcolor = (x * 256 / WIDTH) ^ (y * 256 / HEIGHT);
 			int ycolor = y * 256 / HEIGHT;
 			int xycolor = y * 128 / HEIGHT + x * 128 / WIDTH;
-			texture[0][TEX_WIDTH * y + x] = 65536 * ycolor;
-			// texture[0][TEX_WIDTH * y + x] = 65536 * 192 * (x % 16 && y % 16);
+			// texture[0][TEX_WIDTH * y + x] = 65536 * ycolor;
+			texture[0][TEX_WIDTH * y + x] = 65536 * 192 * (x % 16 && y % 16);
+			texture[0][TEX_WIDTH * y + x] = 65536 * 254 * (x != y && x != TEX_WIDTH - y);
 			texture[1][TEX_WIDTH * y + x] = xycolor + 256 * xycolor + 65536 * xycolor; //sloped greyscale
 			// texture[2][WIDTH * y + x] = 256 * xycolor + 65536 * xycolor; //sloped yellow gradient
 			// texture[2][WIDTH * y + x] = 65536 * ycolor;
 			y++;
 		}
+		load_img(config);
 		x++;
 	}
 	// printf("%u\n", texture[0][TEX_HEIGHT * 10]);

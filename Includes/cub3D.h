@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/16 19:51:27 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/17 23:39:08 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 #include "stdio.h" //!DEL
 
-# define HEIGHT 64
-# define WIDTH 64
+# define HEIGHT 760
+# define WIDTH 920
 # define TEX_HEIGHT 64
 # define TEX_WIDTH 64
 
@@ -38,6 +38,10 @@ typedef struct	s_map {
 	size_t		height;
 }				t_map;
 
+typedef struct	s_img {
+	int			width;
+	int			height;
+}				t_img;
 typedef struct	s_hero {
 	double		y;
 	double		x;
@@ -87,6 +91,7 @@ typedef struct	s_config_struct
 	t_data		data;
 	t_ray		ray;
 	t_hero		hero;
+	t_img		img;
 }				t_config;
 
 int		parcer(t_config *config);
@@ -128,5 +133,10 @@ void	cast_ray(t_config *config, t_hero ray);
 void	cast_rays(t_config *config, int x, int (buffer)[HEIGHT][WIDTH], int texture[2][TEX_HEIGHT * TEX_WIDTH]);
 void	drow_vertical_line(int x, double start, double end, int color, t_config *config, uint32_t (buffer)[HEIGHT][WIDTH]);
 void	drow_buffer(uint32_t (buffer)[HEIGHT][WIDTH], t_config *config, int y, int x);
+
+/*
+**	load_img.c
+*/
+void    load_img(t_config *config);
 
 #endif

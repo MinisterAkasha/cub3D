@@ -51,5 +51,5 @@ void	run_window(t_config *config)
 	mlx_key_hook(config->win.window, close_win, config);
 	// mlx_hook(config->win.window, 02, 1L<<0,  rotate_hero, config);
 	// mlx_loop_hook (config->win.mlx, write_2d_map, config);
-	// mlx_loop(config->win.mlx);
+	mlx_loop(config->win.mlx);
 }
