@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/19 17:03:43 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/19 18:00:32 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,10 @@ void	write_2d_map(t_config *config)
 		y = 0;
 		while (y < TEX_HEIGHT)
 		{
-			int xycolor = y * 128 / HEIGHT + x * 128 / WIDTH;
-			// texture[0][TEX_WIDTH * y + x] = 65536 * ycolor;
-			texture[0][TEX_WIDTH * y + x] = 65536 * 192 * (x % 16 && y % 16);
-			texture[0][TEX_WIDTH * y + x] = 65536 * 254 * (x != y && x != TEX_WIDTH - y);
-			texture[1][TEX_WIDTH * y + x] = xycolor + 256 * xycolor + 65536 * xycolor; //sloped greyscale
-			// texture[2][WIDTH * y + x] = 256 * xycolor + 65536 * xycolor; //sloped yellow gradient
-			// texture[2][WIDTH * y + x] = 65536 * ycolor;
+			texture[0][TEX_WIDTH * y + x] = 100536 * 192 * (x % 16 && y % 16);
+			texture[1][TEX_WIDTH * y + x] = 2536 * 192 * (y % 2 || x % 2);
 			y++;
 		}
-		load_img(config);
 		x++;
 	}
 	x = 0;
@@ -89,7 +83,8 @@ void	write_2d_map(t_config *config)
 		x++;
 	}
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
-	mlx_put_image_to_window(config->win.mlx, config->win.window, config->img.img, 0, 0);
+	mlx_put_image_to_window(config->win.mlx, config->win.window, config->img.img[0], WIDTH / 2, HEIGHT / 2);
+	mlx_put_image_to_window(config->win.mlx, config->win.window, config->img.img[1], WIDTH / 3, HEIGHT / 3);
 }
 
 int main(int argc, char *argv[])

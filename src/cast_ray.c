@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/19 17:00:47 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/19 17:52:14 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,14 @@ void	cast_rays(t_config *config, int x, int texture[2][TEX_HEIGHT * TEX_WIDTH])
 	while (y < HEIGHT)
 	{
 		if (y > ray->end)
-			my_mlx_pixel_put(&config->data, x, y, 0x00FF00);
+			my_mlx_pixel_put(&config->data, x, y, 0x00FF00 / 5);
 		else if (y < ray->start)
-			my_mlx_pixel_put(&config->data, x, y, 0x99CCFF);
+			my_mlx_pixel_put(&config->data, x, y, 0x99CCFF / 5);
 		else if (y >= ray->start && y <= ray->end)
 		{
 			tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
 			tex_pos += step;
-			tex_color = texture[0][TEX_HEIGHT * tex_y + tex_x];
+			tex_color = texture[tex_num][TEX_HEIGHT * tex_y + tex_x];
 			if (side)
 				tex_color = (tex_color >> 1) & 8355711;
 			my_mlx_pixel_put(&config->data, x, y, tex_color);
