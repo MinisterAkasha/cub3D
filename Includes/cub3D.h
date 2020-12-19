@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/19 17:01:20 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/19 17:02:53 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,15 @@ typedef struct	s_map {
 }				t_map;
 
 typedef struct	s_img {
+	void        *img;
+    char        *addr;
+    int         bits_per_pixel;
+    int         line_length;
+    int         endian;
 	int			width;
 	int			height;
 }				t_img;
+
 typedef struct	s_hero {
 	double		y;
 	double		x;

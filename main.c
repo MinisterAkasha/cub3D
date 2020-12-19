@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/19 17:00:53 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/19 17:03:43 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	write_2d_map(t_config *config)
 	int			texture[2][TEX_HEIGHT * TEX_WIDTH];
 
 	init_img(config);
+	load_img(config);
 	x = 0;
 	while (x < TEX_WIDTH)
 	{
@@ -78,7 +79,6 @@ void	write_2d_map(t_config *config)
 		load_img(config);
 		x++;
 	}
-	// printf("%u\n", texture[0][TEX_HEIGHT * 10]);
 	x = 0;
 	while (x < WIDTH)
 	{
@@ -88,18 +88,8 @@ void	write_2d_map(t_config *config)
 		cast_rays(config, x, texture);
 		x++;
 	}
-	// while (config->map.map[y])
-	// {
-	// 	x = 0;
-	// 	while (config->map.map[y][x])
-	// 	{
-	// 		cast_rays(config, x);
-	// 		put_pixel_scale(x * config->map.scale, y * config->map.scale, config);
-	// 		x++;
-	// 	}
-	// 	y++;
-	// }
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
+	mlx_put_image_to_window(config->win.mlx, config->win.window, config->img.img, 0, 0);
 }
 
 int main(int argc, char *argv[])
