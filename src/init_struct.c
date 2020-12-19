@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:30:40 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/16 19:49:00 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/19 16:59:09 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int             close_win(int keycode, t_config *config)
 	{
 		mlx_destroy_image(config->win.mlx, config->data.img);
 		mlx_destroy_window(config->win.mlx, config->win.window);
+		exit(0);
 	}
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/17 23:36:54 by user             ###   ########.fr       */
+/*   Updated: 2020/12/19 17:00:53 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	write_2d_map(t_config *config)
 	int	x;
 	int y;
 
-	int			buffer[HEIGHT][WIDTH];
 	int			texture[2][TEX_HEIGHT * TEX_WIDTH];
 
 	init_img(config);
@@ -67,8 +66,6 @@ void	write_2d_map(t_config *config)
 		y = 0;
 		while (y < TEX_HEIGHT)
 		{
-			int xorcolor = (x * 256 / WIDTH) ^ (y * 256 / HEIGHT);
-			int ycolor = y * 256 / HEIGHT;
 			int xycolor = y * 128 / HEIGHT + x * 128 / WIDTH;
 			// texture[0][TEX_WIDTH * y + x] = 65536 * ycolor;
 			texture[0][TEX_WIDTH * y + x] = 65536 * 192 * (x % 16 && y % 16);
@@ -88,7 +85,7 @@ void	write_2d_map(t_config *config)
 		config->hero.cameraX = 2 * (x / (double)WIDTH) - 1;
 		config->ray.ray_dir_y = config->hero.dir_y + config->hero.plane_y * config->hero.cameraX;
 		config->ray.ray_dir_x = config->hero.dir_x + config->hero.plane_x * config->hero.cameraX;
-		cast_rays(config, x, buffer, texture);
+		cast_rays(config, x, texture);
 		x++;
 	}
 	// while (config->map.map[y])

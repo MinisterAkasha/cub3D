@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/17 23:39:08 by user             ###   ########.fr       */
+/*   Updated: 2020/12/19 17:01:20 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 #include "stdio.h" //!DEL
 
-# define HEIGHT 760
-# define WIDTH 920
+# define HEIGHT 1080
+# define WIDTH 1920
 # define TEX_HEIGHT 64
 # define TEX_WIDTH 64
 
@@ -130,7 +130,7 @@ void	ft_find_width(char *str, t_config	*config);
 **	cast_ray.c
 */
 void	cast_ray(t_config *config, t_hero ray);
-void	cast_rays(t_config *config, int x, int (buffer)[HEIGHT][WIDTH], int texture[2][TEX_HEIGHT * TEX_WIDTH]);
+void	cast_rays(t_config *config, int x, int texture[2][TEX_HEIGHT * TEX_WIDTH]);
 void	drow_vertical_line(int x, double start, double end, int color, t_config *config, uint32_t (buffer)[HEIGHT][WIDTH]);
 void	drow_buffer(uint32_t (buffer)[HEIGHT][WIDTH], t_config *config, int y, int x);
 

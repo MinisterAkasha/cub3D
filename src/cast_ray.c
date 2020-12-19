@@ -6,13 +6,13 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/16 19:51:49 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/19 17:00:47 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	cast_rays(t_config *config, int x, int (buffer)[HEIGHT][WIDTH], int texture[2][TEX_HEIGHT * TEX_WIDTH])
+void	cast_rays(t_config *config, int x, int texture[2][TEX_HEIGHT * TEX_WIDTH])
 {
 	t_ray	*ray;
 	int		map_x;
@@ -20,7 +20,6 @@ void	cast_rays(t_config *config, int x, int (buffer)[HEIGHT][WIDTH], int texture
 	int		hit;
 	int		side;
 	int		line_height;
-	int		color = 0xFFFFFF;
 
 	size_t				tex_color;
 	int					y;
@@ -115,9 +114,9 @@ void	cast_rays(t_config *config, int x, int (buffer)[HEIGHT][WIDTH], int texture
 	while (y < HEIGHT)
 	{
 		if (y > ray->end)
-			buffer[y][x] = 0x00FF00;
+			my_mlx_pixel_put(&config->data, x, y, 0x00FF00);
 		else if (y < ray->start)
-			buffer[y][x] = 0x99CCFF;
+			my_mlx_pixel_put(&config->data, x, y, 0x99CCFF);
 		else if (y >= ray->start && y <= ray->end)
 		{
 			tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
@@ -125,32 +124,10 @@ void	cast_rays(t_config *config, int x, int (buffer)[HEIGHT][WIDTH], int texture
 			tex_color = texture[0][TEX_HEIGHT * tex_y + tex_x];
 			if (side)
 				tex_color = (tex_color >> 1) & 8355711;
-			buffer[y][x] = tex_color;
+			my_mlx_pixel_put(&config->data, x, y, tex_color);
 			// printf("Y: %-5d X: %-5d color: %-8zu buffer: %-5d TEX_HEIGHT - 1: %-5d tex_pos: %-5d \n", tex_y, tex_x, tex_color, buffer[y][x], TEX_HEIGHT - 1, (int)tex_pos);
 		}
-		my_mlx_pixel_put(&config->data, x, y, buffer[y][x]);
 		y++;
 	}
 }
 
-void	drow_vertical_line(int x, double start, double end, int color, t_config *config, uint32_t (buffer)[HEIGHT][WIDTH])
-{
-	int i;
-	int	x_copy;
-
-	i = 0;
-	x_copy = x;
-	while (HEIGHT > i)
-	{
-		if (i >= start && i <= end)
-		{
-			my_mlx_pixel_put(&config->data, x, i, buffer[i][x]);
-			// my_mlx_pixel_put(&config->data, x, i, color);
-		}
-		else if (i > end)
-			my_mlx_pixel_put(&config->data, x, i, 0x00FF00);
-		else if (i < start)
-			my_mlx_pixel_put(&config->data, x, i, 0x99CCFF);
-		i++;
-	}
-}
