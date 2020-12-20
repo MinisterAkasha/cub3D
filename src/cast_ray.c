@@ -6,13 +6,13 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/20 16:57:02 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 17:20:50 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	cast_rays(t_config *config, int x, int texture[2][TEX_HEIGHT * TEX_WIDTH])
+void	cast_rays(t_config *config, int x)
 {
 	t_ray	*ray;
 	int		map_x;
@@ -89,11 +89,11 @@ void	cast_rays(t_config *config, int x, int texture[2][TEX_HEIGHT * TEX_WIDTH])
 	else
 		wall_x = config->hero.x + ray->perpWallDist * ray->ray_dir_x;
 	wall_x -= floor(wall_x);
-	tex_x = (int)(wall_x * TEX_WIDTH);
+	tex_x = (int)(wall_x * config->img.width[tex_num]);
     if(side == 0 && ray->ray_dir_x > 0)
-		tex_x = TEX_WIDTH - tex_x - 1;
+		tex_x = config->img.width[tex_num] - tex_x - 1;
     if(side == 1 && ray->ray_dir_y < 0)
-		tex_x = TEX_WIDTH - tex_x - 1;
+		tex_x = config->img.width[tex_num] - tex_x - 1;
 
 	
 	line_height = (int)(HEIGHT / ray->perpWallDist);
@@ -106,7 +106,7 @@ void	cast_rays(t_config *config, int x, int texture[2][TEX_HEIGHT * TEX_WIDTH])
 	if (ray->end >= HEIGHT)
 		ray->end = HEIGHT - 1; 
 
-	step = 1.0 * TEX_HEIGHT / line_height;
+	step = 1.0 * config->img.height[tex_num] / line_height;
 
 	tex_pos = (ray->start - (HEIGHT / 2) + (line_height / 2)) * step;
 
@@ -119,9 +119,10 @@ void	cast_rays(t_config *config, int x, int texture[2][TEX_HEIGHT * TEX_WIDTH])
 			my_mlx_pixel_put(&config->data, x, y, 0x99CCFF / 5);
 		else if (y >= ray->start && y <= ray->end)
 		{
-			tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
+			tex_y = (int)tex_pos & (config->img.height[tex_num] - 1);
 			tex_pos += step;
-			tex_color = texture[tex_num][TEX_HEIGHT * tex_y + tex_x];
+			// tex_color = texture[tex_num][TEX_HEIGHT * tex_y + tex_x];
+			tex_color = config->img.texture[tex_num][config->img.height[tex_num] * tex_y + tex_x];
 			if (side)
 				tex_color = (tex_color >> 1) & 8355711;
 			my_mlx_pixel_put(&config->data, x, y, tex_color);

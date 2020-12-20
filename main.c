@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/20 16:58:05 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 17:12:05 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,33 +28,19 @@ void	render(t_config *config)
 {
 	int	x;
 
-	int			texture[2][TEX_HEIGHT * TEX_WIDTH];
 
 	init_texture(config);
 	load_img(config);
 
-	int y;
-	x = 0;
-	while (x < TEX_WIDTH)
-	{
-		y = 0;
-		while (y < TEX_HEIGHT)
-		{
-			texture[0][TEX_WIDTH * y + x] = 100536 * 192 * (x % 16 && y % 16);
-			texture[0][TEX_WIDTH * y + x] = *(unsigned int*)(config->img.addr[0] + (y * config->img.line_length[0] + x * (config->img.bits_per_pixel[0] / 8)));
-			texture[1][TEX_WIDTH * y + x] = *(unsigned int*)(config->img.addr[1] + (y * config->img.line_length[1] + x * (config->img.bits_per_pixel[1] / 8)));
-			y++;
-		}
-		x++;
-	}
-	// make_texture(config, 0);
+	make_texture(config, 0);
+	make_texture(config, 1);
 	x = 0;
 	while (x < WIDTH)
 	{
 		config->hero.cameraX = 2 * (x / (double)WIDTH) - 1;
 		config->ray.ray_dir_y = config->hero.dir_y + config->hero.plane_y * config->hero.cameraX;
 		config->ray.ray_dir_x = config->hero.dir_x + config->hero.plane_x * config->hero.cameraX;
-		cast_rays(config, x, texture);
+		cast_rays(config, x);
 		x++;
 	}
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);

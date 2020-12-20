@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 23:25:59 by user              #+#    #+#             */
-/*   Updated: 2020/12/20 16:50:06 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 17:06:59 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	make_texture(t_config *config, int index)
 	int	y;
 
 	x = 0;
-	config->img.texture[index] = (int *)malloc(sizeof(int) * config->img.width[index] * config->img.height[index]);
+	config->img.texture[index] = (size_t *)malloc(sizeof(size_t) * config->img.width[index] * config->img.height[index]);
 	while (x < config->img.width[index])
 	{
 		y = 0;
@@ -43,5 +43,5 @@ void	make_texture(t_config *config, int index)
 		}
 		x++;
 	}
-
+	//TODO free tucture arr
 }
