@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/19 17:52:14 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 16:57:02 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	cast_rays(t_config *config, int x, int texture[2][TEX_HEIGHT * TEX_WIDTH])
 	else
 		ray->perpWallDist = (map_y - config->hero.y + (1 - ray->stepY) / 2) / ray->ray_dir_y;
 
-	tex_num = config->map.map[map_y][map_x] == '1' ? 0 : 1;
+	tex_num = get_texture_number(config, map_y, map_x);
 
 	if (!side)
 		wall_x = config->hero.y + ray->perpWallDist * ray->ray_dir_y;
@@ -131,3 +131,12 @@ void	cast_rays(t_config *config, int x, int texture[2][TEX_HEIGHT * TEX_WIDTH])
 	}
 }
 
+
+int	get_texture_number(t_config *config, int y,int x)
+{
+	if (config->map.map[y][x] == '1')
+		return (0);
+	if (config->map.map[y][x] == '2')
+		return (1);
+	return (0);
+}

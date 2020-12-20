@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 14:41:17 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/14 20:55:58 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 16:15:59 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	move_hero(int keycode, t_config *config)
       		config->hero.plane_x = config->hero.plane_x * cos(-config->hero.rotate_speed) - config->hero.plane_y * sin(-config->hero.rotate_speed);
       		config->hero.plane_y = oldplane_x * sin(-config->hero.rotate_speed) + config->hero.plane_y * cos(-config->hero.rotate_speed);
 		}
-		write_2d_map(config);
+		render(config);
 	}
 	return (1);
 }

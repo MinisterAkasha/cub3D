@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:30:40 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/19 17:35:26 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 16:57:37 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ void	run_window(t_config *config)
 	config->win.window = mlx_new_window(config->win.mlx, WIDTH, HEIGHT, "Cub3D");
 	if (!parcer(config))
 		return ;//TODO add error and exit programm
-	write_2d_map(config);
+	render(config);
 	mlx_hook(config->win.window, 02, 1L<<0,  move_hero, config);
 	mlx_key_hook(config->win.window, close_win, config);
-	// mlx_hook(config->win.window, 02, 1L<<0,  rotate_hero, config);
-	// mlx_loop_hook (config->win.mlx, write_2d_map, config);
 	mlx_loop(config->win.mlx);
 }

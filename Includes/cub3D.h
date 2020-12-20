@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/19 17:04:26 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 16:55:33 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct	s_map {
 	size_t		height;
 }				t_map;
 
-typedef struct	s_img {
+typedef struct	s_texture {
 	void        *img[5];
     char        *addr[5];
     int         bits_per_pixel[5];
@@ -46,7 +46,8 @@ typedef struct	s_img {
     int         endian[5];
 	int			width[5];
 	int			height[5];
-}				t_img;
+	int			*texture[5];
+}				t_texture;
 
 typedef struct	s_hero {
 	double		y;
@@ -97,7 +98,7 @@ typedef struct	s_config_struct
 	t_data		data;
 	t_ray		ray;
 	t_hero		hero;
-	t_img		img;
+	t_texture	img;
 }				t_config;
 
 int		parcer(t_config *config);
@@ -108,7 +109,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 char	**fill_map(t_list *head, int size, t_config *config);
 void	put_pixel_scale(int x, int y, t_config *config);
-void	write_2d_map(t_config *config);
+void	render(t_config *config);
 
 /*
 ** move_hero
@@ -123,7 +124,7 @@ int		rotate_hero(int keycode, t_config *config);
 /*
 ** init_struct.c
 */
-void	init_img(t_config *config);
+void	init_texture(t_config *config);
 void	run_window(t_config *config);
 
 /*
@@ -139,10 +140,12 @@ void	cast_ray(t_config *config, t_hero ray);
 void	cast_rays(t_config *config, int x, int texture[2][TEX_HEIGHT * TEX_WIDTH]);
 void	drow_vertical_line(int x, double start, double end, int color, t_config *config, uint32_t (buffer)[HEIGHT][WIDTH]);
 void	drow_buffer(uint32_t (buffer)[HEIGHT][WIDTH], t_config *config, int y, int x);
+int		get_texture_number(t_config *config, int y, int x);
 
 /*
 **	load_img.c
 */
 void    load_img(t_config *config);
+void	make_texture(t_config *config, int index);
 
 #endif

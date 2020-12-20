@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_img.c                                         :+:      :+:    :+:   */
+/*   init_texture.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-void	init_img(t_config *config)
+void	init_texture(t_config *config)
 {
 	// config->data.img = mlx_new_image(config->win.mlx, config->map.scale, config->map.scale);
 	config->data.img = mlx_new_image(config->win.mlx, WIDTH, HEIGHT);

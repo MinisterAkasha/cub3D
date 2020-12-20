@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/19 18:00:32 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 16:58:05 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,52 +15,25 @@
 #include "stdio.h" //!DEL
 
 
-void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-    char    *dst;
+	char    *dst;
 
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }
 
-void	put_pixel_scale(int x, int y, t_config *config)
-{
-	int y_start;
-	int x_start;
-	int y_orig;
-	int x_orig;
 
-	y_start = y;
-	x_start = x;
-	y_orig = (y / config->map.scale);
-	x_orig = (x / config->map.scale);
-	while (y < y_start + config->map.scale)
-	{
-		x = x_start;
-		while (x < x_start + config->map.scale)
-		{
-			if (config->map.map[y_orig][x_orig] == '1')
-				my_mlx_pixel_put(&config->data, x, y, 0xFFFFFF);
-			if (config->map.map[y_orig][x_orig] == '2')
-				my_mlx_pixel_put(&config->data, x, y, 0xD2EB34);
-			if (ft_strchr(config->map.hero_set, config->map.map[y_orig][x_orig]))
-				my_mlx_pixel_put(&config->data, ((config->hero.x) * config->map.scale) + x - x_start,
-					((config->hero.y) * config->map.scale) + y - y_start , 0xEB3434);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	write_2d_map(t_config *config)
+void	render(t_config *config)
 {
 	int	x;
-	int y;
 
 	int			texture[2][TEX_HEIGHT * TEX_WIDTH];
 
-	init_img(config);
+	init_texture(config);
 	load_img(config);
+
+	int y;
 	x = 0;
 	while (x < TEX_WIDTH)
 	{
@@ -68,11 +41,13 @@ void	write_2d_map(t_config *config)
 		while (y < TEX_HEIGHT)
 		{
 			texture[0][TEX_WIDTH * y + x] = 100536 * 192 * (x % 16 && y % 16);
-			texture[1][TEX_WIDTH * y + x] = 2536 * 192 * (y % 2 || x % 2);
+			texture[0][TEX_WIDTH * y + x] = *(unsigned int*)(config->img.addr[0] + (y * config->img.line_length[0] + x * (config->img.bits_per_pixel[0] / 8)));
+			texture[1][TEX_WIDTH * y + x] = *(unsigned int*)(config->img.addr[1] + (y * config->img.line_length[1] + x * (config->img.bits_per_pixel[1] / 8)));
 			y++;
 		}
 		x++;
 	}
+	// make_texture(config, 0);
 	x = 0;
 	while (x < WIDTH)
 	{
@@ -83,8 +58,6 @@ void	write_2d_map(t_config *config)
 		x++;
 	}
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
-	mlx_put_image_to_window(config->win.mlx, config->win.window, config->img.img[0], WIDTH / 2, HEIGHT / 2);
-	mlx_put_image_to_window(config->win.mlx, config->win.window, config->img.img[1], WIDTH / 3, HEIGHT / 3);
 }
 
 int main(int argc, char *argv[])
@@ -116,6 +89,7 @@ int main(int argc, char *argv[])
 			config->map.nl++;
 		ft_lstadd_back(&head, ft_lstnew(map_line));
 	}
+	close(fd);
 
 	ft_find_width(map_line,config);
 
@@ -124,7 +98,6 @@ int main(int argc, char *argv[])
 
 	run_window(config);
 
-	close(fd);
 	//! Free LIST
 	return (0);
 }
