@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/20 17:21:20 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 17:54:33 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct	s_texture {
     int         endian[5];
 	int			width[5];
 	int			height[5];
-	size_t			*texture[5];
+	size_t		*texture[5];
 }				t_texture;
 
 typedef struct	s_hero {
@@ -145,5 +145,6 @@ int		get_texture_number(t_config *config, int y, int x);
 */
 void    load_img(t_config *config);
 void	make_texture(t_config *config, int index);
+char	*get_texture_path(int index);
 
 #endif

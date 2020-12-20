@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:30:40 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/20 16:57:37 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 17:55:40 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,11 @@ void	init_struct(t_config *config, t_list *head)
 	config->map.scale = 30;
 
 
-	config->hero.dir_x = -1;
-	config->hero.dir_y = 0;
-	config->hero.plane_x = 0;
-	config->hero.plane_y = 0.66;
 	config->hero.move_speed = 0.5;
 	config->hero.rotate_speed = M_PI / 30;
 }
 
-int             close_win(int keycode, t_config *config)
+int		close_win(int keycode, t_config *config)
 {
 	if (keycode == 53)
 	{

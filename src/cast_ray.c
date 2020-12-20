@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/20 17:20:50 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 17:56:35 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ void	cast_rays(t_config *config, int x)
 		{
 			tex_y = (int)tex_pos & (config->img.height[tex_num] - 1);
 			tex_pos += step;
-			// tex_color = texture[tex_num][TEX_HEIGHT * tex_y + tex_x];
 			tex_color = config->img.texture[tex_num][config->img.height[tex_num] * tex_y + tex_x];
 			if (side)
 				tex_color = (tex_color >> 1) & 8355711;

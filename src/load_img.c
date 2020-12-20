@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 23:25:59 by user              #+#    #+#             */
-/*   Updated: 2020/12/20 17:06:59 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 17:54:19 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,34 @@
 
 void    load_img(t_config *config)
 {
-    config->img.img[0] = mlx_xpm_file_to_image(config->win.mlx, "pics/brick.xpm", &config->img.width[0], &config->img.height[0]);
-    config->img.addr[0] = mlx_get_data_addr(config->img.img[0],
-						&config->img.bits_per_pixel[0],
-						&config->img.line_length[0], &config->img.endian[0]);
-    
+	int		i;
+	char	*path;
 
-    config->img.img[1] = mlx_xpm_file_to_image(config->win.mlx, "pics/banner.xpm", &config->img.width[1], &config->img.height[1]);
-    config->img.addr[1] = mlx_get_data_addr(config->img.img[1],
-						&config->img.bits_per_pixel[1],
-						&config->img.line_length[1], &config->img.endian[1]);
+	i = 0;
+	while (i < 5)
+	{
+		path = get_texture_path(i);
+		config->img.img[i] = mlx_xpm_file_to_image(config->win.mlx, path, &config->img.width[i], &config->img.height[i]);
+		config->img.addr[i] = mlx_get_data_addr(config->img.img[i],
+						&config->img.bits_per_pixel[i],
+						&config->img.line_length[i], &config->img.endian[i]);
+		i++;
+	}
+}
+
+char	*get_texture_path(int index)
+{
+	if (index == 0)
+		return ("pics/wood.xpm");
+	if (index == 1)
+		return ("pics/eagle.xpm");
+	if (index == 2)
+		return ("pics/banner.xpm");
+	if (index == 3)
+		return ("pics/brick.xpm");
+	if (index == 4)
+		return ("pics/hitler.xpm");
+	return (NULL);
 }
 
 void	make_texture(t_config *config, int index)
