@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 23:25:59 by user              #+#    #+#             */
-/*   Updated: 2020/12/20 17:54:19 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 18:03:36 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void    load_img(t_config *config)
 		config->img.addr[i] = mlx_get_data_addr(config->img.img[i],
 						&config->img.bits_per_pixel[i],
 						&config->img.line_length[i], &config->img.endian[i]);
+		make_texture(config, i);
 		i++;
 	}
 }
@@ -34,11 +35,11 @@ char	*get_texture_path(int index)
 	if (index == 0)
 		return ("pics/wood.xpm");
 	if (index == 1)
-		return ("pics/eagle.xpm");
-	if (index == 2)
 		return ("pics/banner.xpm");
-	if (index == 3)
+	if (index == 2)
 		return ("pics/brick.xpm");
+	if (index == 3)
+		return ("pics/eagle.xpm");
 	if (index == 4)
 		return ("pics/hitler.xpm");
 	return (NULL);

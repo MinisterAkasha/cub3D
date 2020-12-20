@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/20 17:54:33 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 18:00:02 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int		rotate_hero(int keycode, t_config *config);
 /*
 ** init_struct.c
 */
-void	init_texture(t_config *config);
+void	init_image(t_config *config);
 void	run_window(t_config *config);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/20 17:56:35 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 18:03:16 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ void	cast_rays(t_config *config, int x)
 			if (side)
 				tex_color = (tex_color >> 1) & 8355711;
 			my_mlx_pixel_put(&config->data, x, y, tex_color);
-			// printf("Y: %-5d X: %-5d color: %-8zu buffer: %-5d TEX_HEIGHT - 1: %-5d tex_pos: %-5d \n", tex_y, tex_x, tex_color, buffer[y][x], TEX_HEIGHT - 1, (int)tex_pos);
 		}
 		y++;
 	}

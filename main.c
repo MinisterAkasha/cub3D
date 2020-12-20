@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/20 17:12:05 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 18:00:54 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,8 @@ void	render(t_config *config)
 {
 	int	x;
 
-
-	init_texture(config);
+	init_image(config);
 	load_img(config);
-
-	make_texture(config, 0);
-	make_texture(config, 1);
 	x = 0;
 	while (x < WIDTH)
 	{
@@ -64,7 +60,6 @@ int main(int argc, char *argv[])
 
 	if (!(config = (t_config *)malloc(sizeof(t_config))))
 		return (-1);//TODO return error message
-
 
 	config->map.width = 0;
 	config->map.nl = 0;
