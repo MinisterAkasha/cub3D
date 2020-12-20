@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/20 18:03:16 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 19:04:19 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,19 @@ void	cast_rays(t_config *config, int x)
 			side = 1;
 		}
 		if (config->map.map[map_y][map_x] == '1' || config->map.map[map_y][map_x] == '2')
+		{
 			hit = 1;
+			get_side_direction(config, map_y, map_x);
+		}
 	}
+
+	tex_num = get_texture_number(config, map_y, map_x);
 
 	if (side == 0)
 		ray->perpWallDist = (map_x - config->hero.x + (1 - ray->stepX) / 2) / ray->ray_dir_x;
 	else
 		ray->perpWallDist = (map_y - config->hero.y + (1 - ray->stepY) / 2) / ray->ray_dir_y;
 
-	tex_num = get_texture_number(config, map_y, map_x);
 
 	if (!side)
 		wall_x = config->hero.y + ray->perpWallDist * ray->ray_dir_y;
@@ -131,11 +135,18 @@ void	cast_rays(t_config *config, int x)
 }
 
 
-int	get_texture_number(t_config *config, int y,int x)
+int		get_texture_number(t_config *config, int y,int x)
 {
 	if (config->map.map[y][x] == '1')
+	{
 		return (0);
+	}
 	if (config->map.map[y][x] == '2')
 		return (1);
 	return (0);
+}
+
+void	get_side_direction(t_config *config, int y, int x)
+{
+	
 }

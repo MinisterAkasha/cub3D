@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 23:25:59 by user              #+#    #+#             */
-/*   Updated: 2020/12/20 18:03:36 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 18:33:26 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void    load_img(t_config *config)
 char	*get_texture_path(int index)
 {
 	if (index == 0)
-		return ("pics/wood.xpm");
+		return ("pics/hitler.xpm");
 	if (index == 1)
 		return ("pics/banner.xpm");
 	if (index == 2)
@@ -41,7 +41,7 @@ char	*get_texture_path(int index)
 	if (index == 3)
 		return ("pics/eagle.xpm");
 	if (index == 4)
-		return ("pics/hitler.xpm");
+		return ("pics/wood.xpm");
 	return (NULL);
 }
 

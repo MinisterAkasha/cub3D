@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/20 18:00:02 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 19:04:26 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct	s_map {
 	char		*inner_set;
 	size_t		width;
 	size_t		height;
+	int			side_directin;
 }				t_map;
 
 typedef struct	s_texture {
@@ -139,6 +140,7 @@ void	cast_rays(t_config *config, int x);
 void	drow_vertical_line(int x, double start, double end, int color, t_config *config, uint32_t (buffer)[HEIGHT][WIDTH]);
 void	drow_buffer(uint32_t (buffer)[HEIGHT][WIDTH], t_config *config, int y, int x);
 int		get_texture_number(t_config *config, int y, int x);
+void	get_side_direction(t_config *config, int y, int x);
 
 /*
 **	load_img.c
