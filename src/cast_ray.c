@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/20 19:04:19 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/20 23:56:35 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,10 @@ void	cast_rays(t_config *config, int x)
 			side = 1;
 		}
 		if (config->map.map[map_y][map_x] == '1' || config->map.map[map_y][map_x] == '2')
-		{
 			hit = 1;
-			get_side_direction(config, map_y, map_x);
-		}
 	}
 
-	tex_num = get_texture_number(config, map_y, map_x);
+	tex_num = get_texture_number(config, map_y, map_x, side);
 
 	if (side == 0)
 		ray->perpWallDist = (map_x - config->hero.x + (1 - ray->stepX) / 2) / ray->ray_dir_x;
@@ -135,18 +132,56 @@ void	cast_rays(t_config *config, int x)
 }
 
 
-int		get_texture_number(t_config *config, int y,int x)
+int		get_texture_number(t_config *config, int y,int x, int side)
 {
+	int	right;
+	int	left;
+	int	top;
+	int	bottom;
+
+	right = 0;
+	left = 0;
+	bottom = 0;
+	top = 0;
 	if (config->map.map[y][x] == '1')
 	{
-		return (0);
+		if (y != 0)
+		{
+			if (config->map.map[y - 1][x] == '0')
+				top = 1;
+		}
+		if (y != (int)(config->map.height - 1))
+		{
+			if (config->map.map[y + 1][x] == '0')
+				bottom = 1;	
+		}
+		if (x != 0)
+		{
+			if (config->map.map[y][x - 1] == '0')
+				left = 1;
+		}
+		if (x != (int)(config->map.width - 1))
+		{
+			if (config->map.map[y][x + 1] == '0')
+				right = 1;
+		}
+		if (bottom && side && !top)
+		{
+			return (1);
+		}
+		if (top && side && !bottom)
+		{
+			return (2);
+		}
+		if (top && bottom && side)
+			return (3);
+		// if (right && !side)
+		// 	return (3);
+		// if (left && !side)
+		// 	return (4);
+		return (3);
 	}
 	if (config->map.map[y][x] == '2')
-		return (1);
-	return (0);
-}
-
-void	get_side_direction(t_config *config, int y, int x)
-{
-	
+		return (0);
+	return (9);
 }
