@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/22 18:33:22 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/22 20:34:38 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	render(t_config *config)
 		cast_rays(config, x);
 		x++;
 	}
+	sprite_cast(config, z_buffer);
 	free_texture(config);
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
 }
