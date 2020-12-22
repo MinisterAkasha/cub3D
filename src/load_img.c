@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 23:25:59 by user              #+#    #+#             */
-/*   Updated: 2020/12/20 18:33:26 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/22 17:26:32 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ void    load_img(t_config *config)
 char	*get_texture_path(int index)
 {
 	if (index == 0)
-		return ("pics/hitler.xpm");
+		return ("pics/stone.xpm");
 	if (index == 1)
-		return ("pics/banner.xpm");
+		return ("pics/hexagone.xpm");
 	if (index == 2)
-		return ("pics/brick.xpm");
+		return ("pics/redbrick.xpm");
 	if (index == 3)
-		return ("pics/eagle.xpm");
-	if (index == 4)
 		return ("pics/wood.xpm");
+	if (index == 4)
+		return ("pics/dog.xpm");
 	return (NULL);
 }
 
@@ -57,7 +57,7 @@ void	make_texture(t_config *config, int index)
 		y = 0;
 		while (y < config->img.height[index])
 		{
-			config->img.texture[index][config->img.width[index] * y + x] = *(unsigned int*)(config->img.addr[index] + (y * config->img.line_length[index] + x * (config->img.bits_per_pixel[index] / 8)));;
+			config->img.texture[index][config->img.width[index] * y + x] = *(unsigned int*)(config->img.addr[index] + (y * config->img.line_length[index] + x * (config->img.bits_per_pixel[index] / 8)));
 			y++;
 		}
 		x++;

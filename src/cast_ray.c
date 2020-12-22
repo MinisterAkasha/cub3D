@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/22 14:15:49 by user             ###   ########.fr       */
+/*   Updated: 2020/12/22 17:42:27 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	cast_rays(t_config *config, int x)
 	double				wall_x;
 	double				step;
 	double				tex_pos;
+
+	int					z_buffer[WIDTH];
 
 	
 	ray = &config->ray;
@@ -80,15 +82,15 @@ void	cast_rays(t_config *config, int x)
 	tex_num = get_texture_number(config, map_y, map_x, side);
 
 	if (side == 0)
-		ray->perpWallDist = (map_x - config->hero.x + (1 - ray->stepX) / 2) / ray->ray_dir_x;
+		ray->perp_wall_dist = (map_x - config->hero.x + (1 - ray->stepX) / 2) / ray->ray_dir_x;
 	else
-		ray->perpWallDist = (map_y - config->hero.y + (1 - ray->stepY) / 2) / ray->ray_dir_y;
+		ray->perp_wall_dist = (map_y - config->hero.y + (1 - ray->stepY) / 2) / ray->ray_dir_y;
 
 
 	if (!side)
-		wall_x = config->hero.y + ray->perpWallDist * ray->ray_dir_y;
+		wall_x = config->hero.y + ray->perp_wall_dist * ray->ray_dir_y;
 	else
-		wall_x = config->hero.x + ray->perpWallDist * ray->ray_dir_x;
+		wall_x = config->hero.x + ray->perp_wall_dist * ray->ray_dir_x;
 	wall_x -= floor(wall_x);
 	tex_x = (int)(wall_x * config->img.width[tex_num]);
 	if(side == 0 && ray->ray_dir_x > 0)
@@ -96,7 +98,7 @@ void	cast_rays(t_config *config, int x)
 	if(side == 1 && ray->ray_dir_y < 0)
 		tex_x = config->img.width[tex_num] - tex_x - 1;
 
-	line_height = (int)(HEIGHT / ray->perpWallDist);
+	line_height = (int)(HEIGHT / ray->perp_wall_dist);
 
 	ray->start = -line_height / 2 + HEIGHT / 2;
 	if (ray->start < 0) 
@@ -126,6 +128,7 @@ void	cast_rays(t_config *config, int x)
 		}
 		y++;
 	}
+	z_buffer[x] = ray->perp_wall_dist;
 }
 
 

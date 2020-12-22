@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:29:33 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/14 21:11:45 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/22 18:23:36 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,38 +75,6 @@ int	ft_check_map(t_config *config, int y, int x)
 	return (1);
 }
 
-void	get_hero_dir(t_config *config, int y, int x)
-{
-	if (config->map.map[y][x] == 'N')
-	{
-		config->hero.dir_x = 0;
-		config->hero.dir_y = -1;
-		config->hero.plane_x = -0.66;
-		config->hero.plane_y = 0;
-	}
-	if (config->map.map[y][x] == 'W')
-	{
-		config->hero.dir_x = 1;
-		config->hero.dir_y = 0;
-		config->hero.plane_x = 0;
-		config->hero.plane_y = -0.66;
-	}
-	if (config->map.map[y][x] == 'S')
-	{
-		config->hero.dir_x = 0;
-		config->hero.dir_y = 1;
-		config->hero.plane_x = 0.66;
-		config->hero.plane_y = 0;
-	}
-	if (config->map.map[y][x] == 'E')
-	{
-		config->hero.dir_x = -1;
-		config->hero.dir_y = 0;
-		config->hero.plane_x = 0;
-		config->hero.plane_y = 0.66;
-	}
-}
-
 int		parcer(t_config *config)
 {
 	int		y;
@@ -122,17 +90,12 @@ int		parcer(t_config *config)
 		x = 0;
 		while (config->map.map[y][x])
 		{
-			if (!ft_check_map(config, y, x) ||
-			(ft_strchr(config->map.hero_set, config->map.map[y][x])
-			&& has_hero))
+			if (!ft_check_map(config, y, x))
 				return (0);
-			if (ft_strchr(config->map.hero_set, config->map.map[y][x]))
-			{
-				config->hero.y = y;
-				config->hero.x = x;
-				get_hero_dir(config, y, x);
+			if (ft_strchr(config->map.hero_set, config->map.map[y][x]) && has_hero) // Лпределяю встретился ли герой повторно
+				return (0);
+			if (ft_strchr(config->map.hero_set, config->map.map[y][x])) // Определяю встретился ли герой
 				has_hero = 1;
-			}
 			x++;
 		}
 	}

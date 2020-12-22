@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/20 18:00:54 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/22 18:33:22 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,21 @@ void	render(t_config *config)
 		cast_rays(config, x);
 		x++;
 	}
+	free_texture(config);
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
 }
 
+void	free_texture(t_config *config)
+{
+	int i;
+
+	i = 0;
+	while (i < 5)
+	{
+		free(config->img.texture[i]);
+		i++;
+	}
+}
 int main(int argc, char *argv[])
 {
 	int			fd;
@@ -75,10 +87,12 @@ int main(int argc, char *argv[])
 	ft_find_width(map_line,config);
 
 	ft_lstadd_back(&head, ft_lstnew(map_line));
+
 	init_struct(config, head);
 
 	run_window(config);
-
+	free(config->sprite);
+	free(config);
 	//! Free LIST
 	return (0);
 }
