@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/20 23:56:35 by user             ###   ########.fr       */
+/*   Updated: 2020/12/22 14:15:49 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,11 @@ void	cast_rays(t_config *config, int x)
 		wall_x = config->hero.x + ray->perpWallDist * ray->ray_dir_x;
 	wall_x -= floor(wall_x);
 	tex_x = (int)(wall_x * config->img.width[tex_num]);
-    if(side == 0 && ray->ray_dir_x > 0)
+	if(side == 0 && ray->ray_dir_x > 0)
 		tex_x = config->img.width[tex_num] - tex_x - 1;
-    if(side == 1 && ray->ray_dir_y < 0)
+	if(side == 1 && ray->ray_dir_y < 0)
 		tex_x = config->img.width[tex_num] - tex_x - 1;
 
-	
 	line_height = (int)(HEIGHT / ray->perpWallDist);
 
 	ray->start = -line_height / 2 + HEIGHT / 2;
@@ -123,8 +122,6 @@ void	cast_rays(t_config *config, int x)
 			tex_y = (int)tex_pos & (config->img.height[tex_num] - 1);
 			tex_pos += step;
 			tex_color = config->img.texture[tex_num][config->img.height[tex_num] * tex_y + tex_x];
-			if (side)
-				tex_color = (tex_color >> 1) & 8355711;
 			my_mlx_pixel_put(&config->data, x, y, tex_color);
 		}
 		y++;
@@ -134,54 +131,18 @@ void	cast_rays(t_config *config, int x)
 
 int		get_texture_number(t_config *config, int y,int x, int side)
 {
-	int	right;
-	int	left;
-	int	top;
-	int	bottom;
-
-	right = 0;
-	left = 0;
-	bottom = 0;
-	top = 0;
 	if (config->map.map[y][x] == '1')
 	{
-		if (y != 0)
-		{
-			if (config->map.map[y - 1][x] == '0')
-				top = 1;
-		}
-		if (y != (int)(config->map.height - 1))
-		{
-			if (config->map.map[y + 1][x] == '0')
-				bottom = 1;	
-		}
-		if (x != 0)
-		{
-			if (config->map.map[y][x - 1] == '0')
-				left = 1;
-		}
-		if (x != (int)(config->map.width - 1))
-		{
-			if (config->map.map[y][x + 1] == '0')
-				right = 1;
-		}
-		if (bottom && side && !top)
-		{
+		if (y < config->hero.y && side)
+			return (0);
+		if (y > config->hero.y && side)
 			return (1);
-		}
-		if (top && side && !bottom)
-		{
+		if (x > config->hero.x && !side)
 			return (2);
-		}
-		if (top && bottom && side)
+		if (x < config->hero.x && !side)
 			return (3);
-		// if (right && !side)
-		// 	return (3);
-		// if (left && !side)
-		// 	return (4);
-		return (3);
 	}
 	if (config->map.map[y][x] == '2')
-		return (0);
-	return (9);
+		return (4);
+	return (0);
 }
