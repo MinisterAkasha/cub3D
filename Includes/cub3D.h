@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/23 21:12:03 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/23 21:59:18 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ char *get_texture_path(int index);
 void	init_map_objects(t_config *config);
 void	get_hero_dir(t_config *config, int y, int x);
 void	init_sprites(t_config *config);
-void	sprite_cast(t_config *config, int z_buffer[WIDTH]);
+void	sprite_cast(t_config *config, double z_buffer[WIDTH]);
 void	sort_sprites(t_config *config, int *order, double *distanse);
 
 #endif

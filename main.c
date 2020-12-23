@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/23 19:31:06 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/23 21:58:58 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void	render(t_config *config)
 {
-	int	x;
-	int	z_buffer[WIDTH];
+	int		x;
+	double	z_buffer[WIDTH];
 
 	init_image(config);
 	load_img(config);

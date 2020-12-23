@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:44:03 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/23 21:28:06 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/23 21:59:27 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	init_map_objects(t_config *config)
 	init_sprites(config);
 }
 
-void	sprite_cast(t_config *config, int z_buffer[WIDTH])
+void	sprite_cast(t_config *config, double z_buffer[WIDTH])
 {
 	int 	i;
 	int		sprite_order[config->map.sprites_num];
