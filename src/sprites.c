@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:44:03 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/22 20:29:40 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/23 21:28:06 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	init_sprites(t_config *config)
 		{
 			if (config->map.map[y][x] == '2')
 			{
-				config->sprite[i].x = x;
-				config->sprite[i].y = y;
+				config->sprite[i].y = y + 0.5;
+				config->sprite[i].x = x + 0.5;
 				i++;
 			}
 			x++;
@@ -79,7 +79,11 @@ void	sprite_cast(t_config *config, int z_buffer[WIDTH])
 	int		sprite_screen_x;
 	int		sprite_height;
 	int		sprite_width;
-	
+
+	int		drow_start_y;
+	int		drow_end_y;
+	int		drow_start_x;
+	int		drow_end_x;
 
 	i = 0;
 	while (i < config->map.sprites_num)
@@ -94,7 +98,7 @@ void	sprite_cast(t_config *config, int z_buffer[WIDTH])
 	while (i < config->map.sprites_num)
 	{
 		sprite_x = config->sprite[sprite_order[i]].x - config->hero.x;
-		sprite_y = config->sprite[sprite_order[i]].x - config->hero.y;
+		sprite_y = config->sprite[sprite_order[i]].y - config->hero.y;
 
 		invert_determ = 1.0 / (config->hero.plane_x * config->hero.dir_y - config->hero.plane_y * config->hero.dir_x);
 
@@ -105,19 +109,19 @@ void	sprite_cast(t_config *config, int z_buffer[WIDTH])
 
 		sprite_height = abs((int)(HEIGHT / transform_y));
 
-		int drow_start_y = -sprite_height / 2 + HEIGHT / 2;
+		drow_start_y = -sprite_height / 2 + HEIGHT / 2;
 		if (drow_start_y < 0)
 			drow_start_y = 0;
-		int drow_end_y = sprite_height / 2 + HEIGHT / 2;
+		drow_end_y = sprite_height / 2 + HEIGHT / 2;
 		if (drow_end_y >= HEIGHT)
 			drow_end_y = HEIGHT - 1;
 
 		sprite_width = abs((int)(HEIGHT / (transform_y)));
 
-		int drow_start_x = -sprite_width / 2 + sprite_screen_x;
+		drow_start_x = -sprite_width / 2 + sprite_screen_x;
 		if (drow_start_x < 0)
 			drow_start_x = 0;
-		int drow_end_x = sprite_width / 2 + sprite_screen_x;
+		drow_end_x = sprite_width / 2 + sprite_screen_x;
 		if (drow_end_x > WIDTH)
 			drow_end_x = WIDTH - 1;
 		int x = drow_start_x;
@@ -125,15 +129,14 @@ void	sprite_cast(t_config *config, int z_buffer[WIDTH])
 		{
 			int y = drow_start_y;
 			int tex_x = (int)(256 * (x - (-sprite_width / 2 + sprite_screen_x)) * config->img.width[4] / sprite_width) / 256;
-
 			if (transform_y > 0 && x > 0 && x < (int)WIDTH && transform_y < z_buffer[x])
 			{
 				while (y < drow_end_y)
 				{
 					int d = y * 256 - HEIGHT * 128 + sprite_height * 128;
 					int tex_y = ((d * config->img.height[4]) / sprite_height) / 256;
-					if ((config->img.texture[4][config->img.height[4] * tex_y + tex_x] & 0x00FFFFFF) != 0)
-						my_mlx_pixel_put(&config->data, y, x, config->img.texture[4][config->img.width[4] * tex_y + tex_x]);
+					if ((config->img.texture[4][config->img.height[4] * tex_y + tex_x] & 0x00FFFFFF))
+						my_mlx_pixel_put(&config->data, x, y, config->img.texture[4][config->img.width[4] * tex_y + tex_x]);
 					y++;
 				}
 			}

@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/22 20:34:38 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/23 19:31:06 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 void	render(t_config *config)
 {
 	int	x;
+	int	z_buffer[WIDTH];
 
 	init_image(config);
 	load_img(config);
@@ -37,6 +38,7 @@ void	render(t_config *config)
 		config->ray.ray_dir_y = config->hero.dir_y + config->hero.plane_y * config->hero.cameraX;
 		config->ray.ray_dir_x = config->hero.dir_x + config->hero.plane_x * config->hero.cameraX;
 		cast_rays(config, x);
+		z_buffer[x] = config->ray.perp_wall_dist;
 		x++;
 	}
 	sprite_cast(config, z_buffer);

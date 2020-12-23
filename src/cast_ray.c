@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/22 20:34:24 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/23 19:29:45 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	cast_rays(t_config *config, int x)
 	double				step;
 	double				tex_pos;
 
-	int					z_buffer[WIDTH];
 
 	
 	ray = &config->ray;
@@ -131,7 +130,6 @@ void	cast_rays(t_config *config, int x)
 		}
 		y++;
 	}
-	z_buffer[x] = ray->perp_wall_dist;
 }
 
 
