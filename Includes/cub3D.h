@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/23 21:59:18 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/23 22:11:38 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 #include "stdio.h" //!DEL
 
-#define HEIGHT 1080
-#define WIDTH 1920
+#define HEIGHT 800
+#define WIDTH 1340
 
 typedef struct s_map
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 23:25:59 by user              #+#    #+#             */
-/*   Updated: 2020/12/22 17:26:32 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/23 22:24:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*get_texture_path(int index)
 	if (index == 3)
 		return ("pics/wood.xpm");
 	if (index == 4)
-		return ("pics/dog.xpm");
+		return ("pics/barrel.xpm");
 	return (NULL);
 }
 
