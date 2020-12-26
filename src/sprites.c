@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:44:03 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/26 20:24:40 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/26 21:45:55 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_sprites(t_config *config)
 		x = 0;
 		while (config->map.map[y][x])
 		{
-			if (config->map.map[y][x] == '2')
+			if (config->map.map[y][x] == '2') // Определяет позицию каждого спрайта
 			{
 				config->sprite[i].y = y + 0.5;
 				config->sprite[i].x = x + 0.5;
@@ -94,7 +94,7 @@ void	sprite_cast(t_config *config, double z_buffer[WIDTH])
 			(config->hero.y - config->sprite[i].y) * (config->hero.y - config->sprite[i].y);
 		i++;
 	}
-	sprite_order = sort_sprites(config, sprite_order, sprite_distanse);
+	sort_sprites(sprite_distanse, 0, config->map.sprites_num - 1, sprite_order);
 	i = 0;
 	while (i < config->map.sprites_num)
 	{
@@ -181,39 +181,16 @@ int		partition(double *distanse, int left, int right, double *order)
 	return (i);
 }
 
-void 	quickSort(double distanse[], int left, int right, double *order)
+void 	sort_sprites(double distanse[], int left, int right, double *order)
 {  
 	int pivot;
 
     if (left < right)
     {
 		pivot = partition(distanse, left, right, order);
-        quickSort(distanse, left, pivot - 1, order);
-        quickSort(distanse, pivot + 1, right, order);
+        sort_sprites(distanse, left, pivot - 1, order);
+        sort_sprites(distanse, pivot + 1, right, order);
     }
-}
-
-double	*sort_sprites(t_config *config, double *order, double *distanse)
-{
-	int i;
-	//!del
-	i = 0;
-	printf("BEFORE\n");
-	while (i < config->map.sprites_num){
-		printf("ORDER: %-5.1f DISTANSE: %-9.4f INDEX: %d\n", order[i], distanse[i], i);
-		i++;
-	}
-	//!del
-	quickSort(distanse, 0, config->map.sprites_num - 1, order);
-	//!del
-	i = 0;
-	printf("AFTER\n");
-	while (i < config->map.sprites_num){
-		printf("ORDER: %-5.1f DISTANSE: %-9.4f INDEX: %d\n", order[i], distanse[i], i);
-		i++;
-	}
-	//!del
-	return (order);
 }
 
 void	get_hero_dir(t_config *config, int y, int x)
