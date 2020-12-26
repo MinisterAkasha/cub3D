@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:44:03 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/23 21:59:27 by akasha           ###   ########.fr       */
+/*   Updated: 2020/12/24 17:19:52 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	init_map_objects(t_config *config)
 void	sprite_cast(t_config *config, double z_buffer[WIDTH])
 {
 	int 	i;
-	int		sprite_order[config->map.sprites_num];
+	double	*sprite_order;
 	double	sprite_distanse[config->map.sprites_num];
 
 	double	sprite_x;
@@ -86,6 +86,7 @@ void	sprite_cast(t_config *config, double z_buffer[WIDTH])
 	int		drow_end_x;
 
 	i = 0;
+	sprite_order = (double *)malloc(sizeof(double) * config->map.sprites_num);
 	while (i < config->map.sprites_num)
 	{
 		sprite_order[i] = i;
@@ -93,12 +94,19 @@ void	sprite_cast(t_config *config, double z_buffer[WIDTH])
 			(config->hero.y - config->sprite[i].y) * (config->hero.y - config->sprite[i].y);
 		i++;
 	}
-	// sort_sprites(config, sprite_order, sprite_distanse);
+	sprite_order = sort_sprites(config, sprite_order, sprite_distanse);
+	i = 0;
+	while (i < config->map.sprites_num){
+		sprite_order[i] = i;
+		printf("ORDER: %-5f DISTANSE: %-5f INDEX: %d\n", sprite_order[i], sprite_distanse[i], i);
+		// printf("DISTANSE: %-5f, INDEX: %d\n", distanse[i], i);
+		i++;
+	}
 	i = 0;
 	while (i < config->map.sprites_num)
 	{
-		sprite_x = config->sprite[sprite_order[i]].x - config->hero.x;
-		sprite_y = config->sprite[sprite_order[i]].y - config->hero.y;
+		sprite_x = config->sprite[(int)sprite_order[i]].x - config->hero.x;
+		sprite_y = config->sprite[(int)sprite_order[i]].y - config->hero.y;
 
 		invert_determ = 1.0 / (config->hero.plane_x * config->hero.dir_y - config->hero.plane_y * config->hero.dir_x);
 
@@ -144,12 +152,70 @@ void	sprite_cast(t_config *config, double z_buffer[WIDTH])
 		}
 		i++;
 	}
+	free(sprite_order);
 }
 
-// void	sort_sprites(t_config *config, int *order, double *distanse)
-// {
+void	swap(double *elem_1, double *elem_2)
+{
+	int swap;
+
+	swap = *elem_1;
+	*elem_1 = *elem_2;
+	*elem_2 = swap;
+}
+
+int partition(double *arr, int low, int hight, double *order)
+{
+	int i;
+	int j;
+	int pivot;
+
+	i = low - 1;
+	j = low;
+	pivot = arr[hight];
+	while (j <= hight)
+	{
+		if (arr[j] < pivot)
+		{
+			i++;
+			swap(&arr[i], &arr[j]);
+			// swap((&order[j]), &order[i]);`
+		}
+		j++;
+	}
+	swap(&arr[i + 1], &arr[hight]);
+	// swap((&order[hight]), &order[i + 1]);
+	return (i + 1);
+}
+
+void quickSort(double arr[], int low, int high, double *order)
+{  
+	int pi;
+    if (low < high)
+    {
+		pi = partition(arr, low, high, order);
+        quickSort(arr, low, pi - 1, order);
+        quickSort(arr, pi + 1, high, order);
+    }
+}
+
+double	*sort_sprites(t_config *config, double *order, double *distanse)
+{
+	int i;
+	// printf("BEFORE: %-10f", order[0]);
+	quickSort(distanse, 0, config->map.sprites_num - 1, order);
+	i = 0;
+	// while (i < config->map.sprites_num){
+	// 	order[i] = i;
+	// 	printf("ORDER: %-5f DISTANSE: %-5f INDEX: %d\n", order[i], distanse[i], i);
+	// 	// printf("DISTANSE: %-5f, INDEX: %d\n", distanse[i], i);
+	// 	i++;
+	// }
+	// printf("AFTER: %f\n", order[0]);
 	
-// }
+	
+	return (order);
+}
 
 void	get_hero_dir(t_config *config, int y, int x)
 {

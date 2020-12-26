@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/23 22:11:38 by user             ###   ########.fr       */
+/*   Updated: 2020/12/24 16:18:34 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,10 @@ void	init_map_objects(t_config *config);
 void	get_hero_dir(t_config *config, int y, int x);
 void	init_sprites(t_config *config);
 void	sprite_cast(t_config *config, double z_buffer[WIDTH]);
-void	sort_sprites(t_config *config, int *order, double *distanse);
+double	*sort_sprites(t_config *config, double *order, double *distanse);
 
+
+int		partition(double *arr, int low, int hight, double *order);
+void	swap(double *elem_1, double *elem_2);
+void	quickSort(double arr[], int low, int high, double *order);
 #endif
