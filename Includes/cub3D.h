@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/24 16:18:34 by user             ###   ########.fr       */
+/*   Updated: 2020/12/26 20:13:53 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 #include "stdio.h" //!DEL
 
-#define HEIGHT 800
-#define WIDTH 1340
+#define HEIGHT 1080
+#define WIDTH 1920
 
 typedef struct s_map
 {
@@ -164,7 +164,7 @@ void	sprite_cast(t_config *config, double z_buffer[WIDTH]);
 double	*sort_sprites(t_config *config, double *order, double *distanse);
 
 
-int		partition(double *arr, int low, int hight, double *order);
-void	swap(double *elem_1, double *elem_2);
-void	quickSort(double arr[], int low, int high, double *order);
+int		partition(double *arr, int left, int right, double *order);
+void	swap_elems(double *elem_1, double *elem_2);
+void	quickSort(double arr[], int left, int right, double *order);
 #endif
