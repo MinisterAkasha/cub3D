@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 16:36:41 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 17:22:04 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 	config->map.new_line = 0;
 	while(get_next_line(fd, &map_line))
 	{
-		i = skip_spaces_index(map_line);
+		i = skip_spaces(map_line);
 		if (map_line[i] == '1')
 		{
 			ft_find_width(map_line,config);

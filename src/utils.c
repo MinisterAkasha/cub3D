@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 19:17:27 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 16:11:33 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 17:22:09 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_find_width(char *str, t_config	*config)
 		config->map.width = len;
 }
 
-int		skip_spaces_index(char *str)
+int		skip_spaces(char *str)
 {
 	int i;
 
@@ -29,14 +29,4 @@ int		skip_spaces_index(char *str)
 	while (str[i] == ' ')
 		i++;
 	return (i);
-}
-
-void	skip_spaces(char **str)
-{
-	while (!ft_isdigit(**str))
-	{
-		if (**str == '-')
-			break ;
-		*str += 1;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 16:36:46 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 17:23:33 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,15 @@ typedef struct	s_data
 } 				t_data;
 typedef struct s_settings
 {
-	char		**source;
 	int			max_width;
 	int			window_width;
 	int			max_height;
 	int			window_height;
-	char		*no_tex;
-	char		*so_tex;
-	char		*we_tex;
-	char		*ea_tex;
-	char		*sparite_tex;
+	char		*north_tex;
+	char		*south_tex;
+	char		*west_tex;
+	char		*east_tex;
+	char		*spraite_tex;
 	char		*floor_color;
 	char		*ceiling_color;
 }				t_settings;
@@ -172,8 +171,7 @@ void	run_window(t_config *config);
 */
 
 void 	ft_find_width(char *str, t_config *config);
-int		skip_spaces_index(char *str);
-void	skip_spaces(char **str);
+int		skip_spaces(char *str);
 
 /*
 **	cast_ray.c
@@ -186,7 +184,7 @@ int 	get_texture_number(t_config *config, int y, int x, int side);
 */
 void	load_img(t_config *config);
 void	make_texture(t_config *config, int index);
-char	*get_texture_path(int index);
+char	*get_texture_path(int index, t_config *config);
 
 /*
 ** sprites.c
