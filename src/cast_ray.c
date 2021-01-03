@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 16:32:36 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 16:36:08 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,22 +97,22 @@ void	cast_rays(t_config *config, int x)
 	if(side == 1 && ray->ray_dir_y < 0)
 		tex_x = config->img.width[tex_num] - tex_x - 1;
 
-	line_height = (int)(HEIGHT / ray->perp_wall_dist);
+	line_height = (int)(config->settings.window_height / ray->perp_wall_dist);
 
-	ray->start = -line_height / 2 + HEIGHT / 2;
+	ray->start = -line_height / 2 + config->settings.window_height / 2;
 	if (ray->start < 0) 
 		ray->start = 0;
 
-	ray->end = line_height / 2 + HEIGHT / 2;
-	if (ray->end >= HEIGHT)
-		ray->end = HEIGHT - 1; 
+	ray->end = line_height / 2 + config->settings.window_height / 2;
+	if (ray->end >= config->settings.window_height)
+		ray->end = config->settings.window_height - 1; 
 
 	step = 1.0 * config->img.height[tex_num] / line_height;
 
-	tex_pos = (ray->start - (HEIGHT / 2) + (line_height / 2)) * step;
+	tex_pos = (ray->start - (config->settings.window_height / 2) + (line_height / 2)) * step;
 
 	y = 0;
-	while (y < HEIGHT)
+	while (y < config->settings.window_height)
 	{
 		if (y > ray->end)
 			my_mlx_pixel_put(&config->data, x, y, 0x00FF00 / 5);

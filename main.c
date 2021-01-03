@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 16:30:59 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 16:36:41 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 void	render(t_config *config)
 {
 	int		x;
-	double	z_buffer[WIDTH];
+	double	z_buffer[config->settings.window_width];
 
 	init_image(config);
 	load_img(config);
 	x = 0;
-	while (x < WIDTH)
+	while (x < config->settings.window_width)
 	{
 		ft_get_camera_coordinate(config, x);
 		cast_rays(config, x);
@@ -45,7 +45,7 @@ void	render(t_config *config)
 }
 void	ft_get_camera_coordinate(t_config *config, int x)
 {
-	config->hero.cameraX = 2 * (x / (double)WIDTH) - 1;
+	config->hero.cameraX = 2 * (x / (double)config->settings.window_width) - 1;
 	config->ray.ray_dir_y = config->hero.dir_y + config->hero.plane_y * config->hero.cameraX;
 	config->ray.ray_dir_x = config->hero.dir_x + config->hero.plane_x * config->hero.cameraX;
 }

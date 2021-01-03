@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 16:30:31 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 16:36:46 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@
 #include <math.h>
 
 #include "stdio.h" //!DEL
-
-#define HEIGHT 1080
-#define WIDTH 1920
 
 typedef struct	s_map
 {
@@ -197,7 +194,7 @@ char	*get_texture_path(int index);
 void	init_map_objects(t_config *config);
 void	get_hero_dir(t_config *config, int y, int x);
 void	init_sprites(t_config *config);
-void	sprite_cast(t_config *config, double z_buffer[WIDTH]);
+void	sprite_cast(t_config *config, double z_buffer[config->settings.window_width]);
 
 
 int		partition(double *arr, int left, int right, double *order);

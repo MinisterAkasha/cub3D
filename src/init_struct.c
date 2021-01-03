@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:30:40 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 16:32:48 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 16:36:41 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,12 @@ int		close_win(int keycode, t_config *config)
 void	run_window(t_config *config)
 {
 	config->win.mlx = mlx_init();
-	config->win.window = mlx_new_window(config->win.mlx, WIDTH, HEIGHT, "Cub3D");
-	
 	if (!parce_param(config))
 		return ;//TODO add error and exit programm
 	if (!parce_map(config))
 		return ;//TODO add error and exit programm
 	init_map_objects(config);
+	config->win.window = mlx_new_window(config->win.mlx, config->settings.window_width, config->settings.window_height, "Cub3D");
 	render(config);
 	mlx_hook(config->win.window, 02, 1L<<0,  move_hero, config);
 	mlx_key_hook(config->win.window, close_win, config);

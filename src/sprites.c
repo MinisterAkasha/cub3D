@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:44:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 16:32:57 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 16:36:41 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	init_map_objects(t_config *config)
 	init_sprites(config);
 }
 
-void	sprite_cast(t_config *config, double z_buffer[WIDTH])
+void	sprite_cast(t_config *config, double z_buffer[config->settings.window_width])
 {
 	int 	i;
 	double	*sprite_order;
@@ -106,35 +106,35 @@ void	sprite_cast(t_config *config, double z_buffer[WIDTH])
 		transform_x = invert_determ * (config->hero.dir_y * sprite_x - config->hero.dir_x * sprite_y);
 		transform_y = invert_determ * (config->hero.plane_x * sprite_y - config->hero.plane_y * sprite_x);
 
-		sprite_screen_x = (int)((WIDTH / 2) * (1 + transform_x / transform_y));
+		sprite_screen_x = (int)((config->settings.window_width / 2) * (1 + transform_x / transform_y));
 
-		sprite_height = abs((int)(HEIGHT / transform_y));
+		sprite_height = abs((int)(config->settings.window_height / transform_y));
 
-		drow_start_y = -sprite_height / 2 + HEIGHT / 2;
+		drow_start_y = -sprite_height / 2 + config->settings.window_height / 2;
 		if (drow_start_y < 0)
 			drow_start_y = 0;
-		drow_end_y = sprite_height / 2 + HEIGHT / 2;
-		if (drow_end_y >= HEIGHT)
-			drow_end_y = HEIGHT - 1;
+		drow_end_y = sprite_height / 2 + config->settings.window_height / 2;
+		if (drow_end_y >= config->settings.window_height)
+			drow_end_y = config->settings.window_height - 1;
 
-		sprite_width = abs((int)(HEIGHT / (transform_y)));
+		sprite_width = abs((int)(config->settings.window_height / (transform_y)));
 
 		drow_start_x = -sprite_width / 2 + sprite_screen_x;
 		if (drow_start_x < 0)
 			drow_start_x = 0;
 		drow_end_x = sprite_width / 2 + sprite_screen_x;
-		if (drow_end_x > WIDTH)
-			drow_end_x = WIDTH - 1;
+		if (drow_end_x > config->settings.window_width)
+			drow_end_x = config->settings.window_width - 1;
 		int x = drow_start_x;
 		while (x < drow_end_x)
 		{
 			int y = drow_start_y;
 			int tex_x = (int)(256 * (x - (-sprite_width / 2 + sprite_screen_x)) * config->img.width[4] / sprite_width) / 256;
-			if (transform_y > 0 && x > 0 && x < (int)WIDTH && transform_y < z_buffer[x])
+			if (transform_y > 0 && x > 0 && x < (int)config->settings.window_width && transform_y < z_buffer[x])
 			{
 				while (y < drow_end_y)
 				{
-					int d = y * 256 - HEIGHT * 128 + sprite_height * 128;
+					int d = y * 256 - config->settings.window_height * 128 + sprite_height * 128;
 					int tex_y = ((d * config->img.height[4]) / sprite_height) / 256;
 					if ((config->img.texture[4][config->img.height[4] * tex_y + tex_x] & 0x00FFFFFF))
 						my_mlx_pixel_put(&config->data, x, y, config->img.texture[4][config->img.width[4] * tex_y + tex_x]);
