@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 19:17:27 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 17:22:09 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 19:12:18 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,19 @@ int		skip_spaces(char *str)
 	while (str[i] == ' ')
 		i++;
 	return (i);
+}
+
+void	skip_digit(char **str)
+{
+	while (ft_isdigit(**str))
+		*str += 1;
+}
+void	skip_not_digit(char **str)
+{
+	while (!(ft_isdigit(**str)))
+	{
+		if (**str == '\n')
+			break ;
+		*str += 1;
+	}
 }

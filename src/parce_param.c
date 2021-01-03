@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 15:15:21 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 17:59:19 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 19:13:25 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,55 @@ void	check_max_size(t_config *config)
 		config->settings.window_width = config->settings.max_width;
 }
 
+size_t	create_hex_from_rgb(int red, int green, int blue)
+{
+	return ((red << 16) + (green << 8) + (blue));
+}
+
+int		find_color_num(char **str, int *color)
+{
+	skip_not_digit(str);
+	if (ft_isdigit(**str))
+		*color = ft_atoi(*str);
+	else if (**str == '\n')
+		return (0);
+	skip_digit(str);
+	return (1);
+}
+
+int		parce_color(t_config *config, char *str)
+{
+	int	red;
+	int	green;
+	int	blue;
+	int	is_floor;
+
+	if (*str == 'F')
+		is_floor = 1;
+	else
+		is_floor = 0;
+	if (!(find_color_num(&str, &red)))
+		return (0);
+	if (!(find_color_num(&str, &green)))
+		return (0);
+	if (!(find_color_num(&str, &blue)))
+		return (0);
+	// find_color_num(&str, &green);
+	// find_color_num(&str, &blue);
+
+	if (is_floor)
+		config->settings.floor_color = create_hex_from_rgb(red, green, blue);
+	printf("R: %-5d G: %-5d B: %-5d\n", red, green, blue);
+	// printf("%zu\n", config->settings.floor_color);
+	return (1);
+}
+
 int		parce_window_param(t_config *config, char *str)
 {
-	while (!ft_isdigit(*str))
-		str++;
+	skip_not_digit(&str);
 	config->settings.window_width = ft_atoi(str);
-	while (ft_isdigit(*str))
-		str++;
-	while (!ft_isdigit(*str))
-		str++;
+	skip_digit(&str);
+	skip_not_digit(&str);
 	config->settings.window_height = ft_atoi(str);
 	if (!config->settings.window_height || !config->settings.window_width
 	|| config->settings.window_height < 0 || config->settings.window_width < 0)
@@ -77,6 +117,14 @@ int		find_correct_param_and_parce(char *str, t_config *config)
 		if (!(parce_tex(config, str)))
 		{
 			write(1, "Not valid parametr for texture\n", 38); //TODO error message
+			return (0);
+		}
+	}
+	else if (*str == 'F' || *str == 'C')
+	{
+		if (!(parce_color(config, str)))
+		{
+			write(1, "Not valid parametr for floor/celling color\n", 44); //TODO error message
 			return (0);
 		}
 	}

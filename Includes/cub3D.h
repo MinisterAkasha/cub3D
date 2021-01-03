@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 17:23:33 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 18:40:06 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ typedef struct s_settings
 	char		*west_tex;
 	char		*east_tex;
 	char		*spraite_tex;
-	char		*floor_color;
-	char		*ceiling_color;
+	size_t		floor_color;
+	size_t		ceiling_color;
 }				t_settings;
 
 typedef struct s_config_struct
@@ -172,6 +172,8 @@ void	run_window(t_config *config);
 
 void 	ft_find_width(char *str, t_config *config);
 int		skip_spaces(char *str);
+void	skip_digit(char **str);
+void	skip_not_digit(char **str);
 
 /*
 **	cast_ray.c
