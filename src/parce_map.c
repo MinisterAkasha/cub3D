@@ -18,7 +18,6 @@ int		parce_map(t_config *config)
 	int		x;
 
 	y = 0;
-	
 	while (config->map.map[y])
 	{
 		x = 0;

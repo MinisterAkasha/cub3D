@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 15:10:56 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 16:30:59 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int main(int argc, char *argv[])
 	int			fd;
 	char		*map_line;
 	t_config	*config;
+	int			i;
 
 
 	if (argc != 2)
@@ -85,7 +86,8 @@ int main(int argc, char *argv[])
 	config->map.new_line = 0;
 	while(get_next_line(fd, &map_line))
 	{
-		if (*(ft_strtrim(map_line, " ")) == '1')
+		i = skip_spaces_index(map_line);
+		if (map_line[i] == '1')
 		{
 			ft_find_width(map_line,config);
 			if (!*map_line)
@@ -97,6 +99,7 @@ int main(int argc, char *argv[])
 	}
 	ft_find_width(map_line,config);
 	ft_lstadd_back(&config->head_map, ft_lstnew(map_line));
+	
 	close(fd);
 
 	init_struct(config);

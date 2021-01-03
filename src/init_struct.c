@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:30:40 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 15:12:22 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 16:32:48 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ void	run_window(t_config *config)
 {
 	config->win.mlx = mlx_init();
 	config->win.window = mlx_new_window(config->win.mlx, WIDTH, HEIGHT, "Cub3D");
+	
+	if (!parce_param(config))
+		return ;//TODO add error and exit programm
 	if (!parce_map(config))
 		return ;//TODO add error and exit programm
 	init_map_objects(config);

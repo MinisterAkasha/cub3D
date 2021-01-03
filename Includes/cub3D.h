@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 15:12:22 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 16:30:31 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define CUB_3D_H
 
 #include "../libft/includes/libft.h"
-#include "../minilb/mlx.h"
+#include "../minilib/mlx.h"
 #include "get_next_line.h"
 #include <fcntl.h>
 #include <math.h>
@@ -103,7 +103,9 @@ typedef struct	s_data
 typedef struct s_settings
 {
 	char		**source;
+	int			max_width;
 	int			window_width;
+	int			max_height;
 	int			window_height;
 	char		*no_tex;
 	char		*so_tex;
@@ -139,6 +141,13 @@ void	render(t_config *config);
 void	free_texture(t_config *config);
 
 /*
+** parce_param
+*/
+
+int		parce_param(t_config *config);
+int		parce_window_param(t_config *config, char *str);
+
+/*
 ** validation
 */
 
@@ -166,6 +175,8 @@ void	run_window(t_config *config);
 */
 
 void 	ft_find_width(char *str, t_config *config);
+int		skip_spaces_index(char *str);
+void	skip_spaces(char **str);
 
 /*
 **	cast_ray.c

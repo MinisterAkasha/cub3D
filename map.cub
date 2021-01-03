@@ -1,4 +1,4 @@
-R 1920 1080
+      R 1920 1080
 NO ./pics/stone.xpm
 SO ./pics/hexagone.xpm
 WE ./pics/redbrick.xpm
@@ -6,7 +6,6 @@ EA ./pics/wood.xpm
 S ./pics/barrel.xpm
 F 220,100,0
 C 225,30,0
-
          11111111111111111111111
         1000000000110000000000001
         1001000000110000000000001
