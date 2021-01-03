@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parcer.c                                           :+:      :+:    :+:   */
+/*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/07 15:29:33 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/22 18:23:36 by akasha           ###   ########.fr       */
+/*   Created: 2021/01/03 12:54:03 by akasha            #+#    #+#             */
+/*   Updated: 2021/01/03 13:48:08 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ int	ft_check_border(t_config *config, int y, int x)
 	return (1);
 }
 
-int	ft_check_map(t_config *config, int y, int x)
+int	ft_validate_map(t_config *config, int y, int x)
 {
+	if (config->map.new_line >= 1)
+		return (0);
 	if (y == 0 || y == (int)(config->map.height - 1) ||
 	x == (int)(config->map.width - 1) || x == 0)
 	{
@@ -72,34 +74,13 @@ int	ft_check_map(t_config *config, int y, int x)
 		if (!ft_check_inner_elem(config, y, x))
 			return (0);
 	}
-	return (1);
-}
-
-int		parcer(t_config *config)
-{
-	int		y;
-	int		x;
-	int		has_hero;
-
-	y = -1;
-	has_hero = 0;
-	if (config->map.nl >= 1)
-		return (0);
-	while (config->map.map[++y])
-	{
-		x = 0;
-		while (config->map.map[y][x])
-		{
-			if (!ft_check_map(config, y, x))
+	if (ft_strchr(config->map.hero_set, config->map.map[y][x]) && config->map.has_hero) // Определяю встретился ли герой повторно
 				return (0);
-			if (ft_strchr(config->map.hero_set, config->map.map[y][x]) && has_hero) // Лпределяю встретился ли герой повторно
-				return (0);
-			if (ft_strchr(config->map.hero_set, config->map.map[y][x])) // Определяю встретился ли герой
-				has_hero = 1;
-			x++;
-		}
-	}
-	if (!has_hero)
+	if (ft_strchr(config->map.hero_set, config->map.map[y][x])) // Определяю встретился ли герой
+		config->map.has_hero = 1;
+	if (y == (int)config->map.height - 1
+		&& x == (int)config->map.width - 1
+		&& !config->map.has_hero)
 		return (0);
 	return (1);
 }

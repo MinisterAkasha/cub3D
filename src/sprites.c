@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:44:03 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/26 21:45:55 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 12:50:37 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	init_map_objects(t_config *config)
 		x = 0;
 		while (config->map.map[y][x])
 		{
-			if (config->map.map[y][x] == '2')
+			if (config->map.map[y][x] == '2') // Считаю кол-во спрайтов
 				config->map.sprites_num++;
 			if (ft_strchr(config->map.hero_set, config->map.map[y][x])) // Определяю позицию героя
 			{

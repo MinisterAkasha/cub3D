@@ -6,13 +6,13 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 19:16:25 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/14 19:47:55 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 14:17:45 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-char	**fill_map(t_list *head, int size, t_config *config)
+char	**fill_map(t_config *config, int size)
 {
 	char		**map;
 	t_list		*tmp;
@@ -22,7 +22,7 @@ char	**fill_map(t_list *head, int size, t_config *config)
 
 	if (!(map = ft_calloc((size + 1), sizeof(char **))))
 		return (0);
-	tmp = head;
+	tmp = config->head_map;
 	i = 0;
 	while (tmp)
 	{

@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2020/12/26 21:43:32 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 15:12:22 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 #define HEIGHT 1080
 #define WIDTH 1920
 
-typedef struct s_map
+typedef struct	s_map
 {
-	int nl;
+	int new_line;
 	char **map;
 	char *hero_set;
 	char *space_set;
@@ -34,7 +34,8 @@ typedef struct s_map
 	size_t width;
 	size_t height;
 	int	sprites_num;
-} t_map;
+	int	has_hero;
+}				t_map;
 
 typedef struct s_sprite
 {
@@ -42,7 +43,7 @@ typedef struct s_sprite
 	double		y;
 }				t_sprite;
 
-typedef struct s_texture
+typedef struct	s_texture
 {
 	void *img[5];
 	char *addr[5];
@@ -52,9 +53,9 @@ typedef struct s_texture
 	int width[5];
 	int height[5];
 	size_t *texture[5];
-} t_texture;
+}				t_texture;
 
-typedef struct s_hero
+typedef struct	s_hero
 {
 	double y;
 	double x;
@@ -68,9 +69,9 @@ typedef struct s_hero
 	double cameraX;
 	double move_speed;
 	double rotate_speed;
-} t_hero;
+}				t_hero;
 
-typedef struct s_ray
+typedef struct	s_ray
 {
 	double ray_dir_y;
 	double ray_dir_x;
@@ -83,76 +84,101 @@ typedef struct s_ray
 	double stepY;
 	double start;
 	double end;
-} t_ray;
+}				t_ray;
 
-typedef struct s_win
+typedef struct	s_win
 {
-	void *mlx;
-	void *window;
-} t_win;
+	void	*mlx;
+	void	*window;
+}				t_win;
 
-typedef struct s_data
+typedef struct	s_data
 {
 	void *img;
 	char *addr;
 	int bits_per_pixel;
 	int line_length;
 	int endian;
-} t_data;
+} 				t_data;
+typedef struct s_settings
+{
+	char		**source;
+	int			window_width;
+	int			window_height;
+	char		*no_tex;
+	char		*so_tex;
+	char		*we_tex;
+	char		*ea_tex;
+	char		*sparite_tex;
+	char		*floor_color;
+	char		*ceiling_color;
+}				t_settings;
 
 typedef struct s_config_struct
 {
-	t_map map;
-	t_win win;
-	t_data data;
-	t_ray ray;
-	t_hero hero;
-	t_texture img;
-	t_sprite *sprite;
+	t_map			map;
+	t_win			win;
+	t_data			data;
+	t_ray			ray;
+	t_hero			hero;
+	t_texture		img;
+	t_sprite		*sprite;
+	t_list			*head_map;
+	t_list			*head_param;
+	t_settings		settings;
 } 				t_config;
 
-int parcer(t_config *config);
-void init_struct(t_config *config, t_list *head);
+int		parce_map(t_config *config);
+void	init_struct(t_config *config);
+void	ft_get_camera_coordinate(t_config *config, int x);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
-void my_mlx_pixel_put(t_data *data, int x, int y, int color);
+char	**fill_map(t_config *config, int size);
+void	put_pixel_scale(int x, int y, t_config *config);
+void	render(t_config *config);
+void	free_texture(t_config *config);
 
-char **fill_map(t_list *head, int size, t_config *config);
-void put_pixel_scale(int x, int y, t_config *config);
-void render(t_config *config);
-void free_texture(t_config *config);
+/*
+** validation
+*/
+
+int		ft_check_inner_elem(t_config *config, int y, int x);
+int		ft_check_unit(t_config *config, int y, int x);
+int		ft_check_border(t_config *config, int y, int x);
+int		ft_validate_map(t_config *config, int y, int x);
 
 /*
 ** move_hero
 */
 
-int move_hero(int keycode, t_config *config);
-int button(int key);
-int rotate_hero(int keycode, t_config *config);
+int		move_hero(int keycode, t_config *config);
+int		button(int key);
+int		rotate_hero(int keycode, t_config *config);
 
 /*
 ** init_struct.c
 */
-void init_image(t_config *config);
-void run_window(t_config *config);
+void	init_image(t_config *config);
+void	run_window(t_config *config);
 
 /*
 **	utilc.c
 */
 
-void ft_find_width(char *str, t_config *config);
+void 	ft_find_width(char *str, t_config *config);
 
 /*
 **	cast_ray.c
 */
-void cast_rays(t_config *config, int x);
-int get_texture_number(t_config *config, int y, int x, int side);
+void 	cast_rays(t_config *config, int x);
+int 	get_texture_number(t_config *config, int y, int x, int side);
 
 /*
 **	load_img.c
 */
-void load_img(t_config *config);
-void make_texture(t_config *config, int index);
-char *get_texture_path(int index);
+void	load_img(t_config *config);
+void	make_texture(t_config *config, int index);
+char	*get_texture_path(int index);
 
 /*
 ** sprites.c
