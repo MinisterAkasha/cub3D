@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 19:17:27 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 19:12:18 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 22:13:18 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	skip_digit(char **str)
 	while (ft_isdigit(**str))
 		*str += 1;
 }
+
 void	skip_not_digit(char **str)
 {
 	while (!(ft_isdigit(**str)))
@@ -44,4 +45,21 @@ void	skip_not_digit(char **str)
 			break ;
 		*str += 1;
 	}
+}
+
+size_t	transform_dec_to_hex(size_t dec)
+{
+	int res = 0;
+	int i;
+
+	i = 0;
+	printf("DEC: %zu\n", dec);
+	while (dec)
+	{
+		res += dec % 16 * pow(i, 16);
+		printf("%x\n", (res));
+		i++;
+		dec /= 16;
+	}
+	return (res);
 }

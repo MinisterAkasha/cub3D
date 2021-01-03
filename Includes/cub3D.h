@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 18:40:06 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/03 21:38:37 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct s_settings
 	char		*east_tex;
 	char		*spraite_tex;
 	size_t		floor_color;
-	size_t		ceiling_color;
+	size_t		celling_color;
 }				t_settings;
 
 typedef struct s_config_struct
@@ -174,6 +174,7 @@ void 	ft_find_width(char *str, t_config *config);
 int		skip_spaces(char *str);
 void	skip_digit(char **str);
 void	skip_not_digit(char **str);
+size_t	transform_dec_to_hex(size_t dec);
 
 /*
 **	cast_ray.c
