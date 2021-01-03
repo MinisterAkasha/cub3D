@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 15:15:21 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 21:39:27 by user             ###   ########.fr       */
+/*   Updated: 2021/01/03 23:09:51 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	check_max_size(t_config *config)
 		config->settings.window_width = config->settings.max_width;
 }
 
-size_t	create_hex_from_rgb(int red, int green, int blue)
+unsigned long	create_hex_from_rgb(int red, int green, int blue, int trans)
 {
-	return ((red & 0xff) << 16) + ((green & 0xff) << 8) + (blue & 0xff);
+	return (trans << 24 | red  << 16 | green << 8 | blue);
 }
 
 int		find_color_num(char **str, int *color)
@@ -54,16 +54,14 @@ int		parce_color(t_config *config, char *str)
 		return (0);
 	if (!(find_color_num(&str, &blue)))
 		return (0);
-	// find_color_num(&str, &green);
-	// find_color_num(&str, &blue);
 
 	if (is_floor)
-		config->settings.floor_color = transform_dec_to_hex(create_hex_from_rgb(red, green, blue));
+		config->settings.floor_color = create_hex_from_rgb(red, green, blue, 0);
 	else
-		config->settings.celling_color = create_hex_from_rgb(red, green, blue);
+		config->settings.celling_color = create_hex_from_rgb(red, green, blue, 0);
 	// printf("R: %-5d G: %-5d B: %-5d\n", red, green, blue);
-	// printf("%zu\n", config->settings.floor_color);
-	// printf("%zu\n", config->settings.celling_color);
+	printf("%zu\n", config->settings.floor_color);
+	printf("%zu\n", config->settings.celling_color);
 	return (1);
 }
 

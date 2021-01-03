@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 19:17:27 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 22:13:18 by user             ###   ########.fr       */
+/*   Updated: 2021/01/03 23:10:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,4 @@ void	skip_not_digit(char **str)
 			break ;
 		*str += 1;
 	}
-}
-
-size_t	transform_dec_to_hex(size_t dec)
-{
-	int res = 0;
-	int i;
-
-	i = 0;
-	printf("DEC: %zu\n", dec);
-	while (dec)
-	{
-		res += dec % 16 * pow(i, 16);
-		printf("%x\n", (res));
-		i++;
-		dec /= 16;
-	}
-	return (res);
 }

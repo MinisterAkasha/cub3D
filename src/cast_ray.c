@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 21:31:42 by user             ###   ########.fr       */
+/*   Updated: 2021/01/03 23:10:27 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,9 @@ void	cast_rays(t_config *config, int x)
 	while (y < config->settings.window_height)
 	{
 		if (y > ray->end)
-			my_mlx_pixel_put(&config->data, x, y, 0x0000FF / 5);
+			my_mlx_pixel_put(&config->data, x, y, config->settings.floor_color);
 		else if (y < ray->start)
-			my_mlx_pixel_put(&config->data, x, y, 0x99CCFF / 5);
+			my_mlx_pixel_put(&config->data, x, y, config->settings.celling_color);
 		else if (y >= ray->start && y <= ray->end)
 		{
 			tex_y = (int)tex_pos & (config->img.height[tex_num] - 1);
