@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/04 14:51:35 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/04 18:45:22 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@
 
 typedef struct	s_map
 {
-	int new_line;
-	char **map;
-	char *hero_set;
-	char *space_set;
-	char *inner_set;
-	size_t width;
-	size_t height;
-	int	sprites_num;
-	int	has_hero;
+	int		new_line;
+	char	**map;
+	char	*hero_set;
+	char	*space_set;
+	char	*inner_set;
+	size_t	width;
+	size_t	height;
+	int		sprites_num;
+	int		has_hero;
 }				t_map;
 
 typedef struct s_sprite
@@ -42,14 +42,14 @@ typedef struct s_sprite
 
 typedef struct	s_texture
 {
-	void *img[5];
-	char *addr[5];
-	int bits_per_pixel[5];
-	int line_length[5];
-	int endian[5];
-	int width[5];
-	int height[5];
-	size_t *texture[5];
+	void	*img[5];
+	char	*addr[5];
+	int		bits_per_pixel[5];
+	int		line_length[5];
+	int		endian[5];
+	int		width[5];
+	int		height[5];
+	size_t	*texture[5];
 }				t_texture;
 
 typedef struct	s_hero
@@ -91,26 +91,27 @@ typedef struct	s_win
 
 typedef struct	s_data
 {
-	void *img;
-	char *addr;
-	int bits_per_pixel;
-	int line_length;
-	int endian;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 } 				t_data;
-typedef struct s_settings
+typedef struct s_params
 {
-	int			max_width;
-	double		window_width;
-	int			max_height;
-	double		window_height;
-	char		*north_tex;
-	char		*south_tex;
-	char		*west_tex;
-	char		*east_tex;
-	char		*spraite_tex;
+	int					max_width;
+	int					max_height;
+	double				window_width;
+	double				window_height;
+	char				*north_tex;
+	char				*south_tex;
+	char				*west_tex;
+	char				*east_tex;
+	char				*spraite_tex;
 	unsigned long		floor_color;
 	unsigned long		celling_color;
-}				t_settings;
+	int					has_param[9];
+}				t_params;
 
 typedef struct s_config_struct
 {
@@ -123,7 +124,7 @@ typedef struct s_config_struct
 	t_sprite		*sprite;
 	t_list			*head_map;
 	t_list			*head_param;
-	t_settings		settings;
+	t_params		settings;
 } 				t_config;
 
 int		parce_map(t_config *config);

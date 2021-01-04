@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 15:15:21 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/04 18:27:02 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/04 18:49:48 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,19 +169,29 @@ int		parce_color(t_config *config, char *str)
 	if (!(find_color_num(&str, &blue)))
 		return (0);
 	if (is_floor)
+	{
+		config->settings.has_param[5] = 1;
 		config->settings.floor_color = create_hex_from_rgb(red, green, blue, 0);
+	}
 	else
+	{
+		config->settings.has_param[6] = 1;
 		config->settings.celling_color = create_hex_from_rgb(red, green, blue, 0);
+	}
 	return (1);
 }
 
 int		parce_window_param(t_config *config, char *str)
 {
+	if (get_numbers_num(str) != 2)
+		return (0);
 	skip_not_number(&str);
 	config->settings.window_width = ft_atoi(str);
+	config->settings.has_param[7] = 1;
 	skip_number(&str);
 	skip_not_number(&str);
 	config->settings.window_height = ft_atoi(str);
+	config->settings.has_param[8] = 1;
 	if (!config->settings.window_height || !config->settings.window_width
 	|| config->settings.window_height < 0 || config->settings.window_width < 0)
 		return (0);
@@ -194,15 +204,30 @@ int		parce_tex(t_config *config, char *str)
 	char	**tex;
 
 	if ((*str == 'N' && *(str + 1) == 'O'))
+	{
+		config->settings.has_param[0] = 1;
 		tex = &config->settings.north_tex;
+	}
 	else if ((*str == 'S' && *(str + 1) == 'O'))
+	{
+		config->settings.has_param[1] = 1;
 		tex = &config->settings.south_tex;
+	}
 	else if ((*str == 'W' && *(str + 1) == 'E'))
+	{
+		config->settings.has_param[2] = 1;
 		tex = &config->settings.west_tex;
+	}
 	else if ((*str == 'E' && *(str + 1) == 'A'))
+	{
+		config->settings.has_param[3] = 1;
 		tex = &config->settings.east_tex;
+	}
 	else
+	{
+		config->settings.has_param[4] = 1;
 		tex = &config->settings.spraite_tex;
+	}
 	while (*str != ' ')
 		str++;
 	str += skip_spaces(str);
@@ -242,6 +267,20 @@ int		find_correct_param_and_parce(char *str, t_config *config)
 	return (1);
 }
 
+int		check_all_params(t_config *config)
+{
+	int i;
+
+	i = 0;
+	while (i < 9)
+	{
+		if (!(config->settings.has_param[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int		parce_param(t_config *config)
 {
 	t_list	*tmp;
@@ -255,6 +294,11 @@ int		parce_param(t_config *config)
 		if (!(find_correct_param_and_parce(str, config)))
 			return (0);
 		tmp = tmp->next;
+	}
+	if (!(check_all_params(config)))
+	{
+		write(1, "Not enough parameters\n", 23); //TODO error message
+		return (0);
 	}
 	return (1);
 }

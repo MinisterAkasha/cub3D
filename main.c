@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/04 14:59:11 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/04 18:34:46 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ int main(int argc, char *argv[])
 
 	run_window(config);
 	
-	// free(config->sprite);
-	// free(config);
+	free(config->sprite);
+	free(config);
 	//! Free LIST
 	return (0);
 }
