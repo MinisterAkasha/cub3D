@@ -6,11 +6,16 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 15:15:21 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/04 17:23:16 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/04 18:27:02 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+unsigned long	create_hex_from_rgb(int red, int green, int blue, int trans)
+{
+	return (trans << 24 | red  << 16 | green << 8 | blue);
+}
 
 void	check_max_size(t_config *config)
 {
@@ -80,40 +85,54 @@ int		get_commas_num(char *str)
 	return (commas);
 }
 
-int 	check_correct_color_comma(char *str)
+int		get_numbers_num(char *str)
+{
+	int numbers;
+	int	i;
+
+	numbers = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]))
+		{
+			numbers++;
+			while (str[i] && ft_isdigit(str[i]))
+				i++;
+		}
+		i++;
+	}
+	return (numbers);
+}
+
+int 	validate_color_params(char *str)
 {
 	int		commas;
+	int		numbers;
 	char	*minimized_str;
 	int		i;
 
+	numbers = get_numbers_num(str);
 	commas = get_commas_num(str);
 	minimized_str = make_minimized_str(minimized_str, str + 1);
 	i = 0;
-	// printf("STR: %s\n", minimized_str);
 	while(minimized_str[i])
 	{
 		if (minimized_str[i] == ',')
 		{
-			// printf("CHAR - 1: %c\n", minimized_str[i - 1]);
-			// printf("CHAR: %c\n", minimized_str[i]);
-			// printf("CHAR + 1: %c\n", minimized_str[i + 1]);
 			if (!(ft_isdigit(minimized_str[i - 1])) || !(ft_isdigit(minimized_str[i + 1])))
 				return (0);
 		}
 		i++;
 	}
-
-
+	if (numbers != 3)
+		return (0);
 	if (commas != 2)
 		return (0);
 	free(minimized_str);
 	return (1);
 }
 
-unsigned long	create_hex_from_rgb(int red, int green, int blue, int trans)
-{
-	return (trans << 24 | red  << 16 | green << 8 | blue);
-}
 
 int		find_color_num(char **str, int *color)
 {
@@ -137,7 +156,7 @@ int		parce_color(t_config *config, char *str)
 	int	blue;
 	int	is_floor;
 
-	if (!(check_correct_color_comma(str)))
+	if (!(validate_color_params(str)))
 		return (0);
 	if (*str == 'F')
 		is_floor = 1;
