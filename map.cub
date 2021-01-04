@@ -4,7 +4,7 @@ SO ./pics/hexagone.xpm
 WE ./pics/redbrick.xpm
 EA ./pics/wood.xpm
 S ./pics/barrel.xpm
-F 100, 2,    3
+F 100,2                            3,     2
 C 150,50,20       
          11111111111111111111111
         1000000000110000000000001

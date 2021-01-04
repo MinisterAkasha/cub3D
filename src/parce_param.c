@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 15:15:21 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/04 17:00:48 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/04 17:23:16 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,26 @@ int 	check_correct_color_comma(char *str)
 {
 	int		commas;
 	char	*minimized_str;
+	int		i;
 
 	commas = get_commas_num(str);
 	minimized_str = make_minimized_str(minimized_str, str + 1);
+	i = 0;
+	// printf("STR: %s\n", minimized_str);
+	while(minimized_str[i])
+	{
+		if (minimized_str[i] == ',')
+		{
+			// printf("CHAR - 1: %c\n", minimized_str[i - 1]);
+			// printf("CHAR: %c\n", minimized_str[i]);
+			// printf("CHAR + 1: %c\n", minimized_str[i + 1]);
+			if (!(ft_isdigit(minimized_str[i - 1])) || !(ft_isdigit(minimized_str[i + 1])))
+				return (0);
+		}
+		i++;
+	}
+
+
 	if (commas != 2)
 		return (0);
 	free(minimized_str);
