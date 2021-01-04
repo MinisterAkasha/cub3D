@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 15:15:21 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/04 16:52:30 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/04 17:00:48 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,17 @@ int		get_spases_num(char *str)
 	return (spaces_len);
 }
 
-void	make_minimized_str(char *mini_str, char *str, int len)
+char	*make_minimized_str(char *mini_str, char *str)
 {
 	int i;
 	int j;
+	int	minimized_str_len;
 
 	i = 0;
 	j = 0;
-	mini_str[len] = 0;
+	minimized_str_len = ft_strlen(str + 1) - get_spases_num(str + 1);
+	mini_str = (char *)malloc(sizeof(char) * (minimized_str_len + 1));
+	mini_str[minimized_str_len] = 0;
 	while (str[j])
 	{
 		if (str[j] != ' ')
@@ -60,6 +63,7 @@ void	make_minimized_str(char *mini_str, char *str, int len)
 		}
 		j++;
 	}
+	return (mini_str);
 }
 
 int		get_commas_num(char *str)
@@ -80,13 +84,9 @@ int 	check_correct_color_comma(char *str)
 {
 	int		commas;
 	char	*minimized_str;
-	int		minimized_str_len;
 
 	commas = get_commas_num(str);
-	minimized_str_len = ft_strlen(str + 1) - get_spases_num(str + 1);
-	minimized_str = (char *)malloc(sizeof(char) * (minimized_str_len + 1));
-	make_minimized_str(minimized_str, str + 1, minimized_str_len);
-	
+	minimized_str = make_minimized_str(minimized_str, str + 1);
 	if (commas != 2)
 		return (0);
 	free(minimized_str);
