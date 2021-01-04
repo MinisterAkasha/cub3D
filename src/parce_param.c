@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parce_param.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 15:15:21 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 23:09:51 by user             ###   ########.fr       */
+/*   Updated: 2021/01/04 16:52:30 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
 void	check_max_size(t_config *config)
 {
 	mlx_get_screen_size(config->win.mlx, &config->settings.max_width,
@@ -21,6 +22,77 @@ void	check_max_size(t_config *config)
 		config->settings.window_width = config->settings.max_width;
 }
 
+int		check_color_value(int *color)
+{
+	if (*color > 255 || *color < 0)
+		return (0);
+	return (1);
+}
+
+int		get_spases_num(char *str)
+{
+	int spaces_len;
+
+	spaces_len = 0;
+	while (*str)
+	{
+		if (*str == ' ')
+			spaces_len++;
+		str++;
+	}
+	return (spaces_len);
+}
+
+void	make_minimized_str(char *mini_str, char *str, int len)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	mini_str[len] = 0;
+	while (str[j])
+	{
+		if (str[j] != ' ')
+		{
+			mini_str[i] = str[j];
+			i++;
+		}
+		j++;
+	}
+}
+
+int		get_commas_num(char *str)
+{
+	int commas;
+
+	commas = 0;
+	while (*str)
+	{
+		if (*str == ',')
+			commas++;
+		str++;
+	}
+	return (commas);
+}
+
+int 	check_correct_color_comma(char *str)
+{
+	int		commas;
+	char	*minimized_str;
+	int		minimized_str_len;
+
+	commas = get_commas_num(str);
+	minimized_str_len = ft_strlen(str + 1) - get_spases_num(str + 1);
+	minimized_str = (char *)malloc(sizeof(char) * (minimized_str_len + 1));
+	make_minimized_str(minimized_str, str + 1, minimized_str_len);
+	
+	if (commas != 2)
+		return (0);
+	free(minimized_str);
+	return (1);
+}
+
 unsigned long	create_hex_from_rgb(int red, int green, int blue, int trans)
 {
 	return (trans << 24 | red  << 16 | green << 8 | blue);
@@ -28,12 +100,16 @@ unsigned long	create_hex_from_rgb(int red, int green, int blue, int trans)
 
 int		find_color_num(char **str, int *color)
 {
-	skip_not_digit(str);
-	if (ft_isdigit(**str))
+	skip_not_number(str);
+	if (ft_isdigit(**str) || **str == '-')
+	{
 		*color = ft_atoi(*str);
-	else if (**str == '\n')
+		if (!(check_color_value(color)))
+			return (0);
+	}
+	else if (**str == 0)
 		return (0);
-	skip_digit(str);
+	skip_number(str);
 	return (1);
 }
 
@@ -44,6 +120,8 @@ int		parce_color(t_config *config, char *str)
 	int	blue;
 	int	is_floor;
 
+	if (!(check_correct_color_comma(str)))
+		return (0);
 	if (*str == 'F')
 		is_floor = 1;
 	else
@@ -54,23 +132,19 @@ int		parce_color(t_config *config, char *str)
 		return (0);
 	if (!(find_color_num(&str, &blue)))
 		return (0);
-
 	if (is_floor)
 		config->settings.floor_color = create_hex_from_rgb(red, green, blue, 0);
 	else
 		config->settings.celling_color = create_hex_from_rgb(red, green, blue, 0);
-	// printf("R: %-5d G: %-5d B: %-5d\n", red, green, blue);
-	printf("%zu\n", config->settings.floor_color);
-	printf("%zu\n", config->settings.celling_color);
 	return (1);
 }
 
 int		parce_window_param(t_config *config, char *str)
 {
-	skip_not_digit(&str);
+	skip_not_number(&str);
 	config->settings.window_width = ft_atoi(str);
-	skip_digit(&str);
-	skip_not_digit(&str);
+	skip_number(&str);
+	skip_not_number(&str);
 	config->settings.window_height = ft_atoi(str);
 	if (!config->settings.window_height || !config->settings.window_width
 	|| config->settings.window_height < 0 || config->settings.window_width < 0)
@@ -136,14 +210,12 @@ int		parce_param(t_config *config)
 {
 	t_list	*tmp;
 	char	*str;
-	int		i;
 
 	tmp = config->head_param;
 	while (tmp)
 	{
 		str = tmp->content;
-		i = skip_spaces(str);
-		str += i;
+		str += skip_spaces(str);
 		if (!(find_correct_param_and_parce(str, config)))
 			return (0);
 		tmp = tmp->next;

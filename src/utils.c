@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 19:17:27 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 23:10:44 by user             ###   ########.fr       */
+/*   Updated: 2021/01/04 14:51:35 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,14 @@ int		skip_spaces(char *str)
 	return (i);
 }
 
-void	skip_digit(char **str)
+void	skip_number(char **str)
 {
-	while (ft_isdigit(**str))
+	while (ft_isdigit(**str) || **str == '-')
 		*str += 1;
 }
 
-void	skip_not_digit(char **str)
+void	skip_not_number(char **str)
 {
-	while (!(ft_isdigit(**str)))
-	{
-		if (**str == '\n')
-			break ;
+	while (!(ft_isdigit(**str)) && **str && **str != '-')
 		*str += 1;
-	}
 }

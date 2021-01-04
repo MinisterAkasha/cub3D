@@ -24,7 +24,10 @@ int		parce_map(t_config *config)
 		while (config->map.map[y][x])
 		{
 			if (!ft_validate_map(config, y, x))
+			{
+				write(1, "Not valid map", 14); //TODO add error and exit programm
 				return (0);
+			}
 			x++;
 		}
 		y++;

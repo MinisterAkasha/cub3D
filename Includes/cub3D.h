@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 23:10:51 by user             ###   ########.fr       */
+/*   Updated: 2021/01/04 14:51:35 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ typedef struct	s_data
 typedef struct s_settings
 {
 	int			max_width;
-	int			window_width;
+	double		window_width;
 	int			max_height;
-	int			window_height;
+	double		window_height;
 	char		*north_tex;
 	char		*south_tex;
 	char		*west_tex;
@@ -172,8 +172,8 @@ void	run_window(t_config *config);
 
 void 	ft_find_width(char *str, t_config *config);
 int		skip_spaces(char *str);
-void	skip_digit(char **str);
-void	skip_not_digit(char **str);
+void	skip_number(char **str);
+void	skip_not_number(char **str);
 
 /*
 **	cast_ray.c
@@ -194,7 +194,7 @@ char	*get_texture_path(int index, t_config *config);
 void	init_map_objects(t_config *config);
 void	get_hero_dir(t_config *config, int y, int x);
 void	init_sprites(t_config *config);
-void	sprite_cast(t_config *config, double z_buffer[config->settings.window_width]);
+void	sprite_cast(t_config *config, double z_buffer[(int)config->settings.window_width]);
 
 
 int		partition(double *arr, int left, int right, double *order);
