@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/04 18:45:22 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/06 14:18:10 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <math.h>
 
 #include "stdio.h" //!DEL
+#include <errno.h> //! DEL???
 
 typedef struct	s_map
 {
@@ -97,6 +98,12 @@ typedef struct	s_data
 	int		line_length;
 	int		endian;
 } 				t_data;
+
+typedef struct	s_error
+{
+	char	*error_arr[8];
+} 				t_error;
+
 typedef struct s_params
 {
 	int					max_width;
@@ -125,6 +132,7 @@ typedef struct s_config_struct
 	t_list			*head_map;
 	t_list			*head_param;
 	t_params		settings;
+	t_error			error;
 } 				t_config;
 
 int		parce_map(t_config *config);
@@ -166,6 +174,7 @@ int		rotate_hero(int keycode, t_config *config);
 */
 void	init_image(t_config *config);
 void	run_window(t_config *config);
+void	init_error_arr(t_config *config);
 
 /*
 **	utilc.c
@@ -201,4 +210,10 @@ void	sprite_cast(t_config *config, double z_buffer[(int)config->settings.window_
 int		partition(double *arr, int left, int right, double *order);
 void	swap_elems(double *elem_1, double *elem_2);
 void 	sort_sprites(double distanse[], int left, int right, double *order);
+
+/*
+** exit_cub
+*/
+
+void	exit_cub(int error_code, t_config *config);
 #endif

@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 15:15:21 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/04 18:49:48 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/06 15:04:09 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int		get_numbers_num(char *str)
 	return (numbers);
 }
 
-int 	validate_color_params(char *str)
+void 	validate_color_params(char *str, t_config *config)
 {
 	int		commas;
 	int		numbers;
@@ -121,16 +121,13 @@ int 	validate_color_params(char *str)
 		if (minimized_str[i] == ',')
 		{
 			if (!(ft_isdigit(minimized_str[i - 1])) || !(ft_isdigit(minimized_str[i + 1])))
-				return (0);
+				exit_cub(7, config);
 		}
 		i++;
 	}
-	if (numbers != 3)
-		return (0);
-	if (commas != 2)
-		return (0);
+	if (commas != 2 || numbers != 3)
+		exit_cub(7, config);
 	free(minimized_str);
-	return (1);
 }
 
 
@@ -143,8 +140,6 @@ int		find_color_num(char **str, int *color)
 		if (!(check_color_value(color)))
 			return (0);
 	}
-	else if (**str == 0)
-		return (0);
 	skip_number(str);
 	return (1);
 }
@@ -156,8 +151,8 @@ int		parce_color(t_config *config, char *str)
 	int	blue;
 	int	is_floor;
 
-	if (!(validate_color_params(str)))
-		return (0);
+	validate_color_params(str, config);
+
 	if (*str == 'F')
 		is_floor = 1;
 	else
@@ -184,7 +179,7 @@ int		parce_color(t_config *config, char *str)
 int		parce_window_param(t_config *config, char *str)
 {
 	if (get_numbers_num(str) != 2)
-		return (0);
+		exit_cub(5, config);
 	skip_not_number(&str);
 	config->settings.window_width = ft_atoi(str);
 	config->settings.has_param[7] = 1;
@@ -194,7 +189,7 @@ int		parce_window_param(t_config *config, char *str)
 	config->settings.has_param[8] = 1;
 	if (!config->settings.window_height || !config->settings.window_width
 	|| config->settings.window_height < 0 || config->settings.window_width < 0)
-		return (0);
+		exit_cub(5, config);
 	check_max_size(config);
 	return (1);
 }
@@ -238,32 +233,15 @@ int		parce_tex(t_config *config, char *str)
 int		find_correct_param_and_parce(char *str, t_config *config)
 {
 	if (*str == 'R')
-	{
-		if (!(parce_window_param(config, ++str)))
-		{
-			write(1, "Not valid parametr for window size\n", 36); //TODO error message
-			return (0);
-		}
-	}
+		parce_window_param(config, ++str);
 	else if ((*str == 'N' && *(str + 1) == 'O')
 			|| (*str == 'S')
 			|| (*str == 'W' && *(str + 1) == 'E')
 			|| (*str == 'E' && *(str + 1) == 'A'))
-	{
-		if (!(parce_tex(config, str)))
-		{
-			write(1, "Not valid parametr for texture\n", 38); //TODO error message
-			return (0);
-		}
-	}
+		parce_tex(config, str);
 	else if (*str == 'F' || *str == 'C')
-	{
-		if (!(parce_color(config, str)))
-		{
-			write(1, "Not valid parametr for floor/celling color\n", 44); //TODO error message
-			return (0);
-		}
-	}
+		parce_color(config, str);
+			// exit_cub(EINVAL, "Not valid parametr for floor/celling color");
 	return (1);
 }
 
@@ -295,10 +273,7 @@ int		parce_param(t_config *config)
 			return (0);
 		tmp = tmp->next;
 	}
-	if (!(check_all_params(config)))
-	{
-		write(1, "Not enough parameters\n", 23); //TODO error message
-		return (0);
-	}
+	if (!(check_all_params(config))) {}
+		// exit_cub(EINVAL, "Not enough parameters");
 	return (1);
 }

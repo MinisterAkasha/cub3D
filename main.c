@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/04 18:34:46 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/06 14:29:59 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
-
 
 void	render(t_config *config)
 {
@@ -43,12 +42,14 @@ void	render(t_config *config)
 	free_texture(config);
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
 }
+
 void	ft_get_camera_coordinate(t_config *config, int x)
 {
 	config->hero.cameraX = 2 * (x / (double)config->settings.window_width) - 1;
 	config->ray.ray_dir_y = config->hero.dir_y + config->hero.plane_y * config->hero.cameraX;
 	config->ray.ray_dir_x = config->hero.dir_x + config->hero.plane_x * config->hero.cameraX;
 }
+
 void	free_texture(t_config *config)
 {
 	int i;
@@ -60,6 +61,15 @@ void	free_texture(t_config *config)
 		i++;
 	}
 }
+
+void	check_arguments_number(int argc, t_config *config)
+{
+	if (argc > 2)
+		exit_cub(0, config);
+	else if (argc < 2)
+		exit_cub(1, config);
+}
+
 int main(int argc, char *argv[])
 {
 	int			fd;
@@ -67,21 +77,14 @@ int main(int argc, char *argv[])
 	t_config	*config;
 	int			i;
 
-
-	if (argc != 2)
-	{
-		write(1, "Passed too many arguments\n", 27);
-		return (-1);//TODO return error message
-	}
-
-	map_line = NULL;
-
-	fd = open(argv[1], O_RDONLY);
-
 	if (!(config = (t_config *)malloc(sizeof(t_config))))
-		return (-1);//TODO return error message
+		exit_cub(10, config);
+	map_line = NULL;
+	init_error_arr(config);
+	check_arguments_number(argc, config);
+	if ((fd = open(argv[1], O_RDONLY)) == -1)
+		exit_cub(11, config);
 
-	// config->head_map = NULL;
 	config->map.width = 0;
 	config->map.new_line = 0;
 	while(get_next_line(fd, &map_line))
@@ -89,7 +92,7 @@ int main(int argc, char *argv[])
 		i = skip_spaces(map_line);
 		if (map_line[i] == '1')
 		{
-			ft_find_width(map_line,config);
+			ft_find_width(map_line, config);
 			if (!*map_line)
 				config->map.new_line++;
 			ft_lstadd_back(&config->head_map, ft_lstnew(map_line));
@@ -97,11 +100,10 @@ int main(int argc, char *argv[])
 		else
 			ft_lstadd_back(&config->head_param, ft_lstnew(map_line));
 	}
-	ft_find_width(map_line,config);
+	ft_find_width(map_line, config);
 	ft_lstadd_back(&config->head_map, ft_lstnew(map_line));
-	
-	close(fd);
 
+	close(fd);
 	init_struct(config);
 
 	run_window(config);
