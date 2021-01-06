@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 15:58:16 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/06 16:01:47 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,4 +239,17 @@ int				find_color_num(char **str, int *color);
 void 			validate_color_params(char *str, t_config *config);
 char			*make_minimized_str(char *mini_str, char *str);
 int				parce_color(t_config *config, char *str);
+
+/*
+** parce_window
+*/
+
+void	check_max_size(t_config *config);
+int		parce_window_param(t_config *config, char *str);
+
+/*
+** parce_window
+*/
+
+void	parce_tex(t_config *config, char *str);
 #endif
