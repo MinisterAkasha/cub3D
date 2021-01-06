@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:53:49 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 15:56:08 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/06 17:04:51 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,38 +18,13 @@ void	check_color_value(int color, t_config *config)
 		exit_cub(7, config);
 }
 
-int		find_color_num(char **str, int *color)
+int		find_color_value(char **str, int *color)
 {
 	skip_not_number(str);
 	if (ft_isdigit(**str) || **str == '-')
 		*color = ft_atoi(*str);
 	skip_number(str);
 	return (1);
-}
-
-void 	validate_color_params(char *str, t_config *config)
-{
-	int		commas;
-	int		numbers;
-	char	*minimized_str;
-	int		i;
-
-	numbers = get_numbers_num(str);
-	commas = get_commas_num(str);
-	minimized_str = make_minimized_str(minimized_str, str + 1);
-	i = 0;
-	while(minimized_str[i])
-	{
-		if (minimized_str[i] == ',')
-		{
-			if (!(ft_isdigit(minimized_str[i - 1])) || !(ft_isdigit(minimized_str[i + 1])))
-				exit_cub(7, config);
-		}
-		i++;
-	}
-	if (commas != 2 || numbers != 3)
-		exit_cub(7, config);
-	free(minimized_str);
 }
 
 char	*make_minimized_str(char *mini_str, char *str)
@@ -75,33 +50,60 @@ char	*make_minimized_str(char *mini_str, char *str)
 	return (mini_str);
 }
 
-int		parce_color(t_config *config, char *str)
+void	validate_color_params(char *str, t_config *config)
+{
+	int		commas;
+	int		numbers;
+	char	*minimized_str;
+	int		i;
+
+	numbers = get_numbers_num(str);
+	commas = get_commas_num(str);
+	minimized_str = make_minimized_str(minimized_str, str + 1);
+	i = 0;
+	while (minimized_str[i])
+	{
+		if (minimized_str[i] == ',')
+		{
+			if (!(ft_isdigit(minimized_str[i - 1]))
+				|| !(ft_isdigit(minimized_str[i + 1])))
+				exit_cub(7, config);
+		}
+		i++;
+	}
+	if (commas != 2 || numbers != 3)
+		exit_cub(7, config);
+	free(minimized_str); //TODO проверить лик
+}
+
+void	fill_and_check_rgb(t_config *config, int rgb[3], char *str)
 {
 	int i;
-	int	rgb_color[3];
-	int	is_floor;
 
-	validate_color_params(str, config);
-	if (*str == 'F')
-		is_floor = 1;
-	else
-		is_floor = 0;
 	i = 0;
 	while (i < 3)
 	{
-		find_color_num(&str, &rgb_color[i]);
-		check_color_value(rgb_color[i], config);
+		find_color_value(&str, &rgb[i]);
+		check_color_value(rgb[i], config);
 		i++;
 	}
-	if (is_floor)
+}
+
+void	parce_color(t_config *config, char *str)
+{
+	int i;
+	int	rgb[3];
+
+	validate_color_params(str, config);
+	fill_and_check_rgb(config, rgb, str);
+	if (*str == 'F')
 	{
 		config->settings.has_param[5] = 1;
-		config->settings.floor_color = create_hex_from_rgb(rgb_color[0], rgb_color[1], rgb_color[2]);
+		config->settings.floor_color = create_hex_from_rgb(rgb[0], rgb[1], rgb[2]);
 	}
 	else
 	{
 		config->settings.has_param[6] = 1;
-		config->settings.celling_color = create_hex_from_rgb(rgb_color[0], rgb_color[1], rgb_color[2]);
+		config->settings.celling_color = create_hex_from_rgb(rgb[0], rgb[1], rgb[2]);
 	}
-	return (1);
 }

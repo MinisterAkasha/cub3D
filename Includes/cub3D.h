@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 16:01:47 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/06 17:01:32 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,18 +106,18 @@ typedef struct	s_error
 
 typedef struct s_params
 {
-	int					max_width;
-	int					max_height;
-	double				window_width;
-	double				window_height;
-	char				*north_tex;
-	char				*south_tex;
-	char				*west_tex;
-	char				*east_tex;
-	char				*spraite_tex;
-	unsigned long		floor_color;
-	unsigned long		celling_color;
-	int					has_param[9];
+	int		max_width;
+	int		max_height;
+	double	window_width;
+	double	window_height;
+	char	*north_tex;
+	char	*south_tex;
+	char	*west_tex;
+	char	*east_tex;
+	char	*spraite_tex;
+	int		floor_color;
+	int		celling_color;
+	int		has_param[9];
 }				t_params;
 
 typedef struct s_config_struct
@@ -235,10 +235,10 @@ void			skip_not_number(char **str);
 */
 
 void			check_color_value(int color, t_config *config);
-int				find_color_num(char **str, int *color);
+int				find_color_value(char **str, int *color);
 void 			validate_color_params(char *str, t_config *config);
 char			*make_minimized_str(char *mini_str, char *str);
-int				parce_color(t_config *config, char *str);
+void			parce_color(t_config *config, char *str);
 
 /*
 ** parce_window
