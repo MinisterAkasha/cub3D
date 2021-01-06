@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:30:40 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 14:59:26 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/06 15:47:35 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_error_arr(t_config *config)
 	config->error.error_arr[5] = "Not valid parametr for window size";
 	config->error.error_arr[6] = "Not valid parametr for texture";
 	config->error.error_arr[7] = "Not valid parametr for floor/celling color";
+	config->error.error_arr[8] = "Not not enough parametrs";
 }
 
 int		close_win(int keycode, t_config *config)

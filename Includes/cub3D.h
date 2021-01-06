@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 14:18:10 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/06 15:58:16 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct	s_data
 
 typedef struct	s_error
 {
-	char	*error_arr[8];
+	char	*error_arr[9];
 } 				t_error;
 
 typedef struct s_params
@@ -135,85 +135,108 @@ typedef struct s_config_struct
 	t_error			error;
 } 				t_config;
 
-int		parce_map(t_config *config);
-void	init_struct(t_config *config);
-void	ft_get_camera_coordinate(t_config *config, int x);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int				parce_map(t_config *config);
+void			init_struct(t_config *config);
+void			ft_get_camera_coordinate(t_config *config, int x);
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
-char	**fill_map(t_config *config, int size);
-void	put_pixel_scale(int x, int y, t_config *config);
-void	render(t_config *config);
-void	free_texture(t_config *config);
+char			**fill_map(t_config *config, int size);
+void			put_pixel_scale(int x, int y, t_config *config);
+void			render(t_config *config);
+void			free_texture(t_config *config);
 
 /*
 ** parce_param
 */
 
-int		parce_param(t_config *config);
-int		parce_window_param(t_config *config, char *str);
+int				parce_param(t_config *config);
+int				parce_window_param(t_config *config, char *str);
 
 /*
 ** validation
 */
 
-int		ft_check_inner_elem(t_config *config, int y, int x);
-int		ft_check_unit(t_config *config, int y, int x);
-int		ft_check_border(t_config *config, int y, int x);
-int		ft_validate_map(t_config *config, int y, int x);
+int				ft_check_inner_elem(t_config *config, int y, int x);
+int				ft_check_unit(t_config *config, int y, int x);
+int				ft_check_border(t_config *config, int y, int x);
+int				ft_validate_map(t_config *config, int y, int x);
 
 /*
 ** move_hero
 */
 
-int		move_hero(int keycode, t_config *config);
-int		button(int key);
-int		rotate_hero(int keycode, t_config *config);
+int				move_hero(int keycode, t_config *config);
+int				button(int key);
+int				rotate_hero(int keycode, t_config *config);
 
 /*
 ** init_struct.c
 */
-void	init_image(t_config *config);
-void	run_window(t_config *config);
-void	init_error_arr(t_config *config);
 
-/*
-**	utilc.c
-*/
-
-void 	ft_find_width(char *str, t_config *config);
-int		skip_spaces(char *str);
-void	skip_number(char **str);
-void	skip_not_number(char **str);
+void			init_image(t_config *config);
+void			run_window(t_config *config);
+void			init_error_arr(t_config *config);
 
 /*
 **	cast_ray.c
 */
-void 	cast_rays(t_config *config, int x);
-int 	get_texture_number(t_config *config, int y, int x, int side);
+
+void 			cast_rays(t_config *config, int x);
+int 			get_texture_number(t_config *config, int y, int x, int side);
 
 /*
 **	load_img.c
 */
-void	load_img(t_config *config);
-void	make_texture(t_config *config, int index);
-char	*get_texture_path(int index, t_config *config);
+
+void			load_img(t_config *config);
+void			make_texture(t_config *config, int index);
+char			*get_texture_path(int index, t_config *config);
 
 /*
 ** sprites.c
 */
-void	init_map_objects(t_config *config);
-void	get_hero_dir(t_config *config, int y, int x);
-void	init_sprites(t_config *config);
-void	sprite_cast(t_config *config, double z_buffer[(int)config->settings.window_width]);
+
+void			init_map_objects(t_config *config);
+void			get_hero_dir(t_config *config, int y, int x);
+void			init_sprites(t_config *config);
+void			sprite_cast(t_config *config, double z_buffer[(int)config->settings.window_width]);
 
 
-int		partition(double *arr, int left, int right, double *order);
-void	swap_elems(double *elem_1, double *elem_2);
-void 	sort_sprites(double distanse[], int left, int right, double *order);
+int				partition(double *arr, int left, int right, double *order);
+void			swap_elems(double *elem_1, double *elem_2);
+void 			sort_sprites(double distanse[], int left, int right, double *order);
 
 /*
 ** exit_cub
 */
 
-void	exit_cub(int error_code, t_config *config);
+void			exit_cub(int error_code, t_config *config);
+
+/*
+** support
+*/
+
+int				get_spases_num(char *str);
+int				get_numbers_num(char *str);
+unsigned long	create_hex_from_rgb(int red, int green, int blue);
+int				get_commas_num(char *str);
+
+/*
+**	utilc.c
+*/
+
+void 			ft_find_width(char *str, t_config *config);
+int				skip_spaces(char *str);
+void			skip_number(char **str);
+void			skip_not_number(char **str);
+
+/*
+** parce_color
+*/
+
+void			check_color_value(int color, t_config *config);
+int				find_color_num(char **str, int *color);
+void 			validate_color_params(char *str, t_config *config);
+char			*make_minimized_str(char *mini_str, char *str);
+int				parce_color(t_config *config, char *str);
 #endif
