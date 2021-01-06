@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:53:49 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 17:04:51 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/06 17:19:36 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,15 @@
 void	check_color_value(int color, t_config *config)
 {
 	if (color > 255 || color < 0)
-		exit_cub(7, config);
+		exit_cub(8, config);
 }
 
-int		find_color_value(char **str, int *color)
+void	find_color_value(char **str, int *color)
 {
 	skip_not_number(str);
 	if (ft_isdigit(**str) || **str == '-')
 		*color = ft_atoi(*str);
 	skip_number(str);
-	return (1);
 }
 
 char	*make_minimized_str(char *mini_str, char *str)
@@ -71,8 +70,10 @@ void	validate_color_params(char *str, t_config *config)
 		}
 		i++;
 	}
-	if (commas != 2 || numbers != 3)
+	if (commas != 2)
 		exit_cub(7, config);
+	if (numbers != 3)
+		exit_cub(10, config);
 	free(minimized_str); //TODO проверить лик
 }
 
@@ -99,11 +100,11 @@ void	parce_color(t_config *config, char *str)
 	if (*str == 'F')
 	{
 		config->settings.has_param[5] = 1;
-		config->settings.floor_color = create_hex_from_rgb(rgb[0], rgb[1], rgb[2]);
+		config->settings.floor_color = translat_to_hex(rgb[0], rgb[1], rgb[2]);
 	}
 	else
 	{
 		config->settings.has_param[6] = 1;
-		config->settings.celling_color = create_hex_from_rgb(rgb[0], rgb[1], rgb[2]);
+		config->settings.celling_color = translat_to_hex(rgb[0], rgb[1], rgb[2]);
 	}
 }

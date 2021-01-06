@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 12:54:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 14:51:08 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/06 18:22:40 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_check_border(t_config *config, int y, int x)
 int	ft_validate_map(t_config *config, int y, int x)
 {
 	if (config->map.new_line >= 1)
-		return (0);
+		exit_cub(4, config);
 	if (y == 0 || y == (int)(config->map.height - 1) ||
 	x == (int)(config->map.width - 1) || x == 0)
 		ft_check_border(config, y, x);

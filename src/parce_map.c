@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-int		parce_map(t_config *config)
+void	parce_map(t_config *config)
 {
 	int		y;
 	int		x;
@@ -23,14 +23,9 @@ int		parce_map(t_config *config)
 		x = 0;
 		while (config->map.map[y][x])
 		{
-			if (!ft_validate_map(config, y, x))
-			{
-				write(1, "Not valid map", 14); //TODO add error and exit programm
-				return (0);
-			}
+			ft_validate_map(config, y, x);
 			x++;
 		}
 		y++;
 	}
-	return (1);
 }

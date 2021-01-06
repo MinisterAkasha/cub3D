@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:30:40 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 15:47:35 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/06 18:34:53 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,18 @@ void	init_struct(t_config *config)
 
 void	init_error_arr(t_config *config)
 {
-	config->error.error_arr[0] = "Passed too many arguments";
-	config->error.error_arr[1] = "Passed not enough arguments";
-	config->error.error_arr[2] = "Too many heros on the map";
-	config->error.error_arr[3] = "Missing hero on the map";
-	config->error.error_arr[4] = "Not valid map";
-	config->error.error_arr[5] = "Not valid parametr for window size";
-	config->error.error_arr[6] = "Not valid parametr for texture";
-	config->error.error_arr[7] = "Not valid parametr for floor/celling color";
-	config->error.error_arr[8] = "Not not enough parametrs";
+	config->error.error_arr[0] = "Passed too many arguments\n";
+	config->error.error_arr[1] = "Passed not enough arguments\n";
+	config->error.error_arr[2] = "Too many heros on the map\n";
+	config->error.error_arr[3] = "Missing hero on the map\n";
+	config->error.error_arr[4] = "Not valid map\n";
+	config->error.error_arr[5] = "Not valid parametr for window size\n";
+	config->error.error_arr[6] = "Not valid parametr for texture\n";
+	config->error.error_arr[7] = "Not valid parametr for floor/celling color\n";
+	config->error.error_arr[8] = "The color value must be in the range from 0 to 255\n";
+	config->error.error_arr[9] = "Not not enough parametrs\n";
+	config->error.error_arr[10] = "RGB must contains only 3 parameters\n";
+	config->error.error_arr[11] = "Invalid file name\n";
 }
 
 int		close_win(int keycode, t_config *config)
@@ -53,10 +56,8 @@ int		close_win(int keycode, t_config *config)
 void	run_window(t_config *config)
 {
 	config->win.mlx = mlx_init();
-	if (!parce_param(config))
-		return ;//TODO add error and exit programm
-	if (!parce_map(config))
-		return ;//TODO add error and exit programm
+	parce_param(config);
+	parce_map(config);
 	init_map_objects(config);
 	config->win.window = mlx_new_window(config->win.mlx, config->settings.window_width, config->settings.window_height, "Cub3D");
 	render(config);

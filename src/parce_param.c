@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 15:15:21 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 16:01:33 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/06 18:33:31 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	check_all_params(t_config *config)
 	while (i < 9)
 	{
 		if (!(config->settings.has_param[i]))
-			exit_cub(8, config);
+			exit_cub(9, config);
 		i++;
 	}
 }
 
-int		parce_param(t_config *config)
+void		parce_param(t_config *config)
 {
 	t_list	*tmp;
 	char	*str;
@@ -52,5 +52,4 @@ int		parce_param(t_config *config)
 		tmp = tmp->next;
 	}
 	check_all_params(config);
-	return (1);
 }

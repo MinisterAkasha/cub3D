@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 17:01:32 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/06 18:35:57 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct	s_data
 
 typedef struct	s_error
 {
-	char	*error_arr[9];
+	char	*error_arr[12];
 } 				t_error;
 
 typedef struct s_params
@@ -135,7 +135,7 @@ typedef struct s_config_struct
 	t_error			error;
 } 				t_config;
 
-int				parce_map(t_config *config);
+void			parce_map(t_config *config);
 void			init_struct(t_config *config);
 void			ft_get_camera_coordinate(t_config *config, int x);
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -149,7 +149,7 @@ void			free_texture(t_config *config);
 ** parce_param
 */
 
-int				parce_param(t_config *config);
+void			parce_param(t_config *config);
 int				parce_window_param(t_config *config, char *str);
 
 /*
@@ -218,7 +218,7 @@ void			exit_cub(int error_code, t_config *config);
 
 int				get_spases_num(char *str);
 int				get_numbers_num(char *str);
-unsigned long	create_hex_from_rgb(int red, int green, int blue);
+unsigned long	translat_to_hex(int red, int green, int blue);
 int				get_commas_num(char *str);
 
 /*
@@ -235,10 +235,11 @@ void			skip_not_number(char **str);
 */
 
 void			check_color_value(int color, t_config *config);
-int				find_color_value(char **str, int *color);
+void			find_color_value(char **str, int *color);
 void 			validate_color_params(char *str, t_config *config);
 char			*make_minimized_str(char *mini_str, char *str);
 void			parce_color(t_config *config, char *str);
+void		fill_and_check_rgb(t_config *config, int rgb[3], char *str);
 
 /*
 ** parce_window
