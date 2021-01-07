@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:51:51 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 14:18:40 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 14:21:27 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int				get_numbers_num(char *str)
 
 unsigned long	translat_to_hex(int red, int green, int blue)
 {
-	return (red  << 16 | green << 8 | blue);
+	return (red << 16 | green << 8 | blue);
 }
 
 int				get_commas_num(char *str)
@@ -65,10 +65,11 @@ int				get_commas_num(char *str)
 	return (commas);
 }
 
-void	fast_pixel_put(t_data *data, int x, int y, int color)
+void			fast_pixel_put(t_data *data, int x, int y, int color)
 {
-	char    *dst;
+	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = data->addr + (y * data->line_length +
+						x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
