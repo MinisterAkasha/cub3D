@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_img.c                                         :+:      :+:    :+:   */
+/*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/20 18:50:05 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 14:20:01 by akasha           ###   ########.fr       */
+/*   Created: 2021/01/07 14:17:06 by akasha            #+#    #+#             */
+/*   Updated: 2021/01/07 14:17:18 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	init_image(t_config *config)
+int		close_win(int keycode, t_config *config)
 {
-	config->data.img = mlx_new_image(config->win.mlx,
-						config->settings.window_width,
-						config->settings.window_height);
-	config->data.addr = mlx_get_data_addr(config->data.img,
-						&config->data.bits_per_pixel,
-						&config->data.line_length, &config->data.endian);
+	if (keycode == 53)
+	{
+		mlx_destroy_image(config->win.mlx, config->data.img);
+		mlx_destroy_window(config->win.mlx, config->win.window);
+		// free(config->sprite);
+		exit(0);
+	}
+	return (1);
 }

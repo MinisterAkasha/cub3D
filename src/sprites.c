@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:44:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/04 14:48:29 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 14:18:02 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	sprite_cast(t_config *config, double z_buffer[(int)config->settings.window_
 					int d = y * 256 - config->settings.window_height * 128 + sprite_height * 128;
 					int tex_y = ((d * config->img.height[4]) / sprite_height) / 256;
 					if ((config->img.texture[4][config->img.height[4] * tex_y + tex_x] & 0x00FFFFFF))
-						my_mlx_pixel_put(&config->data, x, y, config->img.texture[4][config->img.width[4] * tex_y + tex_x]);
+						fast_pixel_put(&config->data, x, y, config->img.texture[4][config->img.width[4] * tex_y + tex_x]);
 					y++;
 				}
 			}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/03 23:10:27 by user             ###   ########.fr       */
+/*   Updated: 2021/01/07 14:18:02 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,9 @@ void	cast_rays(t_config *config, int x)
 	while (y < config->settings.window_height)
 	{
 		if (y > ray->end)
-			my_mlx_pixel_put(&config->data, x, y, config->settings.floor_color);
+			fast_pixel_put(&config->data, x, y, config->settings.floor_color);
 		else if (y < ray->start)
-			my_mlx_pixel_put(&config->data, x, y, config->settings.celling_color);
+			fast_pixel_put(&config->data, x, y, config->settings.celling_color);
 		else if (y >= ray->start && y <= ray->end)
 		{
 			tex_y = (int)tex_pos & (config->img.height[tex_num] - 1);
@@ -125,7 +125,7 @@ void	cast_rays(t_config *config, int x)
 			if (tex_num != 4)
 			{
 				tex_color = config->img.texture[tex_num][config->img.height[tex_num] * tex_y + tex_x];
-				my_mlx_pixel_put(&config->data, x, y, tex_color);
+				fast_pixel_put(&config->data, x, y, tex_color);
 			}
 		}
 		y++;

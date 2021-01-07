@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 18:35:57 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 14:19:02 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ typedef struct s_config_struct
 void			parce_map(t_config *config);
 void			init_struct(t_config *config);
 void			ft_get_camera_coordinate(t_config *config, int x);
-void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 char			**fill_map(t_config *config, int size);
 void			put_pixel_scale(int x, int y, t_config *config);
@@ -220,6 +219,7 @@ int				get_spases_num(char *str);
 int				get_numbers_num(char *str);
 unsigned long	translat_to_hex(int red, int green, int blue);
 int				get_commas_num(char *str);
+void			fast_pixel_put(t_data *data, int x, int y, int color);
 
 /*
 **	utilc.c
@@ -253,4 +253,10 @@ int		parce_window_param(t_config *config, char *str);
 */
 
 void	parce_tex(t_config *config, char *str);
+
+/*
+** hooks
+*/
+int		close_win(int keycode, t_config *config);
+
 #endif

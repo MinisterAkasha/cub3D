@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:51:51 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 17:19:36 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 14:18:40 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,12 @@ int				get_commas_num(char *str)
 		str++;
 	}
 	return (commas);
+}
+
+void	fast_pixel_put(t_data *data, int x, int y, int color)
+{
+	char    *dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }

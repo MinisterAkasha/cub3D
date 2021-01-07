@@ -6,22 +6,13 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 18:41:04 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 14:18:33 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 #include "stdio.h" //!DEL
-
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char    *dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
 
 void	render(t_config *config)
 {
@@ -109,11 +100,11 @@ void	fill_map_list(t_config *config, int fd)
 
 void	check_file_name(char *file_name, t_config *config)
 {
-	int letter_index;
-
-	letter_index = ft_strlen(file_name) - 1;
-	if (file_name[letter_index] == 'b' && file_name[letter_index - 1] == 'u'
-	&& file_name[letter_index - 2] == 'c' && file_name[letter_index - 3] == '.')
+	while (*file_name)
+		file_name++;
+	file_name--;
+	if (*file_name == 'b' && *(file_name - 1) == 'u'
+	&& *(file_name - 2) == 'c' && *(file_name - 3) == '.')
 		return ;
 	exit_cub(11, config);
 }
@@ -136,9 +127,7 @@ int main(int argc, char *argv[])
 	fill_map_list(config, fd);
 	close(fd);
 	init_struct(config);
-
 	run_window(config);
-	
 	free(config->sprite);
 	free(config);
 	//! Free LISTS

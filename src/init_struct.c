@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:30:40 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 18:34:53 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 14:17:04 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,6 @@ void	init_error_arr(t_config *config)
 	config->error.error_arr[9] = "Not not enough parametrs\n";
 	config->error.error_arr[10] = "RGB must contains only 3 parameters\n";
 	config->error.error_arr[11] = "Invalid file name\n";
-}
-
-int		close_win(int keycode, t_config *config)
-{
-	if (keycode == 53)
-	{
-		mlx_destroy_image(config->win.mlx, config->data.img);
-		mlx_destroy_window(config->win.mlx, config->win.window);
-		// free(config->sprite);
-		exit(0);
-	}
-	return (1);
 }
 
 void	run_window(t_config *config)
