@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 17:46:06 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 18:33:19 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,20 @@ typedef struct	s_map
 	size_t	height;
 	int		sprites_num;
 	int		has_hero;
-	int		map_x;
-	int		map_y;
 }				t_map;
+
+typedef struct	s_ray_casting {
+	int			map_x;
+	int			map_y;
+	size_t		tex_color;
+	int			side;
+	double		wall_x;
+	int 		tex_x;
+	int 		tex_y;
+	int			line_height;
+	double		step;
+	double		tex_pos;
+}				t_ray_casting;
 
 typedef struct	s_sprite
 {
@@ -134,6 +145,7 @@ typedef struct	s_config_struct
 	t_list			*head_param;
 	t_params		params;
 	t_error			error;
+	t_ray_casting	ray_casting;
 }				t_config;
 
 void			parce_map(t_config *config);
@@ -185,7 +197,7 @@ void			run_window(t_config *config);
 */
 
 void			cast_rays(t_config *config, int x);
-int				get_texture_number(t_config *config, int y, int x, int side);
+int				get_texture_number(t_config *config, int y, int x);
 
 /*
 **	load_img.c

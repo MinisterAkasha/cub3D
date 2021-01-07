@@ -4,8 +4,8 @@ NO ./pics/stone.xpm
 SO ./pics/hexagone.xpm
 WE ./pics/redbrick.xpm
 EA ./pics/wood.xpm
-F 200,150,255
-C 215,200,150
+F 0,0,0
+C 0,0,0
 11111111111111111111111111111111
         1000000000110000000000001
         1001000000110000000000001
