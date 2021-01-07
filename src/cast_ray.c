@@ -6,11 +6,25 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 16:05:41 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 17:45:14 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+void	get_side_and_step_x(t_config *config)
+{
+	if (ray->ray_dir_x < 0)
+	{
+		ray->step_x = -1;
+		ray->side_x = (config->hero.x - map_x) * ray->delta_x;
+	}
+	else
+	{
+		ray->step_x = 1;
+		ray->side_x = (map_x + 1 - config->hero.x) * ray->delta_x;
+	}
+}
 
 void	cast_rays(t_config *config, int x)
 {
@@ -39,16 +53,9 @@ void	cast_rays(t_config *config, int x)
 	map_x = (int)config->hero.x;
 	map_y = (int)config->hero.y;
 
-	if (ray->ray_dir_x < 0)
-	{
-		ray->step_x = -1;
-		ray->side_x = (config->hero.x - map_x) * ray->delta_x;
-	}
-	else
-	{
-		ray->step_x = 1;
-		ray->side_x = (map_x + 1 - config->hero.x) * ray->delta_x;
-	}
+	get_side_and_step_x(config);
+	get_side_and_step_y(config);
+	
 	if (ray->ray_dir_y < 0)
 	{
 		ray->step_y = -1;

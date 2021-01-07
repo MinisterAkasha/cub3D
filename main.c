@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 17:17:58 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 17:41:49 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "stdio.h" //!DEL
 
-void	render(t_config *config)
+int		render(t_config *config)
 {
 	int		x;
 	double	z_buffer[(int)config->params.window_width];
@@ -32,6 +32,7 @@ void	render(t_config *config)
 	sprite_cast(config, z_buffer);
 	free_texture(config);
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
+	return (1);
 }
 
 void	ft_get_camera_coordinate(t_config *config, int x)

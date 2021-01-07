@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 17:28:38 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 17:46:06 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct	s_map
 	size_t	height;
 	int		sprites_num;
 	int		has_hero;
+	int		map_x;
+	int		map_y;
 }				t_map;
 
 typedef struct	s_sprite
@@ -137,7 +139,7 @@ typedef struct	s_config_struct
 void			parce_map(t_config *config);
 void			ft_get_camera_coordinate(t_config *config, int x);
 
-void			render(t_config *config);
+int				render(t_config *config);
 void			free_texture(t_config *config);
 void			check_arguments_number(int argc, t_config *config);
 void			fill_param_list(t_config *config, int fd);
