@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 16:29:41 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 17:28:38 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,7 @@ int				parce_window_param(t_config *config, char *str);
 ** parce_tex
 */
 
+void			remember_presence_texture(t_config *config);
 void			parce_tex(t_config *config, char *str);
 
 /*
