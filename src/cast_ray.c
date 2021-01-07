@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 18:39:49 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 18:46:18 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ void	get_side_and_step_x(t_config *config)
 	if (config->ray.ray_dir_x < 0)
 	{
 		config->ray.step_x = -1;
-		config->ray.side_x = (config->hero.x - config->ray_casting.map_x) * config->ray.delta_x;
+		config->ray.side_x = (config->hero.x - config->ray_casting.map_x) *
+							config->ray.delta_x;
 	}
 	else
 	{
 		config->ray.step_x = 1;
-		config->ray.side_x = (config->ray_casting.map_x + 1 - config->hero.x) * config->ray.delta_x;
+		config->ray.side_x = (config->ray_casting.map_x + 1 - config->hero.x) *
+								config->ray.delta_x;
 	}
 }
 
@@ -37,12 +39,14 @@ void	get_side_and_step_y(t_config *config)
 	if (config->ray.ray_dir_y < 0)
 	{
 		config->ray.step_y = -1;
-		config->ray.side_y = (config->hero.y - config->ray_casting.map_y) * config->ray.delta_y;
+		config->ray.side_y = (config->hero.y - config->ray_casting.map_y) *
+								config->ray.delta_y;
 	}
 	else
 	{
 		config->ray.step_y = 1;
-		config->ray.side_y = (config->ray_casting.map_y + 1 - config->hero.y) * config->ray.delta_y;
+		config->ray.side_y = (config->ray_casting.map_y + 1 - config->hero.y) *
+								config->ray.delta_y;
 	}
 }
 
@@ -65,7 +69,8 @@ void	get_hit(t_config *config)
 			config->ray_casting.map_y += config->ray.step_y;
 			config->ray_casting.side = 1;
 		}
-		if (config->map.map[config->ray_casting.map_y][config->ray_casting.map_x] == '1')
+		if (config->map.map[config->ray_casting.map_y]
+			[config->ray_casting.map_x] == '1')
 			hit = 1;
 	}
 }
@@ -79,12 +84,18 @@ void	get_ray_delta(t_config *config)
 void	get_distance(t_config *config)
 {
 	if (config->ray_casting.side == 0)
-		config->ray.perp_wall_dist = (config->ray_casting.map_x - config->hero.x + (1 - config->ray.step_x) / 2) / config->ray.ray_dir_x;
+		config->ray.perp_wall_dist = (config->ray_casting.map_x -
+										config->hero.x +
+										(1 - config->ray.step_x) / 2) /
+										config->ray.ray_dir_x;
 	else
-		config->ray.perp_wall_dist = (config->ray_casting.map_y - config->hero.y + (1 - config->ray.step_y) / 2) / config->ray.ray_dir_y;
+		config->ray.perp_wall_dist = (config->ray_casting.map_y -
+										config->hero.y +
+										(1 - config->ray.step_y) / 2) /
+										config->ray.ray_dir_y;
 }
 
-int		get_texture_number(t_config *config, int y,int x)
+int		get_texture_number(t_config *config, int y, int x)
 {
 	if (config->map.map[y][x] == '1')
 	{
@@ -105,51 +116,63 @@ int		get_texture_number(t_config *config, int y,int x)
 void	get_hit_coordinate(t_config *config)
 {
 	if (!config->ray_casting.side)
-		config->ray_casting.wall_x = config->hero.y + config->ray.perp_wall_dist * config->ray.ray_dir_y;
+		config->ray_casting.wall_x = config->hero.y +
+									config->ray.perp_wall_dist *
+									config->ray.ray_dir_y;
 	else
-		config->ray_casting.wall_x = config->hero.x + config->ray.perp_wall_dist * config->ray.ray_dir_x;
+		config->ray_casting.wall_x = config->hero.x +
+									config->ray.perp_wall_dist *
+									config->ray.ray_dir_x;
 	config->ray_casting.wall_x -= floor(config->ray_casting.wall_x);
 }
 
 void	get_x_tex_coordinate(t_config *config, int tex_num)
 {
-	config->ray_casting.tex_x = (int)(config->ray_casting.wall_x * config->img.width[tex_num]);
+	config->ray_casting.tex_x = (int)(config->ray_casting.wall_x *
+										config->img.width[tex_num]);
 	if (config->ray_casting.side == 0 && config->ray.ray_dir_x > 0)
-		config->ray_casting.tex_x = config->img.width[tex_num] - config->ray_casting.tex_x - 1;
+		config->ray_casting.tex_x = config->img.width[tex_num] -
+									config->ray_casting.tex_x - 1;
 	if (config->ray_casting.side == 1 && config->ray.ray_dir_y < 0)
-		config->ray_casting.tex_x = config->img.width[tex_num] - config->ray_casting.tex_x - 1;
+		config->ray_casting.tex_x = config->img.width[tex_num] -
+									config->ray_casting.tex_x - 1;
 }
 
 void	get_y_tex_coordinate(t_config *config, int tex_num)
 {
-	config->ray_casting.tex_y = (int)config->ray_casting.tex_pos & (config->img.height[tex_num] - 1);
+	config->ray_casting.tex_y = (int)config->ray_casting.tex_pos &
+								(config->img.height[tex_num] - 1);
 }
 
 void	get_line_height(t_config *config)
 {
-	config->ray_casting.line_height = (int)(config->params.window_height / config->ray.perp_wall_dist);
+	config->ray_casting.line_height = (int)(config->params.window_height /
+										config->ray.perp_wall_dist);
 }
 
-void	get_wall_range(t_config * config)
+void	get_wall_range(t_config *config)
 {
-	config->ray.start = -config->ray_casting.line_height / 2 + config->params.window_height / 2;
+	config->ray.start = -config->ray_casting.line_height / 2 +
+						config->params.window_height / 2;
 	if (config->ray.start < 0)
 		config->ray.start = 0;
-	config->ray.end = config->ray_casting.line_height / 2 + config->params.window_height / 2;
+	config->ray.end = config->ray_casting.line_height / 2 +
+						config->params.window_height / 2;
 	if (config->ray.end >= config->params.window_height)
 		config->ray.end = config->params.window_height - 1;
 }
 
 void	get_step_value(t_config *config, int tex_num)
 {
-	config->ray_casting.step = 1.0 * config->img.height[tex_num] / config->ray_casting.line_height;
+	config->ray_casting.step = 1.0 * config->img.height[tex_num] /
+								config->ray_casting.line_height;
 }
 
 void	get_tex_pos(t_config *config)
 {
-	config->ray_casting.tex_pos = (config->ray.start - 
-								(config->params.window_height / 2) + 
-								(config->ray_casting.line_height / 2)) * 
+	config->ray_casting.tex_pos = (config->ray.start -
+								(config->params.window_height / 2) +
+								(config->ray_casting.line_height / 2)) *
 								config->ray_casting.step;
 }
 
@@ -170,8 +193,12 @@ void	drow_vertical_line(t_config *config, int tex_num, int x)
 			config->ray_casting.tex_pos += config->ray_casting.step;
 			if (tex_num != 4)
 			{
-				config->ray_casting.tex_color = config->img.texture[tex_num][config->img.height[tex_num] * config->ray_casting.tex_y + config->ray_casting.tex_x];
-				fast_pixel_put(&config->data, x, y, config->ray_casting.tex_color);
+				config->ray_casting.tex_color = config->img.texture[tex_num]
+												[config->img.height[tex_num] *
+												config->ray_casting.tex_y +
+												config->ray_casting.tex_x];
+				fast_pixel_put(&config->data, x, y,
+								config->ray_casting.tex_color);
 			}
 		}
 		y++;
@@ -180,7 +207,7 @@ void	drow_vertical_line(t_config *config, int tex_num, int x)
 
 void	cast_rays(t_config *config, int x)
 {
-	int 	tex_num;
+	int	tex_num;
 
 	get_ray_delta(config);
 	get_map_coordinates(config);
