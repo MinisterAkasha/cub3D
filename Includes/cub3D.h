@@ -6,21 +6,20 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 15:44:50 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:00:30 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_3D_H
 #define CUB_3D_H
 
-#include "../libft/includes/libft.h"
-#include "../minilib/mlx.h"
-#include "get_next_line.h"
-#include <fcntl.h>
-#include <math.h>
-
-#include "stdio.h" //!DEL
-#include <errno.h> //! DEL???
+# include "../libft/includes/libft.h"
+# include "../minilib/mlx.h"
+# include "get_next_line.h"
+# include <fcntl.h>
+# include <math.h>
+# include "stdio.h" //!DEL
+# include <errno.h> //! DEL???
 
 typedef struct	s_map
 {
@@ -64,7 +63,7 @@ typedef struct	s_hero
 	double plane_y;
 	double start;
 	double end;
-	double cameraX;
+	double camera_x;
 	double move_speed;
 	double rotate_speed;
 }				t_hero;
@@ -73,13 +72,13 @@ typedef struct	s_ray
 {
 	double ray_dir_y;
 	double ray_dir_x;
-	double deltaX;
-	double deltaY;
-	double sideX;
-	double sideY;
+	double delta_x;
+	double delta_y;
+	double side_x;
+	double side_y;
 	double perp_wall_dist;
-	double stepX;
-	double stepY;
+	double step_x;
+	double step_y;
 	double start;
 	double end;
 }				t_ray;
@@ -102,9 +101,9 @@ typedef struct	s_data
 typedef struct	s_error
 {
 	char	*error[12];
-} 				t_error;
+}				t_error;
 
-typedef struct s_params
+typedef struct	s_params
 {
 	int		max_width;
 	int		max_height;
@@ -120,7 +119,7 @@ typedef struct s_params
 	int		has_param[9];
 }				t_params;
 
-typedef struct s_config_struct
+typedef struct		s_config_struct
 {
 	t_map			map;
 	t_win			win;
@@ -133,7 +132,7 @@ typedef struct s_config_struct
 	t_list			*head_param;
 	t_params		params;
 	t_error			error;
-} 				t_config;
+}					t_config;
 
 void			parce_map(t_config *config);
 void			init_struct(t_config *config);
@@ -181,15 +180,20 @@ void	ft_rotate_right(t_config *config);
 */
 
 void			init_image(t_config *config);
-void			run_window(t_config *config);
 void			init_error(t_config *config);
+
+/*
+** run_window
+*/
+
+void			run_window(t_config *config);
 
 /*
 **	cast_ray.c
 */
 
-void 			cast_rays(t_config *config, int x);
-int 			get_texture_number(t_config *config, int y, int x, int side);
+void			cast_rays(t_config *config, int x);
+int				get_texture_number(t_config *config, int y, int x, int side);
 
 /*
 **	load_img.c
@@ -208,10 +212,9 @@ void			get_hero_dir(t_config *config, int y, int x);
 void			init_sprites(t_config *config);
 void			sprite_cast(t_config *config, double z_buffer[(int)config->params.window_width]);
 
-
 int				partition(double *arr, int left, int right, double *order);
 void			swap_elems(double *elem_1, double *elem_2);
-void 			sort_sprites(double distanse[], int left, int right, double *order);
+void			sort_sprites(double distanse[], int left, int right, double *order);
 
 /*
 ** exit_cub
@@ -233,7 +236,7 @@ void			fast_pixel_put(t_data *data, int x, int y, int color);
 **	utilc.c
 */
 
-void 			ft_find_width(char *str, t_config *config);
+void			ft_find_width(char *str, t_config *config);
 int				skip_spaces(char *str);
 void			skip_number(char **str);
 void			skip_not_number(char **str);
@@ -244,7 +247,7 @@ void			skip_not_number(char **str);
 
 void			check_color_value(int color, t_config *config);
 void			find_color_value(char **str, int *color);
-void 			validate_color_params(char *str, t_config *config);
+void			validate_color_params(char *str, t_config *config);
 char			*make_minimized_str(char *mini_str, char *str);
 void			parce_color(t_config *config, char *str);
 void			fill_and_check_rgb(t_config *config, int rgb[3], char *str);

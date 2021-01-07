@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 15:44:50 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 15:52:15 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	render(t_config *config)
 
 void	ft_get_camera_coordinate(t_config *config, int x)
 {
-	config->hero.cameraX = 2 * (x / (double)config->params.window_width) - 1;
-	config->ray.ray_dir_y = config->hero.dir_y + config->hero.plane_y * config->hero.cameraX;
-	config->ray.ray_dir_x = config->hero.dir_x + config->hero.plane_x * config->hero.cameraX;
+	config->hero.camera_x = 2 * (x / (double)config->params.window_width) - 1;
+	config->ray.ray_dir_y = config->hero.dir_y + config->hero.plane_y * config->hero.camera_x;
+	config->ray.ray_dir_x = config->hero.dir_x + config->hero.plane_x * config->hero.camera_x;
 }
 
 void	free_texture(t_config *config)

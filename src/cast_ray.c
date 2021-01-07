@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 15:17:20 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:00:30 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,44 +34,44 @@ void	cast_rays(t_config *config, int x)
 	
 	ray = &config->ray;
 	hit = 0;
-	ray->deltaX = fabs(1 / ray->ray_dir_x);
-	ray->deltaY = fabs(1 / ray->ray_dir_y);
+	ray->delta_x = fabs(1 / ray->ray_dir_x);
+	ray->delta_y = fabs(1 / ray->ray_dir_y);
 	map_x = (int)config->hero.x;
 	map_y = (int)config->hero.y;
 
 	if (ray->ray_dir_x < 0)
 	{
-		ray->stepX = -1;
-		ray->sideX = (config->hero.x - map_x) * ray->deltaX;
+		ray->step_x = -1;
+		ray->side_x = (config->hero.x - map_x) * ray->delta_x;
 	}
 	else
 	{
-		ray->stepX = 1;
-		ray->sideX = (map_x + 1 - config->hero.x) * ray->deltaX;
+		ray->step_x = 1;
+		ray->side_x = (map_x + 1 - config->hero.x) * ray->delta_x;
 	}
 	if (ray->ray_dir_y < 0)
 	{
-		ray->stepY = -1;
-		ray->sideY = (config->hero.y - map_y) * ray->deltaY;
+		ray->step_y = -1;
+		ray->side_y = (config->hero.y - map_y) * ray->delta_y;
 	}
 	else
 	{
-		ray->stepY = 1;
-		ray->sideY = (map_y + 1 - config->hero.y) * ray->deltaY;
+		ray->step_y = 1;
+		ray->side_y = (map_y + 1 - config->hero.y) * ray->delta_y;
 	}
 
 	while (hit == 0)
 	{
-		if (ray->sideX < ray->sideY)
+		if (ray->side_x < ray->side_y)
 		{
-			ray->sideX += ray->deltaX;
-			map_x += ray->stepX;
+			ray->side_x += ray->delta_x;
+			map_x += ray->step_x;
 			side = 0;
 		}
 		else
 		{
-			ray->sideY += ray->deltaY;
-			map_y += ray->stepY;
+			ray->side_y += ray->delta_y;
+			map_y += ray->step_y;
 			side = 1;
 		}
 		if (config->map.map[map_y][map_x] == '1')
@@ -81,9 +81,9 @@ void	cast_rays(t_config *config, int x)
 	tex_num = get_texture_number(config, map_y, map_x, side);
 
 	if (side == 0)
-		ray->perp_wall_dist = (map_x - config->hero.x + (1 - ray->stepX) / 2) / ray->ray_dir_x;
+		ray->perp_wall_dist = (map_x - config->hero.x + (1 - ray->step_x) / 2) / ray->ray_dir_x;
 	else
-		ray->perp_wall_dist = (map_y - config->hero.y + (1 - ray->stepY) / 2) / ray->ray_dir_y;
+		ray->perp_wall_dist = (map_y - config->hero.y + (1 - ray->step_y) / 2) / ray->ray_dir_y;
 
 
 	if (!side)
