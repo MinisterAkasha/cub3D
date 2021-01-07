@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 23:25:59 by user              #+#    #+#             */
-/*   Updated: 2021/01/03 17:44:02 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 15:17:20 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ void    load_img(t_config *config)
 char	*get_texture_path(int index, t_config *config)
 {
 	if (index == 0)
-		return (config->settings.south_tex);
+		return (config->params.south_tex);
 	if (index == 1)
-		return (config->settings.north_tex);
+		return (config->params.north_tex);
 	if (index == 2)
-		return (config->settings.east_tex);
+		return (config->params.east_tex);
 	if (index == 3)
-		return (config->settings.west_tex);
+		return (config->params.west_tex);
 	if (index == 4)
-		return (config->settings.spraite_tex);
+		return (config->params.spraite_tex);
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:44:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 14:18:02 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 15:17:20 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	init_map_objects(t_config *config)
 	init_sprites(config);
 }
 
-void	sprite_cast(t_config *config, double z_buffer[(int)config->settings.window_width])
+void	sprite_cast(t_config *config, double z_buffer[(int)config->params.window_width])
 {
 	int 	i;
 	double	*sprite_order;
@@ -106,35 +106,35 @@ void	sprite_cast(t_config *config, double z_buffer[(int)config->settings.window_
 		transform_x = invert_determ * (config->hero.dir_y * sprite_x - config->hero.dir_x * sprite_y);
 		transform_y = invert_determ * (config->hero.plane_x * sprite_y - config->hero.plane_y * sprite_x);
 
-		sprite_screen_x = (int)((config->settings.window_width / 2) * (1 + transform_x / transform_y));
+		sprite_screen_x = (int)((config->params.window_width / 2) * (1 + transform_x / transform_y));
 
-		sprite_height = abs((int)(config->settings.window_height / transform_y));
+		sprite_height = abs((int)(config->params.window_height / transform_y));
 
-		drow_start_y = -sprite_height / 2 + config->settings.window_height / 2;
+		drow_start_y = -sprite_height / 2 + config->params.window_height / 2;
 		if (drow_start_y < 0)
 			drow_start_y = 0;
-		drow_end_y = sprite_height / 2 + config->settings.window_height / 2;
-		if (drow_end_y >= config->settings.window_height)
-			drow_end_y = config->settings.window_height - 1;
+		drow_end_y = sprite_height / 2 + config->params.window_height / 2;
+		if (drow_end_y >= config->params.window_height)
+			drow_end_y = config->params.window_height - 1;
 
-		sprite_width = abs((int)(config->settings.window_height / (transform_y)));
+		sprite_width = abs((int)(config->params.window_height / (transform_y)));
 
 		drow_start_x = -sprite_width / 2 + sprite_screen_x;
 		if (drow_start_x < 0)
 			drow_start_x = 0;
 		drow_end_x = sprite_width / 2 + sprite_screen_x;
-		if (drow_end_x > config->settings.window_width)
-			drow_end_x = config->settings.window_width - 1;
+		if (drow_end_x > config->params.window_width)
+			drow_end_x = config->params.window_width - 1;
 		int x = drow_start_x;
 		while (x < drow_end_x)
 		{
 			int y = drow_start_y;
 			int tex_x = (int)(256 * (x - (-sprite_width / 2 + sprite_screen_x)) * config->img.width[4] / sprite_width) / 256;
-			if (transform_y > 0 && x > 0 && x < (int)config->settings.window_width && transform_y < z_buffer[x])
+			if (transform_y > 0 && x > 0 && x < (int)config->params.window_width && transform_y < z_buffer[x])
 			{
 				while (y < drow_end_y)
 				{
-					int d = y * 256 - config->settings.window_height * 128 + sprite_height * 128;
+					int d = y * 256 - config->params.window_height * 128 + sprite_height * 128;
 					int tex_y = ((d * config->img.height[4]) / sprite_height) / 256;
 					if ((config->img.texture[4][config->img.height[4] * tex_y + tex_x] & 0x00FFFFFF))
 						fast_pixel_put(&config->data, x, y, config->img.texture[4][config->img.width[4] * tex_y + tex_x]);

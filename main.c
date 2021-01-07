@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 14:18:33 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 15:44:50 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 void	render(t_config *config)
 {
 	int		x;
-	double	z_buffer[(int)config->settings.window_width];
+	double	z_buffer[(int)config->params.window_width];
 
 	init_image(config);
 	load_img(config);
 	x = 0;
-	while (x < config->settings.window_width)
+	while (x < config->params.window_width)
 	{
 		ft_get_camera_coordinate(config, x);
 		cast_rays(config, x);
@@ -36,7 +36,7 @@ void	render(t_config *config)
 
 void	ft_get_camera_coordinate(t_config *config, int x)
 {
-	config->hero.cameraX = 2 * (x / (double)config->settings.window_width) - 1;
+	config->hero.cameraX = 2 * (x / (double)config->params.window_width) - 1;
 	config->ray.ray_dir_y = config->hero.dir_y + config->hero.plane_y * config->hero.cameraX;
 	config->ray.ray_dir_x = config->hero.dir_x + config->hero.plane_x * config->hero.cameraX;
 }
@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
 
 	if (!(config = (t_config *)malloc(sizeof(t_config))))
 		exit_cub(15, config);
-	init_error_arr(config);
+	init_error(config);
 	check_arguments_number(argc, config);
 	if ((fd = open(argv[1], O_RDONLY)) == -1)
 		exit_cub(15, config);

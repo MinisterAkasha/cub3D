@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 15:30:40 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 14:17:04 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 15:45:41 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,23 @@ void	init_struct(t_config *config)
 	config->hero.rotate_speed = M_PI / 30;
 }
 
-void	init_error_arr(t_config *config)
+void	init_error(t_config *config)
 {
-	config->error.error_arr[0] = "Passed too many arguments\n";
-	config->error.error_arr[1] = "Passed not enough arguments\n";
-	config->error.error_arr[2] = "Too many heros on the map\n";
-	config->error.error_arr[3] = "Missing hero on the map\n";
-	config->error.error_arr[4] = "Not valid map\n";
-	config->error.error_arr[5] = "Not valid parametr for window size\n";
-	config->error.error_arr[6] = "Not valid parametr for texture\n";
-	config->error.error_arr[7] = "Not valid parametr for floor/celling color\n";
-	config->error.error_arr[8] = "The color value must be in the range from 0 to 255\n";
-	config->error.error_arr[9] = "Not not enough parametrs\n";
-	config->error.error_arr[10] = "RGB must contains only 3 parameters\n";
-	config->error.error_arr[11] = "Invalid file name\n";
+	t_error *errors;
+
+	errors = &config->error;
+	errors->error[0] = "Passed too many arguments\n";
+	errors->error[1] = "Passed not enough arguments\n";
+	errors->error[2] = "Too many heros on the map\n";
+	errors->error[3] = "Missing hero on the map\n";
+	errors->error[4] = "Not valid map\n";
+	errors->error[5] = "Not valid parametr for window size\n";
+	errors->error[6] = "Not valid parametr for texture\n";
+	errors->error[7] = "Not valid parametr for floor/celling color\n";
+	errors->error[8] = "The color value must be in the range from 0 to 255\n";
+	errors->error[9] = "Not not enough parametrs\n";
+	errors->error[10] = "RGB must contains only 3 parameters\n";
+	errors->error[11] = "Invalid file name\n";
 }
 
 void	run_window(t_config *config)
@@ -47,9 +50,9 @@ void	run_window(t_config *config)
 	parce_param(config);
 	parce_map(config);
 	init_map_objects(config);
-	config->win.window = mlx_new_window(config->win.mlx, config->settings.window_width, config->settings.window_height, "Cub3D");
+	config->win.window = mlx_new_window(config->win.mlx, config->params.window_width, config->params.window_height, "Cub3D");
 	render(config);
-	mlx_hook(config->win.window, 02, 1L<<0,  move_hero, config);
+	mlx_hook(config->win.window, 02, 1L<<0,  move_hero_hook, config);
 	mlx_key_hook(config->win.window, close_win, config);
 	mlx_loop(config->win.mlx);
 }

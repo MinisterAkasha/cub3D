@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 18:50:05 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 14:20:01 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 15:17:20 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	init_image(t_config *config)
 {
 	config->data.img = mlx_new_image(config->win.mlx,
-						config->settings.window_width,
-						config->settings.window_height);
+						config->params.window_width,
+						config->params.window_height);
 	config->data.addr = mlx_get_data_addr(config->data.img,
 						&config->data.bits_per_pixel,
 						&config->data.line_length, &config->data.endian);

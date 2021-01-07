@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 15:15:21 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 18:33:31 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 15:17:20 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	check_all_params(t_config *config)
 	i = 0;
 	while (i < 9)
 	{
-		if (!(config->settings.has_param[i]))
+		if (!(config->params.has_param[i]))
 			exit_cub(9, config);
 		i++;
 	}

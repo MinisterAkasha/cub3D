@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 14:19:02 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 15:44:50 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct	s_data
 
 typedef struct	s_error
 {
-	char	*error_arr[12];
+	char	*error[12];
 } 				t_error;
 
 typedef struct s_params
@@ -116,7 +116,7 @@ typedef struct s_params
 	char	*east_tex;
 	char	*spraite_tex;
 	int		floor_color;
-	int		celling_color;
+	int		ceiling_color;
 	int		has_param[9];
 }				t_params;
 
@@ -131,7 +131,7 @@ typedef struct s_config_struct
 	t_sprite		*sprite;
 	t_list			*head_map;
 	t_list			*head_param;
-	t_params		settings;
+	t_params		params;
 	t_error			error;
 } 				t_config;
 
@@ -164,9 +164,17 @@ int				ft_validate_map(t_config *config, int y, int x);
 ** move_hero
 */
 
-int				move_hero(int keycode, t_config *config);
-int				button(int key);
-int				rotate_hero(int keycode, t_config *config);
+void			ft_move_right(t_config *config);
+void			ft_move_left(t_config *config);
+void			ft_move_forward(t_config *config);
+void			ft_move_back(t_config *config);
+
+/*
+** rotate_hero
+*/
+
+void	ft_rotate_left(t_config *config);
+void	ft_rotate_right(t_config *config);
 
 /*
 ** init_struct.c
@@ -174,7 +182,7 @@ int				rotate_hero(int keycode, t_config *config);
 
 void			init_image(t_config *config);
 void			run_window(t_config *config);
-void			init_error_arr(t_config *config);
+void			init_error(t_config *config);
 
 /*
 **	cast_ray.c
@@ -198,7 +206,7 @@ char			*get_texture_path(int index, t_config *config);
 void			init_map_objects(t_config *config);
 void			get_hero_dir(t_config *config, int y, int x);
 void			init_sprites(t_config *config);
-void			sprite_cast(t_config *config, double z_buffer[(int)config->settings.window_width]);
+void			sprite_cast(t_config *config, double z_buffer[(int)config->params.window_width]);
 
 
 int				partition(double *arr, int left, int right, double *order);
@@ -217,7 +225,7 @@ void			exit_cub(int error_code, t_config *config);
 
 int				get_spases_num(char *str);
 int				get_numbers_num(char *str);
-unsigned long	translat_to_hex(int red, int green, int blue);
+unsigned long	translate_to_hex(int red, int green, int blue);
 int				get_commas_num(char *str);
 void			fast_pixel_put(t_data *data, int x, int y, int color);
 
@@ -239,24 +247,26 @@ void			find_color_value(char **str, int *color);
 void 			validate_color_params(char *str, t_config *config);
 char			*make_minimized_str(char *mini_str, char *str);
 void			parce_color(t_config *config, char *str);
-void		fill_and_check_rgb(t_config *config, int rgb[3], char *str);
+void			fill_and_check_rgb(t_config *config, int rgb[3], char *str);
 
 /*
 ** parce_window
 */
 
-void	check_max_size(t_config *config);
-int		parce_window_param(t_config *config, char *str);
+void			check_max_size(t_config *config);
+int				parce_window_param(t_config *config, char *str);
 
 /*
 ** parce_window
 */
 
-void	parce_tex(t_config *config, char *str);
+void			parce_tex(t_config *config, char *str);
 
 /*
 ** hooks
 */
-int		close_win(int keycode, t_config *config);
+int				close_win(int keycode, t_config *config);
+int				move_hero_hook(int keycode, t_config *config);
+int				button(int key);
 
 #endif

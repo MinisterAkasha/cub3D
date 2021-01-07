@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:01:07 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 16:01:38 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 15:17:20 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,28 @@ void	parce_tex(t_config *config, char *str)
 
 	if ((*str == 'N' && *(str + 1) == 'O'))
 	{
-		config->settings.has_param[0] = 1;
-		tex = &config->settings.north_tex;
+		config->params.has_param[0] = 1;
+		tex = &config->params.north_tex;
 	}
 	else if ((*str == 'S' && *(str + 1) == 'O'))
 	{
-		config->settings.has_param[1] = 1;
-		tex = &config->settings.south_tex;
+		config->params.has_param[1] = 1;
+		tex = &config->params.south_tex;
 	}
 	else if ((*str == 'W' && *(str + 1) == 'E'))
 	{
-		config->settings.has_param[2] = 1;
-		tex = &config->settings.west_tex;
+		config->params.has_param[2] = 1;
+		tex = &config->params.west_tex;
 	}
 	else if ((*str == 'E' && *(str + 1) == 'A'))
 	{
-		config->settings.has_param[3] = 1;
-		tex = &config->settings.east_tex;
+		config->params.has_param[3] = 1;
+		tex = &config->params.east_tex;
 	}
 	else
 	{
-		config->settings.has_param[4] = 1;
-		tex = &config->settings.spraite_tex;
+		config->params.has_param[4] = 1;
+		tex = &config->params.spraite_tex;
 	}
 	while (*str != ' ')
 		str++;

@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:17:06 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 14:17:18 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 15:32:34 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,38 @@ int		close_win(int keycode, t_config *config)
 		exit(0);
 	}
 	return (1);
+}
+
+int	move_hero_hook(int keycode, t_config *config)
+{
+	double oldDirX;
+	double oldplane_x;
+	
+	if (button(keycode))
+	{
+		mlx_destroy_image(config->win.mlx, config->data.img);
+		if (keycode == 13)
+			ft_move_forward(config);
+		if (keycode == 0)
+			ft_move_left(config);
+		if (keycode == 1)
+			ft_move_back(config);
+		if (keycode == 2)
+			ft_move_right(config);
+		if (keycode == 123)
+			ft_rotate_left(config);
+		if (keycode == 124)
+			ft_rotate_right(config);
+		render(config);
+	}
+	return (1);
+}
+
+int	button(int key)
+{
+	if (key == 13 || key == 0 || key == 1 || key == 2)
+		return (1);
+	if (key == 123 || key == 124)
+		return (1);
+	return (0);
 }

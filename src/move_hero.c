@@ -5,79 +5,69 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 14:41:17 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 14:16:04 by akasha           ###   ########.fr       */
+/*   Created: 2021/01/07 15:38:05 by akasha            #+#    #+#             */
+/*   Updated: 2021/01/07 15:38:52 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-#include "stdio.h" //!DEL
-
-int	move_hero(int keycode, t_config *config)
+void	ft_move_forward(t_config *config)
 {
-	double oldDirX;
-	double oldplane_x;
-	
-	if (button(keycode))
-	{
-		mlx_destroy_image(config->win.mlx, config->data.img);
-		if (keycode == 13) //go forward
-		{
-			if (config->map.map[(int)(config->hero.y)][(int)(config->hero.x + config->hero.dir_x * (config->hero.move_speed + 0.1))] != '1')
-				config->hero.x += config->hero.dir_x * config->hero.move_speed;
-			if (config->map.map[(int)(config->hero.y + config->hero.dir_y * (config->hero.move_speed + 0.1))][(int)(config->hero.x)] != '1')
-				config->hero.y += config->hero.dir_y * config->hero.move_speed;
-		}
-		if (keycode == 0) //go left
-		{
-			if (config->map.map[(int)(config->hero.y)][(int)(config->hero.x - config->hero.plane_x * (config->hero.move_speed + 0.1))] != '1')
-				config->hero.x -= config->hero.plane_x * config->hero.move_speed;
-			if (config->map.map[(int)(config->hero.y - config->hero.plane_y * (config->hero.move_speed + 0.1))][(int)(config->hero.x)] != '1')
-				config->hero.y -= config->hero.plane_y * config->hero.move_speed;
-		}
-		if (keycode == 1) // go back
-		{
-			if (config->map.map[(int)(config->hero.y)][(int)(config->hero.x - config->hero.dir_x * (config->hero.move_speed + 0.1))] != '1')
-				config->hero.x -= config->hero.dir_x * config->hero.move_speed;
-			if (config->map.map[(int)(config->hero.y - config->hero.dir_y * (config->hero.move_speed + 0.1))][(int)(config->hero.x)] != '1')
-				config->hero.y -= config->hero.dir_y * config->hero.move_speed;
-		}
-		if (keycode == 2) // go right
-		{
-			if (config->map.map[(int)(config->hero.y)][(int)(config->hero.x + config->hero.plane_x * (config->hero.move_speed + 0.1))] != '1')
-				config->hero.x += config->hero.plane_x * config->hero.move_speed;
-			if (config->map.map[(int)(config->hero.y + config->hero.plane_y * (config->hero.move_speed + 0.1))][(int)(config->hero.x)] != '1')
-				config->hero.y += config->hero.plane_y * config->hero.move_speed;
-		}
-		if (keycode == 123) //rotate left
-		{
-			oldDirX = config->hero.dir_x;
-      		config->hero.dir_x = config->hero.dir_x * cos(config->hero.rotate_speed) - config->hero.dir_y * sin(config->hero.rotate_speed);
-      		config->hero.dir_y = oldDirX * sin(config->hero.rotate_speed) + config->hero.dir_y * cos(config->hero.rotate_speed);
-      		oldplane_x = config->hero.plane_x;
-      		config->hero.plane_x = config->hero.plane_x * cos(config->hero.rotate_speed) - config->hero.plane_y * sin(config->hero.rotate_speed);
-      		config->hero.plane_y = oldplane_x * sin(config->hero.rotate_speed) + config->hero.plane_y * cos(config->hero.rotate_speed);
-		}
-		if (keycode == 124) //rotate right
-		{
-			oldDirX = config->hero.dir_x;
-      		config->hero.dir_x = config->hero.dir_x * cos(-config->hero.rotate_speed) - config->hero.dir_y * sin(-config->hero.rotate_speed);
-      		config->hero.dir_y = oldDirX * sin(-config->hero.rotate_speed) + config->hero.dir_y * cos(-config->hero.rotate_speed);
-      		oldplane_x = config->hero.plane_x;
-      		config->hero.plane_x = config->hero.plane_x * cos(-config->hero.rotate_speed) - config->hero.plane_y * sin(-config->hero.rotate_speed);
-      		config->hero.plane_y = oldplane_x * sin(-config->hero.rotate_speed) + config->hero.plane_y * cos(-config->hero.rotate_speed);
-		}
-		render(config);
-	}
-	return (1);
+	t_hero	*hero;
+	t_map	*map;
+
+	hero = &config->hero;
+	map = &config->map;
+	if (map->map[(int)(hero->y)]
+		[(int)(hero->x + hero->dir_x * (hero->move_speed + 0.1))] != '1')
+		hero->x += hero->dir_x * hero->move_speed;
+	if (map->map[(int)(hero->y + hero->dir_y * (hero->move_speed + 0.1))]
+		[(int)(hero->x)] != '1')
+		hero->y += hero->dir_y * hero->move_speed;
 }
 
-int	button(int key)
+void	ft_move_back(t_config *config)
 {
-	if (key == 13 || key == 0 || key == 1 || key == 2)
-		return (1);
-	if (key == 123 || key == 124)
-		return (1);
-	return (0);
+	t_hero	*hero;
+	t_map	*map;
+
+	hero = &config->hero;
+	map = &config->map;
+	if (map->map[(int)(hero->y)]
+		[(int)(hero->x - hero->dir_x * (hero->move_speed + 0.1))] != '1')
+		hero->x -= hero->dir_x * hero->move_speed;
+	if (map->map[(int)(hero->y - hero->dir_y * (hero->move_speed + 0.1))]
+		[(int)(hero->x)] != '1')
+		hero->y -= hero->dir_y * hero->move_speed;
+}
+
+void	ft_move_left(t_config *config)
+{
+	t_hero	*hero;
+	t_map	*map;
+
+	hero = &config->hero;
+	map = &config->map;
+	if (map->map[(int)(hero->y)]
+		[(int)(hero->x - hero->plane_x * (hero->move_speed + 0.1))] != '1')
+		hero->x -= hero->plane_x * hero->move_speed;
+	if (map->map[(int)(hero->y - hero->plane_y * (hero->move_speed + 0.1))]
+		[(int)(hero->x)] != '1')
+		hero->y -= hero->plane_y * hero->move_speed;
+}
+
+void	ft_move_right(t_config *config)
+{
+	t_hero	*hero;
+	t_map	*map;
+
+	hero = &config->hero;
+	map = &config->map;
+	if (map->map[(int)(hero->y)]
+		[(int)(hero->x + hero->plane_x * (hero->move_speed + 0.1))] != '1')
+		hero->x += hero->plane_x * hero->move_speed;
+	if (map->map[(int)(hero->y + hero->plane_y * (hero->move_speed + 0.1))]
+		[(int)(hero->x)] != '1')
+		hero->y += hero->plane_y * hero->move_speed;
 }
