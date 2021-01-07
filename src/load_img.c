@@ -6,27 +6,30 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 23:25:59 by user              #+#    #+#             */
-/*   Updated: 2021/01/07 16:05:41 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:34:46 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void    load_img(t_config *config)
+void	load_img(t_config *config)
 {
-	int		i;
+	int		index;
 	char	*path;
 
-	i = 0;
-	while (i < 5)
+	index = 0;
+	while (index < 5)
 	{
-		path = get_texture_path(i, config);
-		config->img.img[i] = mlx_xpm_file_to_image(config->win.mlx, path, &config->img.width[i], &config->img.height[i]);
-		config->img.addr[i] = mlx_get_data_addr(config->img.img[i],
-						&config->img.bits_per_pixel[i],
-						&config->img.line_length[i], &config->img.endian[i]);
-		make_texture(config, i);
-		i++;
+		path = get_texture_path(index, config);
+		config->img.img[index] = mlx_xpm_file_to_image(config->win.mlx, path,
+							&config->img.width[index],
+							&config->img.height[index]);
+		config->img.addr[index] = mlx_get_data_addr(config->img.img[index],
+						&config->img.bits_per_pixel[index],
+						&config->img.line_length[index],
+						&config->img.endian[index]);
+		make_texture(config, index);
+		index++;
 	}
 }
 
@@ -45,19 +48,25 @@ char	*get_texture_path(int index, t_config *config)
 	return (NULL);
 }
 
-void	make_texture(t_config *config, int index)
+void	make_texture(t_config *config, int i)
 {
-	int x;
-	int	y;
+	int			x;
+	int			y;
+	t_texture	*img;
 
 	x = 0;
-	config->img.texture[index] = (size_t *)malloc(sizeof(size_t) * config->img.width[index] * config->img.height[index]);
-	while (x < config->img.width[index])
+	img = &config->img;
+	img->texture[i] = (size_t *)malloc(sizeof(size_t) *
+							(img->width[i] * img->height[i]));
+	while (x < img->width[i])
 	{
 		y = 0;
-		while (y < config->img.height[index])
+		while (y < img->height[i])
 		{
-			config->img.texture[index][config->img.width[index] * y + x] = *(unsigned int*)(config->img.addr[index] + (y * config->img.line_length[index] + x * (config->img.bits_per_pixel[index] / 8)));
+			img->texture[i][img->width[i] * y + x] =
+											*(unsigned int*)(img->addr[i] +
+											(y * img->line_length[i] +
+											x * (img->bits_per_pixel[i] / 8)));
 			y++;
 		}
 		x++;

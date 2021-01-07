@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 16:11:26 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:12:25 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	fill_param_list(t_config *config, int fd)
 void	fill_map_list(t_config *config, int fd)
 {
 	t_list	*tmp;
-	char *map_line;
+	char	*map_line;
 
 	config->map.width = 0;
 	config->map.new_line = 0;

@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 16:05:24 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:29:41 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include "stdio.h" //!DEL
-# include <errno.h> //! DEL???
+# include <errno.h>
 
 typedef struct	s_map
 {
@@ -36,7 +36,7 @@ typedef struct	s_map
 
 typedef struct	s_sprite
 {
-	double 		x;
+	double		x;
 	double		y;
 }				t_sprite;
 
@@ -96,7 +96,7 @@ typedef struct	s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-} 				t_data;
+}				t_data;
 
 typedef struct	s_error
 {
@@ -119,7 +119,7 @@ typedef struct	s_params
 	int		has_param[9];
 }				t_params;
 
-typedef struct		s_config_struct
+typedef struct	s_config_struct
 {
 	t_map			map;
 	t_win			win;
@@ -132,23 +132,23 @@ typedef struct		s_config_struct
 	t_list			*head_param;
 	t_params		params;
 	t_error			error;
-}					t_config;
+}				t_config;
 
 void			parce_map(t_config *config);
-void			init_struct(t_config *config);
 void			ft_get_camera_coordinate(t_config *config, int x);
 
-char			**fill_map(t_config *config, int size);
-void			put_pixel_scale(int x, int y, t_config *config);
 void			render(t_config *config);
 void			free_texture(t_config *config);
+void			check_arguments_number(int argc, t_config *config);
+void			fill_param_list(t_config *config, int fd);
+void			fill_map_list(t_config *config, int fd);
+void			check_file_name(char *file_name, t_config *config);
 
 /*
-** parce_param
+** fill_map
 */
 
-void			parce_param(t_config *config);
-int				parce_window_param(t_config *config, char *str);
+char			**fill_map(t_config *config, int size);
 
 /*
 ** validation
@@ -160,26 +160,16 @@ int				ft_check_border(t_config *config, int y, int x);
 int				ft_validate_map(t_config *config, int y, int x);
 
 /*
-** move_hero
-*/
-
-void			ft_move_right(t_config *config);
-void			ft_move_left(t_config *config);
-void			ft_move_forward(t_config *config);
-void			ft_move_back(t_config *config);
-
-/*
-** rotate_hero
-*/
-
-void	ft_rotate_left(t_config *config);
-void	ft_rotate_right(t_config *config);
-
-/*
-** init_struct.c
+** init_img
 */
 
 void			init_image(t_config *config);
+
+/*
+** init
+*/
+
+void			init_struct(t_config *config);
 void			init_error(t_config *config);
 
 /*
@@ -200,7 +190,7 @@ int				get_texture_number(t_config *config, int y, int x, int side);
 */
 
 void			load_img(t_config *config);
-void			make_texture(t_config *config, int index);
+void			make_texture(t_config *config, int i);
 char			*get_texture_path(int index, t_config *config);
 
 /*
@@ -217,10 +207,60 @@ void			swap_elems(double *elem_1, double *elem_2);
 void			sort_sprites(double distanse[], int left, int right, double *order);
 
 /*
-** exit_cub
+** parce_param
 */
 
-void			exit_cub(int error_code, t_config *config);
+void			parce_param(t_config *config);
+void			check_all_params(t_config *config);
+void			find_correct_param_and_parce(char *str, t_config *config);
+
+/*
+** parce_color
+*/
+
+void			check_color_value(int color, t_config *config);
+void			find_color_value(char **str, int *color);
+void			validate_color_params(char *str, t_config *config);
+char			*make_minimized_str(char *mini_str, char *str);
+void			parce_color(t_config *config, char *str);
+void			fill_and_check_rgb(t_config *config, int rgb[3], char *str);
+
+/*
+** parce_window
+*/
+
+void			check_max_size(t_config *config);
+int				parce_window_param(t_config *config, char *str);
+
+/*
+** parce_tex
+*/
+
+void			parce_tex(t_config *config, char *str);
+
+/*
+** hooks
+*/
+
+int				close_win(int keycode, t_config *config);
+int				move_hero_hook(int keycode, t_config *config);
+int				button(int key);
+
+/*
+** move_hero
+*/
+
+void			ft_move_right(t_config *config);
+void			ft_move_left(t_config *config);
+void			ft_move_forward(t_config *config);
+void			ft_move_back(t_config *config);
+
+/*
+** rotate_hero
+*/
+
+void			ft_rotate_left(t_config *config);
+void			ft_rotate_right(t_config *config);
 
 /*
 ** support
@@ -242,34 +282,9 @@ void			skip_number(char **str);
 void			skip_not_number(char **str);
 
 /*
-** parce_color
+** exit_cub
 */
 
-void			check_color_value(int color, t_config *config);
-void			find_color_value(char **str, int *color);
-void			validate_color_params(char *str, t_config *config);
-char			*make_minimized_str(char *mini_str, char *str);
-void			parce_color(t_config *config, char *str);
-void			fill_and_check_rgb(t_config *config, int rgb[3], char *str);
-
-/*
-** parce_window
-*/
-
-void			check_max_size(t_config *config);
-int				parce_window_param(t_config *config, char *str);
-
-/*
-** parce_window
-*/
-
-void			parce_tex(t_config *config, char *str);
-
-/*
-** hooks
-*/
-int				close_win(int keycode, t_config *config);
-int				move_hero_hook(int keycode, t_config *config);
-int				button(int key);
+void			exit_cub(int error_code, t_config *config);
 
 #endif
