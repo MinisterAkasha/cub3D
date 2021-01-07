@@ -6,13 +6,13 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 19:17:27 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/06 17:36:30 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 15:11:22 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	ft_find_width(char *str, t_config	*config)
+void	ft_find_width(char *str, t_config *config)
 {
 	size_t	len;
 
