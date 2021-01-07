@@ -6,11 +6,11 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 15:52:15 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:11:26 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub.h"
 
 #include "stdio.h" //!DEL
 
@@ -71,6 +71,11 @@ void	fill_param_list(t_config *config, int fd)
 	{
 		i = skip_spaces(param_line);
 		get_next_line(fd, &param_line);
+		if (param_line[i] == '1')
+		{
+			ft_lstadd_back(&config->head_map, ft_lstnew(param_line));
+			return ;
+		}
 		ft_lstadd_back(&config->head_param, ft_lstnew(param_line));
 	}
 }
@@ -80,13 +85,9 @@ void	fill_map_list(t_config *config, int fd)
 	t_list	*tmp;
 	char *map_line;
 
-	tmp = config->head_param;
-	while (tmp->next)
-		tmp = tmp->next;
 	config->map.width = 0;
 	config->map.new_line = 0;
-	ft_find_width(tmp->content, config);
-	ft_lstadd_back(&config->head_map, ft_lstnew(tmp->content));
+	ft_find_width(config->head_map->content, config);
 	while(get_next_line(fd, &map_line))
 	{
 		ft_find_width(map_line, config);

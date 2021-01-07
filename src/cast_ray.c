@@ -6,11 +6,11 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 16:00:30 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:05:41 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub.h"
 
 void	cast_rays(t_config *config, int x)
 {

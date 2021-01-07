@@ -6,11 +6,11 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 15:15:21 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 15:17:20 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:09:52 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub.h"
 
 void		find_correct_param_and_parce(char *str, t_config *config)
 {

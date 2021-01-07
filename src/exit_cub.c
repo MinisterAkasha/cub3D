@@ -6,11 +6,11 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 13:18:54 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 15:47:13 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:05:41 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub.h"
 
 void	exit_cub(int error_code, t_config *config)
 {

@@ -6,11 +6,11 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:50:44 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 15:51:00 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:05:41 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub.h"
 
 void	run_window(t_config *config)
 {

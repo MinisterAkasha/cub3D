@@ -6,11 +6,11 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 12:54:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 15:14:14 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:05:41 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub.h"
 
 int		ft_check_inner_elem(t_config *config, int y, int x)
 {

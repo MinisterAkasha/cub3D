@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/06 17:12:13 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 16:00:30 by akasha           ###   ########.fr       */
+/*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
+/*   Updated: 2021/01/07 16:05:24 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_3D_H
-#define CUB_3D_H
+#ifndef CUB_H
+# define CUB_H
 
 # include "../libft/includes/libft.h"
 # include "../minilib/mlx.h"
@@ -34,7 +34,7 @@ typedef struct	s_map
 	int		has_hero;
 }				t_map;
 
-typedef struct s_sprite
+typedef struct	s_sprite
 {
 	double 		x;
 	double		y;
