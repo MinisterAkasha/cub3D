@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 18:33:19 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 19:06:04 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,26 @@ typedef struct	s_ray_casting {
 	double		tex_pos;
 }				t_ray_casting;
 
-typedef struct	s_sprite
+typedef struct	s_sprite_position
 {
 	double		x;
 	double		y;
+}				t_sprite_position;
+
+typedef struct	s_sprite
+{
+	double	sprite_x;
+	double	sprite_y;
+	double	invert_determ;
+	double	transform_x;
+	double	transform_y;
+	int		sprite_screen_x;
+	int		sprite_height;
+	int		sprite_width;
+	int		drow_start_y;
+	int		drow_end_y;
+	int		drow_start_x;
+	int		drow_end_x;
 }				t_sprite;
 
 typedef struct	s_texture
@@ -134,18 +150,19 @@ typedef struct	s_params
 
 typedef struct	s_config_struct
 {
-	t_map			map;
-	t_win			win;
-	t_data			data;
-	t_ray			ray;
-	t_hero			hero;
-	t_texture		img;
-	t_sprite		*sprite;
-	t_list			*head_map;
-	t_list			*head_param;
-	t_params		params;
-	t_error			error;
-	t_ray_casting	ray_casting;
+	t_map				map;
+	t_win				win;
+	t_data				data;
+	t_ray				ray;
+	t_hero				hero;
+	t_texture			img;
+	t_sprite_position	*sprite_pos;
+	t_sprite			sprite;
+	t_list				*head_map;
+	t_list				*head_param;
+	t_params			params;
+	t_error				error;
+	t_ray_casting		ray_casting;
 }				t_config;
 
 void			parce_map(t_config *config);
@@ -185,6 +202,9 @@ void			init_image(t_config *config);
 
 void			init_struct(t_config *config);
 void			init_error(t_config *config);
+void			init_map_objects(t_config *config);
+void			get_hero_dir(t_config *config, int y, int x);
+void			init_sprites(t_config *config);
 
 /*
 ** run_window
@@ -193,14 +213,14 @@ void			init_error(t_config *config);
 void			run_window(t_config *config);
 
 /*
-**	cast_ray.c
+**	cast_ray
 */
 
 void			cast_rays(t_config *config, int x);
 int				get_texture_number(t_config *config, int y, int x);
 
 /*
-**	load_img.c
+**	load_img
 */
 
 void			load_img(t_config *config);
@@ -208,14 +228,14 @@ void			make_texture(t_config *config, int i);
 char			*get_texture_path(int index, t_config *config);
 
 /*
-** sprites.c
+** sprites
 */
 
-void			init_map_objects(t_config *config);
-void			get_hero_dir(t_config *config, int y, int x);
-void			init_sprites(t_config *config);
 void			sprite_cast(t_config *config, double z_buffer[(int)config->params.window_width]);
 
+/*
+** sort_sprites
+*/
 int				partition(double *arr, int left, int right, double *order);
 void			swap_elems(double *elem_1, double *elem_2);
 void			sort_sprites(double distanse[], int left, int right, double *order);

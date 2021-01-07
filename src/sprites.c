@@ -6,69 +6,30 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:44:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 16:05:41 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 19:07:20 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	init_sprites(t_config *config)
+void	fill_sprites_arr(t_config *config, double sprite_order[], double sprite_distanse[])
 {
-	int y;
-	int x;
 	int i;
 	
-	config->sprite = (t_sprite *)malloc(sizeof(t_sprite) * config->map.sprites_num);
-
 	i = 0;
-	y = 0;
-	while (config->map.map[y])
+	while (i < config->map.sprites_num)
 	{
-		x = 0;
-		while (config->map.map[y][x])
-		{
-			if (config->map.map[y][x] == '2') // Определяет позицию каждого спрайта
-			{
-				config->sprite[i].y = y + 0.5;
-				config->sprite[i].x = x + 0.5;
-				i++;
-			}
-			x++;
-		}
-		y++;
+		sprite_order[i] = i;
+		sprite_distanse[i] = (config->hero.x - config->sprite_pos[i].x) * (config->hero.x - config->sprite_pos[i].x) +
+			(config->hero.y - config->sprite_pos[i].y) * (config->hero.y - config->sprite_pos[i].y);
+		i++;
 	}
-}
-
-void	init_map_objects(t_config *config)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (config->map.map[y])
-	{
-		x = 0;
-		while (config->map.map[y][x])
-		{
-			if (config->map.map[y][x] == '2') // Считаю кол-во спрайтов
-				config->map.sprites_num++;
-			if (ft_strchr(config->map.hero_set, config->map.map[y][x])) // Определяю позицию героя
-			{
-				config->hero.y = y + 0.5;
-				config->hero.x = x + 0.5;
-				get_hero_dir(config, y, x);
-			}
-			x++;
-		}
-		y++;
-	}
-	init_sprites(config);
 }
 
 void	sprite_cast(t_config *config, double z_buffer[(int)config->params.window_width])
 {
 	int 	i;
-	double	*sprite_order;
+	double	sprite_order[config->map.sprites_num];
 	double	sprite_distanse[config->map.sprites_num];
 
 	double	sprite_x;
@@ -85,21 +46,15 @@ void	sprite_cast(t_config *config, double z_buffer[(int)config->params.window_wi
 	int		drow_start_x;
 	int		drow_end_x;
 
-	i = 0;
-	sprite_order = (double *)malloc(sizeof(double) * config->map.sprites_num);
-	while (i < config->map.sprites_num)
-	{
-		sprite_order[i] = i;
-		sprite_distanse[i] = (config->hero.x - config->sprite[i].x) * (config->hero.x - config->sprite[i].x) +
-			(config->hero.y - config->sprite[i].y) * (config->hero.y - config->sprite[i].y);
-		i++;
-	}
+
+	fill_sprites_arr(config, sprite_order, sprite_distanse);
 	sort_sprites(sprite_distanse, 0, config->map.sprites_num - 1, sprite_order);
+	drow_sprite()//TODO доделать
 	i = 0;
 	while (i < config->map.sprites_num)
 	{
-		sprite_x = config->sprite[(int)sprite_order[i]].x - config->hero.x;
-		sprite_y = config->sprite[(int)sprite_order[i]].y - config->hero.y;
+		sprite_x = config->sprite_pos[(int)sprite_order[i]].x - config->hero.x;
+		sprite_y = config->sprite_pos[(int)sprite_order[i]].y - config->hero.y;
 
 		invert_determ = 1.0 / (config->hero.plane_x * config->hero.dir_y - config->hero.plane_y * config->hero.dir_x);
 
@@ -144,83 +99,5 @@ void	sprite_cast(t_config *config, double z_buffer[(int)config->params.window_wi
 			x++;
 		}
 		i++;
-	}
-	free(sprite_order);
-}
-
-void	swap_elems(double *elem_1, double *elem_2)
-{
-	int swap;
-
-	swap = *elem_1;
-	*elem_1 = *elem_2;
-	*elem_2 = swap;
-}
-
-int		partition(double *distanse, int left, int right, double *order)
-{
-	int i;
-	int j;
-	double pivot;
-
-	i = left;
-	j = left;
-	pivot = distanse[right];
-	while (j <= right)
-	{
-		if (distanse[j] > pivot)
-		{
-			swap_elems(&distanse[i], &distanse[j]);
-			swap_elems((&order[i]), &order[j]);
-			i++;
-		}
-		j++;
-	}
-	swap_elems(&distanse[i], &distanse[right]);
-	swap_elems((&order[i]), &order[right]);
-	return (i);
-}
-
-void 	sort_sprites(double distanse[], int left, int right, double *order)
-{  
-	int pivot;
-
-    if (left < right)
-    {
-		pivot = partition(distanse, left, right, order);
-        sort_sprites(distanse, left, pivot - 1, order);
-        sort_sprites(distanse, pivot + 1, right, order);
-    }
-}
-
-void	get_hero_dir(t_config *config, int y, int x)
-{
-	if (config->map.map[y][x] == 'N')
-	{
-		config->hero.dir_x = 0;
-		config->hero.dir_y = -1;
-		config->hero.plane_x = -0.66;
-		config->hero.plane_y = 0;
-	}
-	if (config->map.map[y][x] == 'W')
-	{
-		config->hero.dir_x = 1;
-		config->hero.dir_y = 0;
-		config->hero.plane_x = 0;
-		config->hero.plane_y = -0.66;
-	}
-	if (config->map.map[y][x] == 'S')
-	{
-		config->hero.dir_x = 0;
-		config->hero.dir_y = 1;
-		config->hero.plane_x = 0.66;
-		config->hero.plane_y = 0;
-	}
-	if (config->map.map[y][x] == 'E')
-	{
-		config->hero.dir_x = -1;
-		config->hero.dir_y = 0;
-		config->hero.plane_x = 0;
-		config->hero.plane_y = 0.66;
 	}
 }

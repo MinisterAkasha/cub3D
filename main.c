@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 17:41:49 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 18:59:24 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int main(int argc, char *argv[])
 	close(fd);
 	init_struct(config);
 	run_window(config);
-	free(config->sprite);
+	free(config->sprite_pos);
 	free(config);
 	//! Free LISTS
 	//! Free TEXTURES
