@@ -6,13 +6,13 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 15:15:21 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 16:09:52 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:36:44 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void		find_correct_param_and_parce(char *str, t_config *config)
+void	find_correct_param_and_parce(char *str, t_config *config)
 {
 	if (*str == 'R')
 		parce_window_param(config, ++str);
@@ -38,7 +38,7 @@ void	check_all_params(t_config *config)
 	}
 }
 
-void		parce_param(t_config *config)
+void	parce_param(t_config *config)
 {
 	t_list	*tmp;
 	char	*str;
