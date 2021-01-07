@@ -6,13 +6,13 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:17:06 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 15:32:34 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/07 15:49:41 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int		close_win(int keycode, t_config *config)
+int	close_win(int keycode, t_config *config)
 {
 	if (keycode == 53)
 	{
@@ -26,9 +26,6 @@ int		close_win(int keycode, t_config *config)
 
 int	move_hero_hook(int keycode, t_config *config)
 {
-	double oldDirX;
-	double oldplane_x;
-	
 	if (button(keycode))
 	{
 		mlx_destroy_image(config->win.mlx, config->data.img);
