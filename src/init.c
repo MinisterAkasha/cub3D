@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:19:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 18:59:24 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 20:10:15 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	init_struct(t_config *config)
 {
 	config->map.has_hero = 0;
 	config->map.height = 0;
-	config->map.map = fill_map(config, ft_lstsize(config->head_map));
+	// config->map.map = fill_map(config, ft_lstsize(config->head_map));
+	fill_map(config, ft_lstsize(config->head_map));
 	config->map.hero_set = "NSEW";
 	config->map.inner_set = "012 NSEW";
 	config->map.space_set = "1 ";

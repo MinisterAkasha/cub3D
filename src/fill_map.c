@@ -6,13 +6,13 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 19:16:25 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 16:05:41 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 20:10:57 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-char	**fill_map(t_config *config, int size)
+void	fill_map(t_config *config, int size)
 {
 	char		**map;
 	t_list		*tmp;
@@ -20,7 +20,7 @@ char	**fill_map(t_config *config, int size)
 	int			i;
 	char		*str;
 
-	if (!(map = ft_calloc((size + 1), sizeof(char **))))
+	if (!(config->map.map = ft_calloc((size + 1), sizeof(char **))))
 		exit_cub(15, config);
 	tmp = config->head_map;
 	i = 0;
@@ -31,10 +31,9 @@ char	**fill_map(t_config *config, int size)
 			exit_cub(15, config);
 		str[len_dif] = 0;
 		ft_memset(str, ' ', len_dif);
-		map[i++] = ft_strjoin(tmp->content, str);
+		config->map.map[i++] = ft_strjoin(tmp->content, str);
 		free(str);
 		config->map.height++;
 		tmp = tmp->next;
 	}
-	return (map);
 }

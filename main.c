@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 18:57:04 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 20:34:44 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		render(t_config *config)
 		x++;
 	}
 	sprite_cast(config);
-	free_texture(config);
+	free_texture_arr(config);
 	free(config->sprite.z_buffer);
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
 	return (1);
@@ -43,18 +43,6 @@ void	ft_get_camera_coordinate(t_config *config, int x)
 	config->hero.camera_x = 2 * (x / (double)config->params.window_width) - 1;
 	config->ray.ray_dir_y = config->hero.dir_y + config->hero.plane_y * config->hero.camera_x;
 	config->ray.ray_dir_x = config->hero.dir_x + config->hero.plane_x * config->hero.camera_x;
-}
-
-void	free_texture(t_config *config)
-{
-	int i;
-
-	i = 0;
-	while (i < 5)
-	{
-		free(config->img.texture[i]);
-		i++;
-	}
 }
 
 void	check_arguments_number(int argc, t_config *config)
@@ -92,7 +80,7 @@ void	fill_map_list(t_config *config, int fd)
 	config->map.width = 0;
 	config->map.new_line = 0;
 	ft_find_width(config->head_map->content, config);
-	while(get_next_line(fd, &map_line))
+	while (get_next_line(fd, &map_line))
 	{
 		ft_find_width(map_line, config);
 		if (!*map_line)
@@ -133,9 +121,7 @@ int main(int argc, char *argv[])
 	close(fd);
 	init_struct(config);
 	run_window(config);
-	free(config->sprite_pos);
-	free(config);
-	//! Free LISTS
-	//! Free TEXTURES
+	exit_free(config);
+	while(1) {}
 	return (0);
 }
