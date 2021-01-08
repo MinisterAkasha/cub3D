@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 20:59:34 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 21:26:30 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 #include "stdio.h" //!DEL
 
+//TODO проверить напровление игрока и стороны текстур
+
 int		render(t_config *config)
 {
 	int		x;
-	// double	z_buffer[(int)config->params.window_width];
 
 	init_image(config);
 	load_img(config);
@@ -26,7 +27,6 @@ int		render(t_config *config)
 	x = 0;
 	while (x < config->params.window_width)
 	{
-		ft_get_camera_coordinate(config, x);
 		cast_rays(config, x);
 		config->sprite.z_buffer[x] = config->ray.perp_wall_dist;
 		x++;
@@ -36,13 +36,6 @@ int		render(t_config *config)
 	free(config->sprite.z_buffer);
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
 	return (1);
-}
-
-void	ft_get_camera_coordinate(t_config *config, int x)
-{
-	config->hero.camera_x = 2 * (x / (double)config->params.window_width) - 1;
-	config->ray.ray_dir_y = config->hero.dir_y + config->hero.plane_y * config->hero.camera_x;
-	config->ray.ray_dir_x = config->hero.dir_x + config->hero.plane_x * config->hero.camera_x;
 }
 
 void	check_arguments_number(int argc, t_config *config)

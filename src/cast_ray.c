@@ -6,11 +6,18 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 19:34:03 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 21:23:32 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+void	ft_get_camera_coordinate(t_config *config, int x)
+{
+	config->hero.camera_x = 2 * (x / (double)config->params.window_width) - 1;
+	config->ray.ray_dir_y = config->hero.dir_y + config->hero.plane_y * config->hero.camera_x;
+	config->ray.ray_dir_x = config->hero.dir_x + config->hero.plane_x * config->hero.camera_x;
+}
 
 void	get_map_coordinates(t_config *config)
 {
@@ -209,6 +216,7 @@ void	cast_rays(t_config *config, int x)
 {
 	int	tex_num;
 
+	ft_get_camera_coordinate(config, x);
 	get_ray_delta(config);
 	get_map_coordinates(config);
 	get_side_and_step_x(config);
