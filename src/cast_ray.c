@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 21:23:32 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 23:35:36 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	get_side_and_step_y(t_config *config)
 	}
 }
 
-void	get_hit(t_config *config)
+void	get_wall_hit(t_config *config)
 {
 	int hit;
 
@@ -221,7 +221,7 @@ void	cast_rays(t_config *config, int x)
 	get_map_coordinates(config);
 	get_side_and_step_x(config);
 	get_side_and_step_y(config);
-	get_hit(config);
+	get_wall_hit(config);
 	get_distance(config);
 	tex_num = get_texture_number(config,
 				config->ray_casting.map_y, config->ray_casting.map_x);

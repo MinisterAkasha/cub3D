@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 23:25:59 by user              #+#    #+#             */
-/*   Updated: 2021/01/07 16:34:46 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 23:37:35 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	make_texture(t_config *config, int i)
 	int			x;
 	int			y;
 	t_texture	*img;
+	int			pixel;
 
 	x = 0;
 	img = &config->img;
@@ -63,13 +64,12 @@ void	make_texture(t_config *config, int i)
 		y = 0;
 		while (y < img->height[i])
 		{
-			img->texture[i][img->width[i] * y + x] =
-											*(unsigned int*)(img->addr[i] +
-											(y * img->line_length[i] +
-											x * (img->bits_per_pixel[i] / 8)));
+			pixel = img->width[i] * y + x;
+			img->texture[i][pixel] = *(unsigned int*)(img->addr[i] +
+									(y * img->line_length[i] +
+									x * (img->bits_per_pixel[i] / 8)));
 			y++;
 		}
 		x++;
 	}
-	//TODO free tucture arr
 }

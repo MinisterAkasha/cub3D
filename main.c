@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 21:26:30 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 23:35:57 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int		render(t_config *config)
 {
-	int		x;
+	int	x;
 
 	init_image(config);
 	load_img(config);
@@ -44,44 +44,6 @@ void	check_arguments_number(int argc, t_config *config)
 		exit_cub(0, config);
 	else if (argc < 2)
 		exit_cub(1, config);
-}
-
-void	fill_param_list(t_config *config, int fd)
-{
-	char	*param_line;
-	int		i;
-
-	i = skip_spaces(param_line);
-	while (param_line[i] != '1')
-	{
-		i = skip_spaces(param_line);
-		get_next_line(fd, &param_line);
-		if (param_line[i] == '1')
-		{
-			ft_lstadd_back(&config->head_map, ft_lstnew(param_line));
-			return ;
-		}
-		ft_lstadd_back(&config->head_param, ft_lstnew(param_line));
-	}
-}
-
-void	fill_map_list(t_config *config, int fd)
-{
-	t_list	*tmp;
-	char	*map_line;
-
-	config->map.width = 0;
-	config->map.new_line = 0;
-	ft_find_width(config->head_map->content, config);
-	while (get_next_line(fd, &map_line))
-	{
-		ft_find_width(map_line, config);
-		if (!*map_line)
-			config->map.new_line++;
-		ft_lstadd_back(&config->head_map, ft_lstnew(map_line));
-	}
-	ft_find_width(map_line, config);
-	ft_lstadd_back(&config->head_map, ft_lstnew(map_line));
 }
 
 void	check_file_name(char *file_name, t_config *config)
