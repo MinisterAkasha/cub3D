@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 23:35:57 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 23:41:48 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include "stdio.h" //!DEL
 
 //TODO проверить напровление игрока и стороны текстур
+
+void	fill_z_buffer(t_config *config, int x)
+{
+	config->sprite.z_buffer[x] = config->ray.perp_wall_dist;
+}
 
 int		render(t_config *config)
 {
@@ -28,13 +33,14 @@ int		render(t_config *config)
 	while (x < config->params.window_width)
 	{
 		cast_rays(config, x);
-		config->sprite.z_buffer[x] = config->ray.perp_wall_dist;
+		fill_z_buffer(config, x);
 		x++;
 	}
 	sprite_cast(config);
 	free_texture_arr(config);
 	free(config->sprite.z_buffer);
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
+	destroy_images(config);
 	return (1);
 }
 

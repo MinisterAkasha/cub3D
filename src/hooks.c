@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:17:06 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 23:29:38 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 23:41:57 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	close_win(int keycode, t_config *config)
 {
 	if (keycode == 53)
 	{
-		destroy_images(config);
+		// destroy_images(config);
 		mlx_destroy_window(config->win.mlx, config->win.window);
 		free_all(config);
 		exit(0);
@@ -38,7 +38,7 @@ int	move_hero_hook(int keycode, t_config *config)
 {
 	if (button(keycode))
 	{
-		destroy_images(config);
+		// destroy_images(config);
 		if (keycode == 13)
 			ft_move_forward(config);
 		if (keycode == 0)
