@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 19:12:12 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 19:18:44 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct	s_sprite
 	double	*sprite_distanse;
 	double	sprite_x;
 	double	sprite_y;
-	double	invert_determ;
 	double	transform_x;
 	double	transform_y;
 	int		sprite_screen_x;

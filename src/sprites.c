@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:44:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 19:16:03 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 19:18:36 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ void	get_sprite_coordinates(t_config *config, int i)
 	sprite->sprite_y = config->sprite_pos[(int)sprite->sprite_order[i]].y - config->hero.y;
 }
 
+double	get_invert_determ_value(t_config *config)
+{
+	t_hero *hero;
+
+	hero = &config->hero;
+	return (1.0 / (hero->plane_x * hero->dir_y - hero->plane_y * hero->dir_x));
+}
+
 void	drow_sprite(t_config *config)
 {
 	int i;
@@ -59,9 +67,9 @@ void	drow_sprite(t_config *config)
 	while (i < config->map.sprites_num)
 	{
 		get_sprite_coordinates(config, i);
+		invert_determ = get_invert_determ_value(config);
 		
 
-		invert_determ = 1.0 / (config->hero.plane_x * config->hero.dir_y - config->hero.plane_y * config->hero.dir_x);
 
 		transform_x = invert_determ * (config->hero.dir_y * config->sprite.sprite_x - config->hero.dir_x * config->sprite.sprite_y);
 		transform_y = invert_determ * (config->hero.plane_x * config->sprite.sprite_y - config->hero.plane_y * config->sprite.sprite_x);
