@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:44:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 19:45:02 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 19:48:12 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ void	fill_sprites_arr(t_config *config)
 
 void	get_sprite_coordinates(t_config *config, int i)
 {
-	t_sprite *sprite;
+	t_sprite	*sprite;
+	int			index;
 
 	sprite = &config->sprite;
-	sprite->sprite_x = config->sprite_pos[(int)sprite->sprite_order[i]].x - config->hero.x;
-	sprite->sprite_y = config->sprite_pos[(int)sprite->sprite_order[i]].y - config->hero.y;
+	index = sprite->sprite_order[i];
+	sprite->sprite_x = config->sprite_pos[index].x - config->hero.x;
+	sprite->sprite_y = config->sprite_pos[index].y - config->hero.y;
 }
 
 double	get_invert_determ_value(t_config *config)
@@ -110,19 +112,11 @@ void	drow_sprite(t_config *config)
 		get_sprite_coordinates(config, i);
 		invert_determ = get_invert_determ_value(config);
 		get_sprite_transform(config, invert_determ);
-
-		
 		get_sprite_screen_x(config);
-
 		get_sprite_height(config);
 		get_sprite_width(config);
 		get_drow_sprite_y_range(config);
 		get_drow_sprite_x_range(config);
-		
-
-		
-
-		
 		int x = config->sprite.drow_start_x;
 		while (x < config->sprite.drow_end_x)
 		{
