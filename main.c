@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 18:59:24 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 18:57:04 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,23 @@
 int		render(t_config *config)
 {
 	int		x;
-	double	z_buffer[(int)config->params.window_width];
+	// double	z_buffer[(int)config->params.window_width];
 
 	init_image(config);
 	load_img(config);
+	if (!(config->sprite.z_buffer = (double *)malloc(sizeof(double) * config->params.window_width)))
+		exit_cub(15, config);
 	x = 0;
 	while (x < config->params.window_width)
 	{
 		ft_get_camera_coordinate(config, x);
 		cast_rays(config, x);
-		z_buffer[x] = config->ray.perp_wall_dist;
+		config->sprite.z_buffer[x] = config->ray.perp_wall_dist;
 		x++;
 	}
-	sprite_cast(config, z_buffer);
+	sprite_cast(config);
 	free_texture(config);
+	free(config->sprite.z_buffer);
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
 	return (1);
 }

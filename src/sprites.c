@@ -6,34 +6,43 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:44:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 19:07:20 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 19:16:03 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	fill_sprites_arr(t_config *config, double sprite_order[], double sprite_distanse[])
+void	fill_sprites_arr(t_config *config)
 {
 	int i;
-	
+
+	if (!(config->sprite.sprite_order = (double *)malloc(sizeof(double) * config->map.sprites_num)))
+		exit_cub(15, config);
+	if (!(config->sprite.sprite_distanse = (double *)malloc(sizeof(double) * config->map.sprites_num)))
+		exit_cub(15, config);
 	i = 0;
 	while (i < config->map.sprites_num)
 	{
-		sprite_order[i] = i;
-		sprite_distanse[i] = (config->hero.x - config->sprite_pos[i].x) * (config->hero.x - config->sprite_pos[i].x) +
+		config->sprite.sprite_order[i] = i;
+		config->sprite.sprite_distanse[i] = (config->hero.x - config->sprite_pos[i].x) * (config->hero.x - config->sprite_pos[i].x) +
 			(config->hero.y - config->sprite_pos[i].y) * (config->hero.y - config->sprite_pos[i].y);
 		i++;
 	}
 }
 
-void	sprite_cast(t_config *config, double z_buffer[(int)config->params.window_width])
+void	get_sprite_coordinates(t_config *config, int i)
 {
-	int 	i;
-	double	sprite_order[config->map.sprites_num];
-	double	sprite_distanse[config->map.sprites_num];
+	t_sprite *sprite;
 
-	double	sprite_x;
-	double	sprite_y;
+	sprite = &config->sprite;
+	sprite->sprite_x = config->sprite_pos[(int)sprite->sprite_order[i]].x - config->hero.x;
+	sprite->sprite_y = config->sprite_pos[(int)sprite->sprite_order[i]].y - config->hero.y;
+}
+
+void	drow_sprite(t_config *config)
+{
+	int i;
+
 	double	invert_determ;
 	double	transform_x;
 	double	transform_y;
@@ -46,20 +55,16 @@ void	sprite_cast(t_config *config, double z_buffer[(int)config->params.window_wi
 	int		drow_start_x;
 	int		drow_end_x;
 
-
-	fill_sprites_arr(config, sprite_order, sprite_distanse);
-	sort_sprites(sprite_distanse, 0, config->map.sprites_num - 1, sprite_order);
-	drow_sprite()//TODO доделать
 	i = 0;
 	while (i < config->map.sprites_num)
 	{
-		sprite_x = config->sprite_pos[(int)sprite_order[i]].x - config->hero.x;
-		sprite_y = config->sprite_pos[(int)sprite_order[i]].y - config->hero.y;
+		get_sprite_coordinates(config, i);
+		
 
 		invert_determ = 1.0 / (config->hero.plane_x * config->hero.dir_y - config->hero.plane_y * config->hero.dir_x);
 
-		transform_x = invert_determ * (config->hero.dir_y * sprite_x - config->hero.dir_x * sprite_y);
-		transform_y = invert_determ * (config->hero.plane_x * sprite_y - config->hero.plane_y * sprite_x);
+		transform_x = invert_determ * (config->hero.dir_y * config->sprite.sprite_x - config->hero.dir_x * config->sprite.sprite_y);
+		transform_y = invert_determ * (config->hero.plane_x * config->sprite.sprite_y - config->hero.plane_y * config->sprite.sprite_x);
 
 		sprite_screen_x = (int)((config->params.window_width / 2) * (1 + transform_x / transform_y));
 
@@ -85,7 +90,7 @@ void	sprite_cast(t_config *config, double z_buffer[(int)config->params.window_wi
 		{
 			int y = drow_start_y;
 			int tex_x = (int)(256 * (x - (-sprite_width / 2 + sprite_screen_x)) * config->img.width[4] / sprite_width) / 256;
-			if (transform_y > 0 && x > 0 && x < (int)config->params.window_width && transform_y < z_buffer[x])
+			if (transform_y > 0 && x > 0 && x < (int)config->params.window_width && transform_y < config->sprite.z_buffer[x])
 			{
 				while (y < drow_end_y)
 				{
@@ -100,4 +105,13 @@ void	sprite_cast(t_config *config, double z_buffer[(int)config->params.window_wi
 		}
 		i++;
 	}
+}
+
+void	sprite_cast(t_config *config)
+{
+	fill_sprites_arr(config);
+	sort_sprites(config, 0, config->map.sprites_num - 1);
+	drow_sprite(config);
+	free(config->sprite.sprite_order);
+	free(config->sprite.sprite_distanse);
 }

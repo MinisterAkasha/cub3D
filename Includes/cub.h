@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 19:06:04 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 19:12:12 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ typedef struct	s_sprite_position
 
 typedef struct	s_sprite
 {
+	double	*z_buffer;
+	double	*sprite_order;
+	double	*sprite_distanse;
 	double	sprite_x;
 	double	sprite_y;
 	double	invert_determ;
@@ -231,14 +234,14 @@ char			*get_texture_path(int index, t_config *config);
 ** sprites
 */
 
-void			sprite_cast(t_config *config, double z_buffer[(int)config->params.window_width]);
+void			sprite_cast(t_config *config);
 
 /*
 ** sort_sprites
 */
-int				partition(double *arr, int left, int right, double *order);
+int				partition(t_config *config, int left, int right);
 void			swap_elems(double *elem_1, double *elem_2);
-void			sort_sprites(double distanse[], int left, int right, double *order);
+void			sort_sprites(t_config *config, int left, int right);
 
 /*
 ** parce_param
