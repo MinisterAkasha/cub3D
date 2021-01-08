@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 20:34:44 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 20:59:34 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,7 +323,7 @@ void			skip_not_number(char **str);
 */
 
 void			free_texture_arr(t_config *config);
-void			exit_free(t_config *config);
+void			free_all(t_config *config);
 
 /*
 ** exit_cub

@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:54:31 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 20:36:42 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 20:59:34 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	free_side_tex(t_config *config)
 		free(config->params.spraite_tex);
 }
 
-void	exit_free(t_config *config)
+void	free_all(t_config *config)
 {
 	free_map(config);
 	ft_lstclear(&config->head_map, free);

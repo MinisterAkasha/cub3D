@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 13:18:54 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 20:29:27 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 20:59:34 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exit_cub(int error_code, t_config *config)
 	{
 		error_message_len = ft_strlen(config->error.error[error_code]);
 		write(1, config->error.error[error_code], error_message_len);
-		exit_free(config);
+		free_all(config);
 	}
 	else
 		perror("");

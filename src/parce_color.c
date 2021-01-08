@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:53:49 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/07 16:05:41 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 20:55:41 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ void	validate_color_params(char *str, t_config *config)
 	}
 	if (commas != 2)
 		exit_cub(7, config);
-	if (numbers != 3)
+	if (numbers != 3) //TODO почему-то захдит сюда через раз (примерно 1/12)
 		exit_cub(10, config);
-	free(minimized_str); //TODO проверить лик
+	free(minimized_str);
 }
 
 void	fill_and_check_rgb(t_config *config, int rgb[3], char *str)
