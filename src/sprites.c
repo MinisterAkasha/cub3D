@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:44:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 19:24:21 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/08 19:32:14 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,16 @@ void	get_sprite_transform(t_config *config, double	invert_determ)
 	sprite->transform_y = invert_determ * (hero->plane_x * sprite->sprite_y - hero->plane_y * sprite->sprite_x);
 }
 
+void	get_sprite_height(t_config *config)
+{
+	config->sprite.sprite_height = abs((int)(config->params.window_height / config->sprite.transform_y));
+}
+
 void	drow_sprite(t_config *config)
 {
 	int 	i;
 	double	invert_determ;
 
-	// double	transform_x;
-	// double	transform_y;
 	int		sprite_screen_x;
 	int		sprite_height;
 	int		sprite_width;
@@ -83,12 +86,12 @@ void	drow_sprite(t_config *config)
 
 		sprite_screen_x = (int)((config->params.window_width / 2) * (1 + config->sprite.transform_x / config->sprite.transform_y));
 
-		sprite_height = abs((int)(config->params.window_height / config->sprite.transform_y));
+		get_sprite_height(config);
 
-		drow_start_y = -sprite_height / 2 + config->params.window_height / 2;
+		drow_start_y = -config->sprite.sprite_height / 2 + config->params.window_height / 2;
 		if (drow_start_y < 0)
 			drow_start_y = 0;
-		drow_end_y = sprite_height / 2 + config->params.window_height / 2;
+		drow_end_y = config->sprite.sprite_height / 2 + config->params.window_height / 2;
 		if (drow_end_y >= config->params.window_height)
 			drow_end_y = config->params.window_height - 1;
 
@@ -109,8 +112,8 @@ void	drow_sprite(t_config *config)
 			{
 				while (y < drow_end_y)
 				{
-					int d = y * 256 - config->params.window_height * 128 + sprite_height * 128;
-					int tex_y = ((d * config->img.height[4]) / sprite_height) / 256;
+					int d = y * 256 - config->params.window_height * 128 + config->sprite.sprite_height * 128;
+					int tex_y = ((d * config->img.height[4]) / config->sprite.sprite_height) / 256;
 					if ((config->img.texture[4][config->img.height[4] * tex_y + tex_x] & 0x00FFFFFF))
 						fast_pixel_put(&config->data, x, y, config->img.texture[4][config->img.width[4] * tex_y + tex_x]);
 					y++;
