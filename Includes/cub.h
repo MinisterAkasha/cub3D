@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/09 15:56:02 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/09 17:07:25 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,8 +286,8 @@ void			parce_tex(t_config *config, char *str);
 ** hooks
 */
 
-int				close_win(int keycode, t_config *config);
-int				move_hero_hook(int keycode, t_config *config);
+int				close_win(t_config *config);
+int				hooks(int keycode, t_config *config);
 int				button(int key);
 void			destroy_images(t_config *config);
 

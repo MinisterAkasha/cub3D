@@ -6,21 +6,17 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:17:06 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 23:41:57 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/09 17:07:21 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	close_win(int keycode, t_config *config)
+int	close_win(t_config *config)
 {
-	if (keycode == 53)
-	{
-		// destroy_images(config);
-		mlx_destroy_window(config->win.mlx, config->win.window);
-		free_all(config);
-		exit(0);
-	}
+	mlx_destroy_window(config->win.mlx, config->win.window);
+	free_all(config);
+	exit(0);
 	return (1);
 }
 
@@ -34,11 +30,13 @@ void	destroy_images(t_config *config)
 	mlx_destroy_image(config->win.mlx, config->data.img);
 }
 
-int	move_hero_hook(int keycode, t_config *config)
+int	hooks(int keycode, t_config *config)
 {
 	if (button(keycode))
 	{
 		// destroy_images(config);
+		if (keycode == 53)
+			close_win(config);
 		if (keycode == 13)
 			ft_move_forward(config);
 		if (keycode == 0)
@@ -61,6 +59,8 @@ int	button(int key)
 	if (key == 13 || key == 0 || key == 1 || key == 2)
 		return (1);
 	if (key == 123 || key == 124)
+		return (1);
+	if (key == 53)
 		return (1);
 	return (0);
 }
