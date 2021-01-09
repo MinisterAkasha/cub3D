@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 23:33:58 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/09 15:56:02 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,10 +229,10 @@ void			cast_rays(t_config *config, int x);
 int				get_texture_number(t_config *config, int y, int x);
 
 /*
-**	load_img
+**	load_image
 */
 
-void			load_img(t_config *config);
+void			load_image(t_config *config);
 void			make_texture(t_config *config, int i);
 char			*get_texture_path(int index, t_config *config);
 

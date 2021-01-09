@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:54:31 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 20:59:34 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/09 15:55:33 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,5 @@ void	free_all(t_config *config)
 		free(config->sprite_pos);
 	free_side_tex(config);
 	free(config);
+	free_texture_arr(config);
 }

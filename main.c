@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 23:41:48 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/09 15:54:30 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		render(t_config *config)
 	int	x;
 
 	init_image(config);
-	load_img(config);
 	if (!(config->sprite.z_buffer = (double *)malloc(sizeof(double) * config->params.window_width)))
 		exit_cub(15, config);
 	x = 0;
@@ -37,10 +36,10 @@ int		render(t_config *config)
 		x++;
 	}
 	sprite_cast(config);
-	free_texture_arr(config);
+	
 	free(config->sprite.z_buffer);
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
-	destroy_images(config);
+	mlx_destroy_image(config->win.mlx, config->data.img);
 	return (1);
 }
 
