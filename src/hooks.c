@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:17:06 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/09 17:07:21 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/09 17:53:43 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	hooks(int keycode, t_config *config)
 {
 	if (button(keycode))
 	{
-		// destroy_images(config);
+		mlx_destroy_image(config->win.mlx, config->data.img);
 		if (keycode == 53)
 			close_win(config);
 		if (keycode == 13)

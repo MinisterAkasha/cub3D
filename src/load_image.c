@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_image.c                                         :+:      :+:    :+:   */
+/*   load_images.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-void	load_image(t_config *config)
+void	load_images(t_config *config)
 {
 	int		index;
 	char	*path;

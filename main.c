@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/09 15:54:30 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/09 18:11:50 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int		render(t_config *config)
 	
 	free(config->sprite.z_buffer);
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
-	mlx_destroy_image(config->win.mlx, config->data.img);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:50:44 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/09 17:08:18 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/09 17:47:49 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ void	run_window(t_config *config)
 						config->params.window_width,
 						config->params.window_height,
 						"Cub3D");
-	load_image(config);
+	load_images(config);
 	render(config);
-	mlx_loop_hook(config->win.mlx, render, config);
-	mlx_hook(config->win.window, 02, 1L<<0, hooks, config); //TODO mlx_loop
+	mlx_hook(config->win.window, 02, 1L<<0, hooks, config);
 	mlx_hook(config->win.window, 17, 1L<<17, close_win, config);
 	mlx_loop(config->win.mlx);
 	destroy_images(config);
