@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:53:49 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 20:55:41 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/10 19:28:30 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	validate_color_params(char *str, t_config *config)
 
 	numbers = get_numbers_num(str);
 	commas = get_commas_num(str);
+	minimized_str = NULL;
 	minimized_str = make_minimized_str(minimized_str, str + 1);
 	i = 0;
 	while (minimized_str[i])
@@ -92,7 +93,6 @@ void	fill_and_check_rgb(t_config *config, int rgb[3], char *str)
 
 void	parce_color(t_config *config, char *str)
 {
-	int i;
 	int	rgb[3];
 
 	validate_color_params(str, config);

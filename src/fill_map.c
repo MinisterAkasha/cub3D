@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 19:16:25 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 20:10:57 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/10 19:25:54 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	fill_map(t_config *config, int size)
 {
-	char		**map;
 	t_list		*tmp;
 	size_t		len_dif;
 	int			i;

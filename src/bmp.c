@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:38:58 by user              #+#    #+#             */
-/*   Updated: 2021/01/10 19:17:59 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/10 19:24:19 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,14 @@ void    create_bmp_info_header(t_config *config)
     config->bmp.info_header[12] = (unsigned char)(1);
     
     config->bmp.info_header[14] = (unsigned char)(3 * 8);
+}
+
+void    generate_image(t_config *config)
+{
+    int fd;
+
+    fd = open("screenshot.bmp", O_CREAT | O_TRUNC | O_APPEND);
+    create_bmp_file_header(config);
+    create_bmp_info_header(config);
+    close(fd);
 }

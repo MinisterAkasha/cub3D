@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/10 18:23:42 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/10 19:25:05 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,8 +342,10 @@ void			free_all(t_config *config);
 /*
 ** bmp
 */
-
+void		    generate_image(t_config *config);
 void    		create_bmp_file_header(t_config *config);
+void		    create_bmp_info_header(t_config *config);
+void		    reset_to_zero(unsigned char header[], int size);
 
 /*
 ** exit_cub

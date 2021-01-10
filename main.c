@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/10 17:46:58 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/10 19:26:27 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ void	check_file_name(char *file_name, t_config *config)
 int main(int argc, char *argv[])
 {
 	int			fd;
-	char		*map_line;
 	t_config	*config;
-	int			i;
 
 	if (!(config = (t_config *)malloc(sizeof(t_config))))
 		exit_cub(15, config);

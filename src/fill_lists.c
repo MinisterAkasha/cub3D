@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:32:46 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 23:33:10 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/10 19:29:30 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	fill_param_list(t_config *config, int fd)
 	char	*param_line;
 	int		i;
 
+	get_next_line(fd, &param_line);
+	ft_lstadd_back(&config->head_param, ft_lstnew(param_line));
 	i = skip_spaces(param_line);
 	while (param_line[i] != '1')
 	{
@@ -33,7 +35,6 @@ void	fill_param_list(t_config *config, int fd)
 
 void	fill_map_list(t_config *config, int fd)
 {
-	t_list	*tmp;
 	char	*map_line;
 
 	config->map.width = 0;
