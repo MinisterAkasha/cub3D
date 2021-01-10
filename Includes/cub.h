@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/09 17:19:49 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/10 17:46:49 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,9 @@ typedef struct	s_params
 	int		has_param[9];
 }				t_params;
 
+typedef struct  s_bmp_header {
+    unsigned char   file_header[54];
+}               t_bmp_header;
 typedef struct	s_config_struct
 {
 	t_map				map;
@@ -165,6 +168,7 @@ typedef struct	s_config_struct
 	t_params			params;
 	t_error				error;
 	t_ray_casting		ray_casting;
+	t_bmp_header		bmp;
 }				t_config;
 
 void			parce_map(t_config *config);
@@ -332,6 +336,12 @@ void			skip_not_number(char **str);
 
 void			free_texture_arr(t_config *config);
 void			free_all(t_config *config);
+
+/*
+** bmp
+*/
+
+void    		create_bmp_header(t_config *config);
 
 /*
 ** exit_cub
