@@ -1,4 +1,4 @@
-R 1080 760 
+R 1920 1080
 S ./pics/barrel.xpm
 NO ./pics/stone.xpm              
 SO ./pics/hexagone.xpm

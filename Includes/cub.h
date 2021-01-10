@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/10 17:46:49 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/10 18:23:42 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,10 @@ typedef struct	s_params
 }				t_params;
 
 typedef struct  s_bmp_header {
-    unsigned char   file_header[54];
+    unsigned char   file_header[14];
+    unsigned char   info_header[40];
 }               t_bmp_header;
+
 typedef struct	s_config_struct
 {
 	t_map				map;
@@ -341,7 +343,7 @@ void			free_all(t_config *config);
 ** bmp
 */
 
-void    		create_bmp_header(t_config *config);
+void    		create_bmp_file_header(t_config *config);
 
 /*
 ** exit_cub

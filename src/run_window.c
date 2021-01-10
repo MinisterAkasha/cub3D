@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:50:44 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/10 17:46:42 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/10 18:40:30 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	run_window(t_config *config)
 	render(config);
 	mlx_hook(config->win.window, 02, 1L<<0, hooks, config);
 	mlx_hook(config->win.window, 17, 1L<<17, close_win, config);
-	create_bmp_header(config);//!DEL
-	mlx_loop(config->win.mlx);
+	create_bmp_file_header(config);//!DEL
+	// mlx_loop(config->win.mlx);
 	destroy_images(config);
 }
