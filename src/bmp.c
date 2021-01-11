@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:38:58 by user              #+#    #+#             */
-/*   Updated: 2021/01/10 20:50:33 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/11 14:32:49 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void create_bmp_file_header(t_config *config)
 {
     int file_size;
 
-    // reset_to_zero(config->bmp.file_header, 14);
     file_size = config->params.window_width * config->params.window_height * 3 + 54;
     config->bmp.file_header[0] = (unsigned char)('B');
     config->bmp.file_header[1] = (unsigned char)('M');
@@ -45,7 +44,6 @@ void create_bmp_info_header(t_config *config)
 
     width = config->params.window_width;
     height = config->params.window_height;
-    // reset_to_zero(config->bmp.file_header, 40);
     config->bmp.info_header[0] = (unsigned char)(40);
 
     config->bmp.info_header[4] = (unsigned char)(width);
@@ -65,22 +63,24 @@ void create_bmp_info_header(t_config *config)
 
 void create_and_write_image(t_config *config, int fd)
 {
-    unsigned char bmp_pad[3] = {0, 0, 0};
     int w = config->params.window_width;
     int h = config->params.window_height;
     int color;
-
-    for (int i = 0; i < w; i++)
+    int i;
+    int j;
+    i = w - 1;
+    while (i >= 0)
     {
-        for (int j = 0; j < h; j++)
+        j = 0;
+        while (j < h)
         {
-            // color = *(int*)(config->data.addr);
-            color = 0xe0f542;
+            color = *(int*)(config->data.addr + i * config->data.line_length +
+						j * (config->data.bits_per_pixel / 8));
             int rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF);
             write(fd, &rgb, 3);
-            write(fd, &bmp_pad, (4 - (w * 3) % 4) % 4);
-            // printf("%d\n", rgb );
+            j++;
         }
+        i--;
     }
 }
 
