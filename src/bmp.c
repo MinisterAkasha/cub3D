@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:38:58 by user              #+#    #+#             */
-/*   Updated: 2021/01/13 18:39:20 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/13 19:00:15 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,18 @@ void	create_and_write_image(t_config *config, int fd)
 	int i;
 	int j;
 
-	i = config->params.window_width - 1;
+	i = config->params.window_height - 1;
 	while (i >= 0)
 	{
 		j = 0;
-		while (j < config->params.window_height)
+		while (j < config->params.window_width)
 		{
 			
-			color = *(int*)(config->data.addr + i * config->data.line_length +
-						j * (config->data.bits_per_pixel / 8));
-			int rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF);
-			write(fd, &rgb, 3);
+			// printf("%d\n", i * config->data.line_length);
+			// printf("%d\n", j * (config->data.bits_per_pixel / 8));
+			color = *(int*)(config->data.addr + (i * config->data.line_length +
+						j * (config->data.bits_per_pixel / 8)));
+			write(fd, &color, 3);
 			j++;
 		}
 		i--;
