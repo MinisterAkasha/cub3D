@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:38:58 by user              #+#    #+#             */
-/*   Updated: 2021/01/11 14:32:49 by user             ###   ########.fr       */
+/*   Updated: 2021/01/11 14:48:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,14 @@ void create_bmp_info_header(t_config *config)
 
 void create_and_write_image(t_config *config, int fd)
 {
-    int w = config->params.window_width;
-    int h = config->params.window_height;
     int color;
     int i;
     int j;
-    i = w - 1;
+    i = config->params.window_width - 1;
     while (i >= 0)
     {
         j = 0;
-        while (j < h)
+        while (j < config->params.window_height)
         {
             color = *(int*)(config->data.addr + i * config->data.line_length +
 						j * (config->data.bits_per_pixel / 8));
