@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:38:58 by user              #+#    #+#             */
-/*   Updated: 2021/01/13 17:42:19 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/13 18:39:20 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,23 @@ void	create_and_write_image(t_config *config, int fd)
 		j = 0;
 		while (j < config->params.window_height)
 		{
+			
 			color = *(int*)(config->data.addr + i * config->data.line_length +
 						j * (config->data.bits_per_pixel / 8));
-			write(fd, &color, 3);
+			int rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF);
+			write(fd, &rgb, 3);
 			j++;
 		}
 		i--;
 	}
 }
 
-void	generate_image(t_config *config)
+void	generate_bmp_image(t_config *config)
 {
 	int fd;
 
 	fd = open("screenshot.bmp", O_CREAT | O_TRUNC | O_RDWR | O_APPEND,
-																S_IREAD);
+														S_IREAD | S_IWRITE);
 	create_bmp_file_header(config);
 	create_bmp_info_header(config);
 	write(fd, &config->bmp.file_header, 14);

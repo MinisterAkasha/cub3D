@@ -6,12 +6,12 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:59:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 20:28:19 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/13 18:34:23 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
+//TODO проверить баг 'Not valid parametr for window size'
 void	check_max_size(t_config *config)
 {
 	mlx_get_screen_size(config->win.mlx, &config->params.max_width,
