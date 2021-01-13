@@ -3,95 +3,90 @@
 /*                                                        :::      ::::::::   */
 /*   bmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:38:58 by user              #+#    #+#             */
-/*   Updated: 2021/01/11 14:48:17 by user             ###   ########.fr       */
+/*   Updated: 2021/01/13 17:42:19 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void reset_to_zero(unsigned char header[], int size)
+void	reset_to_zero(unsigned char header[], int size)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (i < size)
-        header[i++] = 0;
+	i = 0;
+	while (i < size)
+		header[i++] = 0;
 }
 
-void create_bmp_file_header(t_config *config)
+void	create_bmp_file_header(t_config *config)
 {
-    int file_size;
+	int file_size;
 
-    file_size = config->params.window_width * config->params.window_height * 3 + 54;
-    config->bmp.file_header[0] = (unsigned char)('B');
-    config->bmp.file_header[1] = (unsigned char)('M');
-
-    config->bmp.file_header[2] = (unsigned char)(file_size);
-    config->bmp.file_header[3] = (unsigned char)(file_size >> 8);
-    config->bmp.file_header[4] = (unsigned char)(file_size >> 16);
-    config->bmp.file_header[4] = (unsigned char)(file_size >> 24);
-
-    config->bmp.file_header[10] = (unsigned char)(54);
+	file_size = 3 + 54 *
+				config->params.window_width * config->params.window_height;
+	config->bmp.file_header[0] = (unsigned char)('B');
+	config->bmp.file_header[1] = (unsigned char)('M');
+	config->bmp.file_header[2] = (unsigned char)(file_size);
+	config->bmp.file_header[3] = (unsigned char)(file_size >> 8);
+	config->bmp.file_header[4] = (unsigned char)(file_size >> 16);
+	config->bmp.file_header[4] = (unsigned char)(file_size >> 24);
+	config->bmp.file_header[10] = (unsigned char)(54);
 }
 
-void create_bmp_info_header(t_config *config)
+void	create_bmp_info_header(t_config *config)
 {
-    int width;
-    int height;
+	int width;
+	int height;
 
-    width = config->params.window_width;
-    height = config->params.window_height;
-    config->bmp.info_header[0] = (unsigned char)(40);
-
-    config->bmp.info_header[4] = (unsigned char)(width);
-    config->bmp.info_header[5] = (unsigned char)(width >> 8);
-    config->bmp.info_header[6] = (unsigned char)(width >> 16);
-    config->bmp.info_header[7] = (unsigned char)(width >> 24);
-
-    config->bmp.info_header[8] = (unsigned char)(height);
-    config->bmp.info_header[9] = (unsigned char)(height >> 8);
-    config->bmp.info_header[10] = (unsigned char)(height >> 16);
-    config->bmp.info_header[11] = (unsigned char)(height >> 24);
-
-    config->bmp.info_header[12] = (unsigned char)(1);
-
-    config->bmp.info_header[14] = (unsigned char)(3 * 8);
+	width = config->params.window_width;
+	height = config->params.window_height;
+	config->bmp.info_header[0] = (unsigned char)(40);
+	config->bmp.info_header[4] = (unsigned char)(width);
+	config->bmp.info_header[5] = (unsigned char)(width >> 8);
+	config->bmp.info_header[6] = (unsigned char)(width >> 16);
+	config->bmp.info_header[7] = (unsigned char)(width >> 24);
+	config->bmp.info_header[8] = (unsigned char)(height);
+	config->bmp.info_header[9] = (unsigned char)(height >> 8);
+	config->bmp.info_header[10] = (unsigned char)(height >> 16);
+	config->bmp.info_header[11] = (unsigned char)(height >> 24);
+	config->bmp.info_header[12] = (unsigned char)(1);
+	config->bmp.info_header[14] = (unsigned char)(3 * 8);
 }
 
-void create_and_write_image(t_config *config, int fd)
+void	create_and_write_image(t_config *config, int fd)
 {
-    int color;
-    int i;
-    int j;
-    i = config->params.window_width - 1;
-    while (i >= 0)
-    {
-        j = 0;
-        while (j < config->params.window_height)
-        {
-            color = *(int*)(config->data.addr + i * config->data.line_length +
+	int color;
+	int i;
+	int j;
+
+	i = config->params.window_width - 1;
+	while (i >= 0)
+	{
+		j = 0;
+		while (j < config->params.window_height)
+		{
+			color = *(int*)(config->data.addr + i * config->data.line_length +
 						j * (config->data.bits_per_pixel / 8));
-            int rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF);
-            write(fd, &rgb, 3);
-            j++;
-        }
-        i--;
-    }
+			write(fd, &color, 3);
+			j++;
+		}
+		i--;
+	}
 }
 
-void generate_image(t_config *config)
+void	generate_image(t_config *config)
 {
-    int fd;
+	int fd;
 
-    fd = open("screenshot.bmp", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND);
-    create_bmp_file_header(config);
-    create_bmp_info_header(config);
-    write(fd, &config->bmp.file_header, 14);
-    write(fd, &config->bmp.info_header, 40);
-    create_and_write_image(config, fd);
-
-    close(fd);
+	fd = open("screenshot.bmp", O_CREAT | O_TRUNC | O_RDWR | O_APPEND,
+																S_IREAD);
+	create_bmp_file_header(config);
+	create_bmp_info_header(config);
+	write(fd, &config->bmp.file_header, 14);
+	write(fd, &config->bmp.info_header, 40);
+	create_and_write_image(config, fd);
+	close(fd);
 }
