@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/14 18:56:17 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:25:23 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 //TODO проверить напровление игрока и стороны текстур
 
-void	fill_z_buffer(t_config *config, int x)
+void	fill_depth(t_config *config, int x)
 { 
-	config->sprite.z_buffer[x] = config->ray.perp_wall_dist;
+	config->sprite.depth[x] = config->ray.perp_wall_dist;
 }
 
 int		render(t_config *config)
@@ -26,17 +26,17 @@ int		render(t_config *config)
 	int	x;
 
 	init_image(config);
-	if (!(config->sprite.z_buffer = (double *)malloc(sizeof(double) * config->params.window_width)))
+	if (!(config->sprite.depth = (double *)malloc(sizeof(double) * config->params.window_width)))
 		exit_cub(15, config);
 	x = 0;
 	while (x < config->params.window_width)
 	{
 		cast_rays(config, x);
-		fill_z_buffer(config, x);
+		fill_depth(config, x);
 		x++;
 	}
 	sprite_cast(config);
-	free(config->sprite.z_buffer);
+	free(config->sprite.depth);
 	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
 	return (1);
 }

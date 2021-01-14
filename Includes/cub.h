@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/14 19:12:52 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:30:26 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct	s_sprite_position
 
 typedef struct	s_sprite
 {
-	double	*z_buffer;
+	double	*depth;
 	double	*sprite_order;
 	double	*sprite_distanse;
 	double	sprite_x;
