@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:01:07 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 20:33:43 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/14 20:32:26 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ void	remember_presence_texture(t_config *config)
 		config->params.has_param[4] = 1;
 }
 
+void	validate_tex_params(t_config *config, char *str)
+{
+	if ((*str == 'S' && *(str + 1) != 'O'))
+	{
+		if (*(str + 1) != ' ')
+			exit_cub(12, config);
+	}
+	else
+	{
+		if (*(str + 2) != ' ')
+			exit_cub(12, config);
+	}
+}
+
 void	parce_tex(t_config *config, char *str)
 {
 	char	**tex;
@@ -40,6 +54,7 @@ void	parce_tex(t_config *config, char *str)
 		tex = &config->params.east_tex;
 	else if (*str == 'S')
 		tex = &config->params.spraite_tex;
+	validate_tex_params(config, str);
 	while (*str != ' ')
 		str++;
 	str += skip_spaces(str);

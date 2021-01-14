@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/14 19:30:26 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/14 20:18:50 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ typedef struct	s_data
 
 typedef struct	s_error
 {
-	char	*error[12];
+	char	*error[13];
 }				t_error;
 
 typedef struct	s_params

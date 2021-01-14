@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:53:49 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/13 18:43:26 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/14 20:57:23 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,13 @@ void	validate_color_params(char *str, t_config *config)
 	int		i;
 
 	numbers = get_numbers_num(str);
+	printf("NUMBERS: %d\n", numbers);//!DEL
 	commas = get_commas_num(str);
-	minimized_str = NULL;
-	minimized_str = make_minimized_str(minimized_str, str + 1);
-	i = 0;
-	while (minimized_str[i])
+	minimized_str = make_minimized_str(NULL, str + 1);
+	if (*(str + 1) != ' ')
+		exit_cub(7, config);
+	i = -1;
+	while (minimized_str[++i])
 	{
 		if (minimized_str[i] == ',')
 		{
@@ -69,11 +71,10 @@ void	validate_color_params(char *str, t_config *config)
 				|| !(ft_isdigit(minimized_str[i + 1])))
 				exit_cub(7, config);
 		}
-		i++;
 	}
 	if (commas != 2)
 		exit_cub(7, config);
-	if (numbers != 3) //TODO почему-то захдит сюда через раз
+	if (numbers != 3)//TODO почему-то захдит сюда через раз
 		exit_cub(10, config);
 	free(minimized_str);
 }

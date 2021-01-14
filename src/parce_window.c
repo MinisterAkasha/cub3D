@@ -6,12 +6,12 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:59:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/13 18:34:23 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/14 20:55:44 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
-//TODO проверить баг 'Not valid parametr for window size'
+#include "cub.h"//TODO проверить баг 'Not valid parametr for window size'
+
 void	check_max_size(t_config *config)
 {
 	mlx_get_screen_size(config->win.mlx, &config->params.max_width,
@@ -22,10 +22,26 @@ void	check_max_size(t_config *config)
 		config->params.window_width = config->params.max_width;
 }
 
-int		parce_window_param(t_config *config, char *str)
+void	validate_window_param(t_config *config, char *str)
 {
+	int i;
+
+	i = 0;
 	if (get_numbers_num(str) != 2)
 		exit_cub(5, config);
+	if (*str != ' ')
+		exit_cub(5, config);
+	while (str[i])
+	{
+		if (!(ft_isdigit(str[i])) && str[i] != ' ')
+			exit_cub(5, config);
+		i++;
+	}
+}
+
+int		parce_window_param(t_config *config, char *str)
+{
+	validate_window_param(config, str);
 	skip_not_number(&str);
 	config->params.window_width = ft_atoi(str);
 	config->params.has_param[7] = 1;

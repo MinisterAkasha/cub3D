@@ -6,13 +6,13 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:17:06 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/13 18:17:33 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/14 20:30:41 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	close_win(t_config *config)
+int		close_win(t_config *config)
 {
 	mlx_destroy_window(config->win.mlx, config->win.window);
 	free_all(config);
@@ -30,7 +30,7 @@ void	destroy_images(t_config *config)
 	mlx_destroy_image(config->win.mlx, config->data.img);
 }
 
-int	hooks(int keycode, t_config *config)
+int		hooks(int keycode, t_config *config)
 {
 	if (button(keycode))
 	{
@@ -54,7 +54,7 @@ int	hooks(int keycode, t_config *config)
 	return (1);
 }
 
-int	button(int key)
+int		button(int key)
 {
 	if (key == 13 || key == 0 || key == 1 || key == 2)
 		return (1);

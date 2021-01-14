@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 13:18:54 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/14 18:55:37 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/14 20:18:53 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	exit_cub(int error_code, t_config *config)
 {
 	int error_message_len;
 
-	if (error_code < 12)
+	if (error_code < 13)
 	{
 		error_message_len = ft_strlen(config->error.error[error_code]);
 		write(1, config->error.error[error_code], error_message_len);
