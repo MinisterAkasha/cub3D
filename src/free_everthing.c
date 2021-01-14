@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:54:31 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/09 15:55:33 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/14 18:44:18 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	free_side_tex(t_config *config)
 
 void	free_all(t_config *config)
 {
-	free_map(config);
+	if (config->map.map)
+		free_map(config);
 	ft_lstclear(&config->head_map, free);
 	ft_lstclear(&config->head_param, free);
 	if (config->sprite_pos)

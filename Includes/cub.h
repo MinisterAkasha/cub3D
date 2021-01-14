@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/13 18:23:28 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:12:52 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,8 +219,17 @@ void			init_image(t_config *config);
 void			init_struct(t_config *config);
 void			init_error(t_config *config);
 void			init_map_objects(t_config *config);
-void			get_hero_dir(t_config *config, int y, int x);
 void			init_sprites(t_config *config);
+
+/*
+** get_hero_dir
+*/
+
+void			get_hero_dir(t_config *config, int y, int x);
+void			set_north_dir(t_config *config);
+void			set_west_dir(t_config *config);
+void			set_south_dir(t_config *config);
+void			set_east_dir(t_config *config);
 
 /*
 ** run_window

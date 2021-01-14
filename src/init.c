@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:19:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/08 20:37:58 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:11:47 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,19 @@ void	init_error(t_config *config)
 	t_error *errors;
 
 	errors = &config->error;
-	errors->error[0] = "Passed too many arguments\n";
-	errors->error[1] = "Passed not enough arguments\n";
-	errors->error[2] = "Too many heros on the map\n";
-	errors->error[3] = "Missing hero on the map\n";
-	errors->error[4] = "Not valid map\n";
-	errors->error[5] = "Not valid parametr for window size\n";
-	errors->error[6] = "Not valid parametr for texture\n";
-	errors->error[7] = "Not valid parametr for floor/celling color\n";
-	errors->error[8] = "The color value must be in the range from 0 to 255\n";
-	errors->error[9] = "Not not enough parametrs\n";
-	errors->error[10] = "RGB must contains only 3 parameters\n";
-	errors->error[11] = "Invalid file name\n";
+	errors->error[0] = "Error\nPassed too many arguments\n";
+	errors->error[1] = "Error\nPassed not enough arguments\n";
+	errors->error[2] = "Error\nToo many heros on the map\n";
+	errors->error[3] = "Error\nMissing hero on the map\n";
+	errors->error[4] = "Error\nNot valid map\n";
+	errors->error[5] = "Error\nNot valid parametr for window size\n";
+	errors->error[6] = "Error\nNot valid parametr for texture\n";
+	errors->error[7] = "Error\nNot valid parametr for floor/celling color\n";
+	errors->error[8] = "Error\n\
+The color value must be in the range from 0 to 255\n";
+	errors->error[9] = "Error\nNot not enough parametrs\n";
+	errors->error[10] = "Error\nRGB must contains only 3 parameters\n";
+	errors->error[11] = "Error\nInvalid file name\n";
 }
 
 void	init_sprites(t_config *config)
@@ -49,9 +50,10 @@ void	init_sprites(t_config *config)
 	int y;
 	int x;
 	int i;
-	
-	config->sprite_pos = (t_sprite_position *)malloc(sizeof(t_sprite_position) * config->map.sprites_num);
 
+	if (!(config->sprite_pos = (t_sprite_position *)
+			malloc(sizeof(t_sprite_position) * config->map.sprites_num)))
+		exit_cub(15, config);
 	i = 0;
 	y = 0;
 	while (config->map.map[y])
@@ -59,7 +61,7 @@ void	init_sprites(t_config *config)
 		x = 0;
 		while (config->map.map[y][x])
 		{
-			if (config->map.map[y][x] == '2') // Определяет позицию каждого спрайта
+			if (config->map.map[y][x] == '2')
 			{
 				config->sprite_pos[i].y = y + 0.5;
 				config->sprite_pos[i].x = x + 0.5;
@@ -82,9 +84,9 @@ void	init_map_objects(t_config *config)
 		x = 0;
 		while (config->map.map[y][x])
 		{
-			if (config->map.map[y][x] == '2') // Считаю кол-во спрайтов
+			if (config->map.map[y][x] == '2')
 				config->map.sprites_num++;
-			if (ft_strchr(config->map.hero_set, config->map.map[y][x])) // Определяю позицию героя
+			if (ft_strchr(config->map.hero_set, config->map.map[y][x]))
 			{
 				config->hero.y = y + 0.5;
 				config->hero.x = x + 0.5;
@@ -95,36 +97,4 @@ void	init_map_objects(t_config *config)
 		y++;
 	}
 	init_sprites(config);
-}
-
-void	get_hero_dir(t_config *config, int y, int x)
-{
-	if (config->map.map[y][x] == 'N')
-	{
-		config->hero.dir_x = 0;
-		config->hero.dir_y = -1;
-		config->hero.plane_x = -0.66;
-		config->hero.plane_y = 0;
-	}
-	if (config->map.map[y][x] == 'W')
-	{
-		config->hero.dir_x = 1;
-		config->hero.dir_y = 0;
-		config->hero.plane_x = 0;
-		config->hero.plane_y = -0.66;
-	}
-	if (config->map.map[y][x] == 'S')
-	{
-		config->hero.dir_x = 0;
-		config->hero.dir_y = 1;
-		config->hero.plane_x = 0.66;
-		config->hero.plane_y = 0;
-	}
-	if (config->map.map[y][x] == 'E')
-	{
-		config->hero.dir_x = -1;
-		config->hero.dir_y = 0;
-		config->hero.plane_x = 0;
-		config->hero.plane_y = 0.66;
-	}
 }
