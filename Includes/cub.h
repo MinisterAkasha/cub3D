@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/15 18:20:08 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/15 18:22:02 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,8 +188,8 @@ void			check_file_name(char *file_name, t_config *config);
 ** check_input
 */
 
-void			check_arguments(int argc, char *argv[], t_config *config)
-void			check_file_name(char *file_name, t_config *config)
+void			check_arguments(int argc, char *argv[], t_config *config);
+void			check_file_name(char *file_name, t_config *config);
 
 /*
 ** fill_lists
