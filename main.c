@@ -6,18 +6,14 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/14 19:25:23 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/15 18:21:15 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
-
-#include "stdio.h" //!DEL
-
-//TODO проверить напровление игрока и стороны текстур
+#include "cub.h"//TODO проверить напровление игрока и стороны текстур
 
 void	fill_depth(t_config *config, int x)
-{ 
+{
 	config->sprite.depth[x] = config->ray.perp_wall_dist;
 }
 
@@ -26,7 +22,8 @@ int		render(t_config *config)
 	int	x;
 
 	init_image(config);
-	if (!(config->sprite.depth = (double *)malloc(sizeof(double) * config->params.window_width)))
+	if (!(config->sprite.depth = (double *)malloc(sizeof(double)
+								* config->params.window_width)))
 		exit_cub(15, config);
 	x = 0;
 	while (x < config->params.window_width)
@@ -37,29 +34,9 @@ int		render(t_config *config)
 	}
 	sprite_cast(config);
 	free(config->sprite.depth);
-	mlx_put_image_to_window(config->win.mlx, config->win.window, config->data.img, 0, 0);
+	mlx_put_image_to_window(config->win.mlx, config->win.window,
+										config->data.img, 0, 0);
 	return (1);
-}
-
-void	check_arguments(int argc, char *argv[], t_config *config)
-{
-	if (argc == 3 && ft_strlen(argv[2]) && ft_strncmp(argv[2], "--save", 7) == 0)
-		config->params.screenshot = 1;
-	else if (argc > 2)
-		exit_cub(0, config);
-	else if (argc < 2)
-		exit_cub(1, config);
-}
-
-void	check_file_name(char *file_name, t_config *config)
-{
-	while (*file_name)
-		file_name++;
-	file_name--;
-	if (*file_name == 'b' && *(file_name - 1) == 'u'
-	&& *(file_name - 2) == 'c' && *(file_name - 3) == '.')
-		return ;
-	exit_cub(11, config);
 }
 
 void	make_screenshot(t_config *config)
@@ -78,7 +55,7 @@ void	make_screenshot(t_config *config)
 	destroy_images(config);
 }
 
-int main(int argc, char *argv[])
+int		main(int argc, char *argv[])
 {
 	int			fd;
 	t_config	*config;
