@@ -6,7 +6,7 @@
 #    By: akasha <akasha@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:54:33 by akasha            #+#    #+#              #
-#    Updated: 2021/01/15 18:13:47 by akasha           ###   ########.fr        #
+#    Updated: 2021/01/15 18:23:50 by akasha           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,10 @@ NAME = cub.out
 LIBFT_H = -I libft/includes
 INCLUDES_H = -I includes
 
-COMP = gcc -Wall -Wextra -Werror $(LIBFT_H) $(INCLUDES_H) -o $(NAME)
+MINILIB_FLAGS = -framework OpenGL -framework AppKit
+MINILIB = libmlx.dylib
+
+COMP = gcc -Wall -Wextra -Werror $(LIBFT_H) $(MINILIB) $(INCLUDES_H) $(MINILIB_FLAGS) -o $(NAME)
 
 OBJ_DIR = obj/
 SRC_DIR = src/
