@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:51:51 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/14 21:12:38 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/15 17:07:50 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ int				get_numbers_num(char *str)
 {
 	int numbers;
 	int	i;
+	int len;
 
 	numbers = 0;
+	len = ft_strlen(str);
+	printf("LEN: %d\n", len);
 	i = 0;
 	while (str[i])
 	{
@@ -39,18 +42,12 @@ int				get_numbers_num(char *str)
 		{
 			numbers++;
 			while (str[i] && ft_isdigit(str[i]))
-			{
-				printf("CHAR: %c\n", str[i]);
 				i++;
-			}
 		}
-		if (*str == 0)
+		if (str[i] == 0)
 			break ;
-		printf("CHAR: %c\n", str[i]);
 		i++;
 	}
-	printf("LEN: %d\n", i);
-	printf("END\n");
 	return (numbers);
 }
 
