@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/15 17:39:32 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/15 18:06:18 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "get_next_line.h"
 # include <fcntl.h>
 # include <math.h>
-# include "stdio.h" //!DEL
+# include "stdio.h"
 # include <errno.h>
 
 typedef struct	s_map
@@ -179,7 +179,7 @@ void			ft_get_camera_coordinate(t_config *config, int x);
 
 int				render(t_config *config);
 void			free_texture_arr(t_config *config);
-// void			check_arguments(int argc, char *argv[], t_config *config);
+void			check_arguments(int argc, char *argv[], t_config *config);
 void			fill_param_list(t_config *config, int fd);
 void			fill_map_list(t_config *config, int fd);
 void			check_file_name(char *file_name, t_config *config);
