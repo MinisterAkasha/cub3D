@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 21:09:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/15 17:24:25 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/15 17:29:18 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		get_texture_number(t_config *config, int y, int x)
 	return (0);
 }
 
-void	drow_vertical_line(t_config *config, int tex_num, int x)
+void	draw_vertical_line(t_config *config, int tex_num, int x)
 {
 	int y;
 
@@ -100,8 +100,8 @@ void	cast_rays(t_config *config, int x)
 	get_hit_coordinate(config);
 	get_x_tex_coordinate(config, tex_num);
 	get_line_height(config);
-	get_drow_wall_range(config);
+	get_draw_wall_range(config);
 	get_step_value(config, tex_num);
 	get_tex_pos(config);
-	drow_vertical_line(config, tex_num, x);
+	draw_vertical_line(config, tex_num, x);
 }

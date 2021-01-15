@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:23:29 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/15 17:25:52 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/15 17:29:18 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	get_line_height(t_config *config)
 										config->ray.perp_wall_dist);
 }
 
-void	get_drow_wall_range(t_config *config)
+void	get_draw_wall_range(t_config *config)
 {
 	config->ray.start = -config->ray_casting.line_height / 2 +
 						config->params.window_height / 2;

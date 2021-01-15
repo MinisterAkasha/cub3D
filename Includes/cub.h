@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/15 17:24:55 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/15 17:39:32 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ typedef struct	s_sprite
 	int		sprite_screen_x;
 	int		sprite_height;
 	int		sprite_width;
-	int		drow_start_y;
-	int		drow_end_y;
-	int		drow_start_x;
-	int		drow_end_x;
+	int		draw_start_y;
+	int		draw_end_y;
+	int		draw_start_x;
+	int		draw_end_x;
 }				t_sprite;
 
 typedef struct	s_texture
@@ -269,7 +269,7 @@ void			get_step_value(t_config *config, int tex_num);
 void			get_ray_delta(t_config *config);
 void			get_distance(t_config *config);
 void			get_line_height(t_config *config);
-void			get_drow_wall_range(t_config *config);
+void			get_draw_wall_range(t_config *config);
 void			get_tex_pos(t_config *config);
 
 /*
@@ -287,8 +287,34 @@ char			*get_texture_path(int index, t_config *config);
 void			sprite_cast(t_config *config);
 
 /*
-** sort_sprites
+** sprites -> get_sprite_draw_range
 */
+
+void			get_draw_sprite_y_range(t_config *config);
+void			get_draw_sprite_x_range(t_config *config);
+
+/*
+** sprites -> get_coordinates
+*/
+
+void			get_sprite_coordinates(t_config *config, int i);
+int				get_tex_x_coordinate(t_config *config, int x);
+int				get_tex_y_coordinate(t_config *config, int d);
+
+/*
+** sprites -> get_useful_values
+*/
+
+double			get_invert_determ_value(t_config *config);
+void			get_sprite_transform(t_config *config, double invert_determ);
+void			get_sprite_screen_x(t_config *config);
+void			get_sprite_height(t_config *config);
+void			get_sprite_width(t_config *config);
+
+/*
+** sprites -> sort_sprites
+*/
+
 int				partition(t_config *config, int left, int right);
 void			swap_elems(double *elem_1, double *elem_2);
 void			sort_sprites(t_config *config, int left, int right);
