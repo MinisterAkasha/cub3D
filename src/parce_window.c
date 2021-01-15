@@ -6,11 +6,11 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:59:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/14 20:55:44 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/15 17:09:34 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"//TODO проверить баг 'Not valid parametr for window size'
+#include "cub.h"
 
 void	check_max_size(t_config *config)
 {

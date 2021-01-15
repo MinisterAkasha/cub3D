@@ -6,17 +6,11 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:53:49 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/14 20:57:23 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/15 17:11:19 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-void	check_color_value(int color, t_config *config)
-{
-	if (color > 255 || color < 0)
-		exit_cub(8, config);
-}
 
 void	find_color_value(char **str, int *color)
 {
@@ -57,7 +51,6 @@ void	validate_color_params(char *str, t_config *config)
 	int		i;
 
 	numbers = get_numbers_num(str);
-	printf("NUMBERS: %d\n", numbers);//!DEL
 	commas = get_commas_num(str);
 	minimized_str = make_minimized_str(NULL, str + 1);
 	if (*(str + 1) != ' ')
@@ -74,7 +67,7 @@ void	validate_color_params(char *str, t_config *config)
 	}
 	if (commas != 2)
 		exit_cub(7, config);
-	if (numbers != 3)//TODO почему-то захдит сюда через раз
+	if (numbers != 3)
 		exit_cub(10, config);
 	free(minimized_str);
 }

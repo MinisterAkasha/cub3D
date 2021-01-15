@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/14 20:18:50 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/15 17:24:55 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,34 @@ void			cast_rays(t_config *config, int x);
 int				get_texture_number(t_config *config, int y, int x);
 
 /*
+**	cast_ray -> get_coordinate
+*/
+
+void			ft_get_camera_coordinate(t_config *config, int x);
+void			get_map_coordinates(t_config *config);
+void			get_hit_coordinate(t_config *config);
+void			get_x_tex_coordinate(t_config *config, int tex_num);
+void			get_y_tex_coordinate(t_config *config, int tex_num);
+
+/*
+**	cast_ray -> get_step
+*/
+
+void			get_side_and_step_x(t_config *config);
+void			get_side_and_step_y(t_config *config);
+void			get_step_value(t_config *config, int tex_num);
+
+/*
+**	cast_ray -> get_useful_values
+*/
+
+void			get_ray_delta(t_config *config);
+void			get_distance(t_config *config);
+void			get_line_height(t_config *config);
+void			get_drow_wall_range(t_config *config);
+void			get_tex_pos(t_config *config);
+
+/*
 **	load_images
 */
 
@@ -329,7 +357,6 @@ void			ft_rotate_right(t_config *config);
 
 int				get_spases_num(char *str);
 int				get_numbers_num(char *str);
-unsigned long	translate_to_hex(int red, int green, int blue);
 int				get_commas_num(char *str);
 void			fast_pixel_put(t_data *data, int x, int y, int color);
 
@@ -341,6 +368,7 @@ void			ft_find_width(char *str, t_config *config);
 int				skip_spaces(char *str);
 void			skip_number(char **str);
 void			skip_not_number(char **str);
+unsigned long	translate_to_hex(int red, int green, int blue);
 
 /*
 ** free_everthing

@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:51:51 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/15 17:07:50 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/15 17:11:34 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int				get_numbers_num(char *str)
 
 	numbers = 0;
 	len = ft_strlen(str);
-	printf("LEN: %d\n", len);
 	i = 0;
 	while (str[i])
 	{
@@ -51,9 +50,10 @@ int				get_numbers_num(char *str)
 	return (numbers);
 }
 
-unsigned long	translate_to_hex(int red, int green, int blue)
+void			check_color_value(int color, t_config *config)
 {
-	return (red << 16 | green << 8 | blue);
+	if (color > 255 || color < 0)
+		exit_cub(8, config);
 }
 
 int				get_commas_num(char *str)
