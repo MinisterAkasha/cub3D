@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:53:49 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/15 17:11:19 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/16 20:09:59 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ char	*make_minimized_str(char *mini_str, char *str)
 	i = 0;
 	j = 0;
 	minimized_str_len = ft_strlen(str + 1) - get_spases_num(str + 1);
-	mini_str = (char *)malloc(sizeof(char) * (minimized_str_len + 1));
+	if (!(mini_str = (char *)malloc(sizeof(char) * (minimized_str_len + 1))))
+		return (NULL);
 	mini_str[minimized_str_len] = 0;
 	while (str[j])
 	{
@@ -52,8 +53,9 @@ void	validate_color_params(char *str, t_config *config)
 
 	numbers = get_numbers_num(str);
 	commas = get_commas_num(str);
-	minimized_str = make_minimized_str(NULL, str + 1);
-	if (*(str + 1) != ' ')
+	if (!(minimized_str = make_minimized_str(NULL, str + 1)))
+		exit_cub(15, config);
+	if (*(str + 1) != ' ' || commas != 2)
 		exit_cub(7, config);
 	i = -1;
 	while (minimized_str[++i])
@@ -65,8 +67,6 @@ void	validate_color_params(char *str, t_config *config)
 				exit_cub(7, config);
 		}
 	}
-	if (commas != 2)
-		exit_cub(7, config);
 	if (numbers != 3)
 		exit_cub(10, config);
 	free(minimized_str);

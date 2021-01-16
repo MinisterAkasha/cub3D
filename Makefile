@@ -6,7 +6,7 @@
 #    By: akasha <akasha@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/16 18:20:59 by akasha            #+#    #+#              #
-#    Updated: 2021/01/16 19:59:45 by akasha           ###   ########.fr        #
+#    Updated: 2021/01/16 20:03:52 by akasha           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ $(MINILIB_A):
 	mv $(MINILIB)$(MINILIB_A) .
 
 clean:
-	rm -rf $(OBJ_CUB) $(OBJ_GNL) *.out *.h.gch $(MINILIB_A) $(LIBFT_A)
+	rm -rf $(OBJ_CUB) $(OBJ_GNL) *.h.gch $(MINILIB_A) $(LIBFT_A)
 	rm -f screenshot.bmp
 	make clean -C $(LIBFT)
 	make clean -C $(MINILIB)

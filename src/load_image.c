@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 20:07:27 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/14 20:07:28 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/16 20:06:16 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ void	make_texture(t_config *config, int i)
 
 	x = 0;
 	img = &config->img;
-	img->texture[i] = (size_t *)malloc(sizeof(size_t) *
-							(img->width[i] * img->height[i]));
+	if (!(img->texture[i] = (size_t *)malloc(sizeof(size_t) *
+							(img->width[i] * img->height[i]))))
+		exit_cub(15, config);
 	while (x < img->width[i])
 	{
 		y = 0;
