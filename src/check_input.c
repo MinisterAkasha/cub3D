@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 18:19:18 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/15 18:19:45 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/16 20:15:01 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	check_arguments(int argc, char *argv[], t_config *config)
 {
-	if (argc == 3 && ft_strlen(argv[2]) && ft_strncmp(argv[2], "--save", 7) == 0)
+	if (argc == 3 && ft_strlen(argv[2])
+						&& ft_strncmp(argv[2], "--save", 7) == 0)
 		config->params.screenshot = 1;
 	else if (argc > 2)
 		exit_cub(0, config);
