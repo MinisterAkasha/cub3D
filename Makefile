@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: akasha <akasha@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/01/15 17:54:33 by akasha            #+#    #+#              #
-#    Updated: 2021/01/16 15:40:21 by akasha           ###   ########.fr        #
+#    Created: 2021/01/16 18:20:59 by akasha            #+#    #+#              #
+#    Updated: 2021/01/16 18:23:30 by akasha           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ LIBFT_H = -I libft/includes
 INCLUDES_H = -I Includes
 
 MINILIB_FLAGS = -framework OpenGL -framework AppKit
-MINILIB = minilib/libmlx.dylib
+MINILIB = minilib/
+MINILIB_A = libmlx.dylib
 
 COMP = gcc -Wall -Wextra -Werror $(LIBFT_H) $(INCLUDES_H) -c
 
@@ -50,30 +51,25 @@ OBJ_GNL =	$(GNL_SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): 
+$(NAME): $(LIBFT_A) $(MINILIB_A)
+	
+$(LIBFT_A):
 	make -C $(LIBFT)
+	mv $(LIBFT)$(LIBFT_A) .
+
+$(MINILIB_A):
 	make -C $(MINILIB)
-	
-	
-
-$(OBJ): $(CFIND_CUB) $(CFIND_GNL)
-	make $(OFILE_CUB) $(OFILE_GNL)
-
-$(OFILE_CUB):
-	@$(COMP) $(OBJ_DIR)$@ $(CUB_SRC_DIR)$(@:%.o=%.c)
-
-$(OFILE_GNL):
-	@$(COMP) $(OBJ_DIR)$@ $(GNL_SRC_DIR)$(@:%.o=%.c)
+	mv $(MINILIB)$(MINILIB_A) .
 
 clean:
-	rm -rf $(OBJ) *.out *.h.gch $(OBJ_DIR)
+	rm -rf $(OBJ) *.out *.h.gch $(MINILIB_A) $(LIBFT_A)
 	make clean -C $(LIBFT)
 	make clean -C $(MINILIB)
 
 fclean: clean
 	rm -rf $(NAME)
 	make fclean -C $(LIBFT)
-	make flean -C $(MINILIB)
+	make clean -C $(MINILIB)
 
 re: fclean all
 
