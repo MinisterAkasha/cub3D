@@ -6,27 +6,28 @@
 #    By: akasha <akasha@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/15 17:54:33 by akasha            #+#    #+#              #
-#    Updated: 2021/01/15 18:23:50 by akasha           ###   ########.fr        #
+#    Updated: 2021/01/16 15:40:21 by akasha           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub.out
 
 LIBFT_H = -I libft/includes
-INCLUDES_H = -I includes
+INCLUDES_H = -I Includes
 
 MINILIB_FLAGS = -framework OpenGL -framework AppKit
-MINILIB = libmlx.dylib
+MINILIB = minilib/libmlx.dylib
 
-COMP = gcc -Wall -Wextra -Werror $(LIBFT_H) $(MINILIB) $(INCLUDES_H) $(MINILIB_FLAGS) -o $(NAME)
+COMP = gcc -Wall -Wextra -Werror $(LIBFT_H) $(INCLUDES_H) -c
 
 OBJ_DIR = obj/
-SRC_DIR = src/
+CUB_SRC_DIR = src/
+GNL_SRC_DIR = GNL/
 
 LIBFT = libft/
 LIBFT_A = libft.a
 
-src = bmp.c exit_cub.c fill_lists.c fill_map.c free_everthing.c \
+CUB_SRC = bmp.c exit_cub.c fill_lists.c fill_map.c free_everthing.c \
 	get_hero_dir.c hooks.c init_img.c init_img.c init.c load_image.c \
 	move_hero.c parce_color.c parce_map.c parce_param.c \
 	parce_tex.c parce_window.c rotate_hero.c run_window.c support.c \
@@ -36,13 +37,44 @@ src = bmp.c exit_cub.c fill_lists.c fill_map.c free_everthing.c \
 	drow sprites/get_useful_values.c drow sprites/sort_sprites.c \
 	drow sprites/sprites.c
 
-CFIND = $(SRC:%=$(SRC_DIR)%)
+GNL_SRC = get_next_line_utils.c get_next_line.c
 
-OFILE =	$(SRC:%.c=%.o)
+MAIN = main.c
 
-OBJ = $(addprefix $(OBJ_DIR), $(OFILE))
+CFIND_CUB = $(CUB_SRC:%=$(CUB_SRC_DIR)%)
+CFIND_GNL = $(GNL_SRC:%=$(GNL_SRC_DIR)%)
 
-all: $(OBJ_DIR) $(NAME)
+OBJ_CUB =	$(CUB_SRC:.c=.o)
+OBJ_GNL =	$(GNL_SRC:.c=.o)
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+
+all: $(NAME)
+
+$(NAME): 
+	make -C $(LIBFT)
+	make -C $(MINILIB)
+	
+	
+
+$(OBJ): $(CFIND_CUB) $(CFIND_GNL)
+	make $(OFILE_CUB) $(OFILE_GNL)
+
+$(OFILE_CUB):
+	@$(COMP) $(OBJ_DIR)$@ $(CUB_SRC_DIR)$(@:%.o=%.c)
+
+$(OFILE_GNL):
+	@$(COMP) $(OBJ_DIR)$@ $(GNL_SRC_DIR)$(@:%.o=%.c)
+
+clean:
+	rm -rf $(OBJ) *.out *.h.gch $(OBJ_DIR)
+	make clean -C $(LIBFT)
+	make clean -C $(MINILIB)
+
+fclean: clean
+	rm -rf $(NAME)
+	make fclean -C $(LIBFT)
+	make flean -C $(MINILIB)
+
+re: fclean all
+
+.PHONY: all clean fclean re
