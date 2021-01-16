@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:30:48 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/15 17:39:55 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/16 18:28:26 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	get_sprite_coordinates(t_config *config, int i)
 
 int		get_tex_x_coordinate(t_config *config, int x)
 {
-	int			tex_x;
 	t_sprite	*sprite;
 
 	sprite = &config->sprite;

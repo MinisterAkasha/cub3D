@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/15 18:22:02 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/16 19:52:10 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,6 @@ void			free_texture_arr(t_config *config);
 void			check_arguments(int argc, char *argv[], t_config *config);
 void			fill_param_list(t_config *config, int fd);
 void			fill_map_list(t_config *config, int fd);
-void			check_file_name(char *file_name, t_config *config);
 
 /*
 ** check_input

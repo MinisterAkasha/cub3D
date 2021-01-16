@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:44:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/15 17:38:25 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/16 18:28:38 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	draw_horizontal_sprite_line(t_config *config, int x, int tex_x)
 void	draw_sprite_loop(t_config *config)
 {
 	int x;
-	int y;
 	int tex_x;
 
 	x = config->sprite.draw_start_x;
