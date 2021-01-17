@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:01:07 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/14 20:32:26 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/17 17:08:51 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@ void	validate_tex_params(t_config *config, char *str)
 	}
 }
 
+void	check_valid_path(t_config *config, char **path)
+{
+	int fd;
+
+	fd = open(*path, O_RDONLY);
+	if (fd == -1)
+		exit_cub(12, config);
+	close(fd);
+}
+
 void	parce_tex(t_config *config, char *str)
 {
 	char	**tex;
@@ -59,5 +69,6 @@ void	parce_tex(t_config *config, char *str)
 		str++;
 	str += skip_spaces(str);
 	*tex = ft_strtrim(str, " ");
+	check_valid_path(config, tex);
 	remember_presence_texture(config);
 }

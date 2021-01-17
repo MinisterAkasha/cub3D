@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 12:54:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/16 20:02:14 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/17 17:01:59 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	ft_check_hero(t_config *config, int y, int x)
 
 int		ft_validate_map(t_config *config, int y, int x)
 {
+	ft_check_hero(config, y, x);
 	if (config->map.new_line >= 1)
 		exit_cub(4, config);
 	if (y == 0 || y == (int)(config->map.height - 1) ||
