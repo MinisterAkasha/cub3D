@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:38:58 by user              #+#    #+#             */
-/*   Updated: 2021/01/17 18:22:19 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/17 19:17:56 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	create_bmp_file_header(t_config *config)
 {
 	int file_size;
 
-	file_size = 3 + 54 *
+	file_size = 54 + 4 *
 				config->params.window_width * config->params.window_height;
 	config->bmp.file_header[0] = (unsigned char)('B');
 	config->bmp.file_header[1] = (unsigned char)('M');
@@ -53,7 +53,7 @@ void	create_bmp_info_header(t_config *config)
 	config->bmp.info_header[10] = (unsigned char)(height >> 16);
 	config->bmp.info_header[11] = (unsigned char)(height >> 24);
 	config->bmp.info_header[12] = (unsigned char)(1);
-	config->bmp.info_header[14] = (unsigned char)(3 * 8);
+	config->bmp.info_header[14] = (unsigned char)(4 * 8);
 }
 
 void	create_and_write_image(t_config *config, int fd)
@@ -68,9 +68,8 @@ void	create_and_write_image(t_config *config, int fd)
 		j = 0;
 		while (j < (int)config->params.window_width)
 		{
-			printf("BPP: %5d\n", (config->data.bits_per_pixel / 8));
 			color = *(int*)(config->data.addr + ((i * config->data.line_length) + (j * (config->data.bits_per_pixel / 8))));
-			write(fd, &color, 3);
+			write(fd, &color, 4);
 			j++;
 		}
 		i--;
