@@ -1,7 +1,7 @@
-R 1873 555
+R 1920 123456
 S ./pics/barrel.xpm
 
-NO ./pics/stone.xpm              
+NO ./pics/stone.xpm   
 SO                                 ./pics/hexagone.xpm
 WE   ./pics/redbrick.xpm             
                 EA                 ./pics/wood.xpm        
@@ -13,8 +13,8 @@ C 25,250,230
 
 
 1111111111
-1000000W01
 1000000001
+10000000W1
 1000000001
 1000000011
 1010000001
