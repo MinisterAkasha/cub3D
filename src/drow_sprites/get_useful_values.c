@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:38:02 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/15 17:39:49 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/23 18:51:07 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ void	get_sprite_height(t_config *config)
 
 void	get_sprite_width(t_config *config)
 {
-	config->sprite.sprite_width = abs((int)(config->params.window_height
+	config->sprite.sprite_width = abs((int)(config->params.window_width
 											/ (config->sprite.transform_y)));
 }
