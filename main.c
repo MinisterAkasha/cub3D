@@ -6,11 +6,11 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/17 18:27:55 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/24 14:29:15 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"//TODO проверить напровление игрока и стороны текстур
+#include "cub.h"
 
 void	fill_depth(t_config *config, int x)
 {

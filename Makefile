@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub.out
+NAME = cub3D.out
 
 LIBFT_H = libft/includes
 INCLUDES_H = -I Includes/
