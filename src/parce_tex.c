@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:01:07 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/30 19:53:58 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/30 21:05:45 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 void	remember_presence_texture(t_config *config)
 {
 	if (config->params.north_tex)
-		config->params.has_param[0] = 1;
+		config->params.has_param[0]++;
 	if (config->params.south_tex)
-		config->params.has_param[1] = 1;
+		config->params.has_param[1]++;
 	if (config->params.west_tex)
-		config->params.has_param[2] = 1;
+		config->params.has_param[2]++;
 	if (config->params.east_tex)
-		config->params.has_param[3] = 1;
+		config->params.has_param[3]++;
 	if (config->params.spraite_tex)
-		config->params.has_param[4] = 1;
+		config->params.has_param[4]++;
 }
 
 void	validate_tex_params(t_config *config, char *str)
@@ -45,8 +45,11 @@ void	check_valid_path(t_config *config, char **path)
 	int fd;
 	int len;
 	char *copy;
+	char buf;
 
 	fd = open(*path, O_RDONLY);
+	if (read(fd, &buf, 1) < 0)
+		exit_cub(12, config);
 	if (fd == -1)
 		exit_cub(12, config);
 	close(fd);

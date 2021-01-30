@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:53:49 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/16 20:28:02 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/30 20:38:51 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ void	parce_color(t_config *config, char *str)
 	fill_and_check_rgb(config, rgb, str);
 	if (*str == 'F')
 	{
-		config->params.has_param[5] = 1;
+		config->params.has_param[5]++;
 		config->params.floor_color = translate_to_hex(rgb[0], rgb[1], rgb[2]);
 	}
 	else
 	{
-		config->params.has_param[6] = 1;
+		config->params.has_param[6]++;
 		config->params.ceiling_color = translate_to_hex(rgb[0], rgb[1], rgb[2]);
 	}
 }

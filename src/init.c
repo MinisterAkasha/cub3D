@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:19:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/17 19:03:46 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/30 20:40:38 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ The color value must be in the range from 0 to 255\n";
 	errors->error[10] = "Error\nRGB must contains only 3 parameters\n";
 	errors->error[11] = "Error\nInvalid file name\n";
 	errors->error[12] = "Error\nNot valid parametr for texture\n";
+	errors->error[13] = "Error\nDouble key is invalid\n";
 }
 
 void	init_sprites(t_config *config)

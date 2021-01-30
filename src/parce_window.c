@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:59:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/17 19:32:31 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/30 20:38:34 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ int		parce_window_param(t_config *config, char *str)
 	config->params.window_width = ft_atoi(str);
 	if (get_number_len(str) > 6)
 		config->params.window_width = config->params.max_width;
-	config->params.has_param[7] = 1;
+	config->params.has_param[7]++;
 	skip_number(&str);
 	skip_not_number(&str);
 	if (get_number_len(str) > 6)
 		config->params.window_height = config->params.max_height;
 	else
 		config->params.window_height = ft_atoi(str);
-	config->params.has_param[8] = 1;
+	config->params.has_param[8]++;
 	if (!config->params.window_height || !config->params.window_width
 	|| config->params.window_height < 0 || config->params.window_width < 0)
 		exit_cub(5, config);
