@@ -1,20 +1,16 @@
-R 960 700
-S ./pics/dog.xpm
-NO ./pics/dog.xpm   
-SO ./pics/dog.xpm
-WE ./pics/dog.xpm             
-EA ./pics/dog.xpm        
-F 200,20,230            
-C 25,250,230         
+R 1920 1080
+S ./pics/barrel.xpm
+NO ./pics/stone.xpm
+SO ./pics/hexagone.xpm
+WE ./pics/redbrick.xpm
+EA ./pics/wood.xpm
+F 200,20,230
+C 255,255,255
 
-
-
-
-
-1111111111
-1000000001
-10000000E1
-1200000001
+111111111
+110000000111111111111111111111111
+12000000S000000000000000000000001
+110002000111111111111111111111111
 1000000011
-1210000001
+1010000001
 1111111111

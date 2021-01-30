@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/16 19:52:10 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/30 14:16:05 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct	s_ray_casting {
 	size_t		tex_color;
 	int			side;
 	double		wall_x;
-	int 		tex_x;
-	int 		tex_y;
+	int			tex_x;
+	int			tex_y;
 	int			line_height;
 	double		step;
 	double		tex_pos;
@@ -151,10 +151,10 @@ typedef struct	s_params
 	int		screenshot;
 }				t_params;
 
-typedef struct  s_bmp_header {
-    unsigned char   file_header[14];
-    unsigned char   info_header[40];
-}               t_bmp_header;
+typedef struct	s_bmp_header {
+	unsigned char	file_header[14];
+	unsigned char	info_header[40];
+}				t_bmp_header;
 
 typedef struct	s_config_struct
 {
@@ -412,10 +412,10 @@ void			free_all(t_config *config);
 /*
 ** bmp
 */
-void		    generate_bmp_image(t_config *config);
-void    		create_bmp_file_header(t_config *config);
-void		    create_bmp_info_header(t_config *config);
-void		    reset_to_zero(unsigned char header[], int size);
+void			generate_bmp_image(t_config *config);
+void			create_bmp_file_header(t_config *config);
+void			create_bmp_info_header(t_config *config);
+void			reset_to_zero(unsigned char header[], int size);
 
 /*
 ** exit_cub

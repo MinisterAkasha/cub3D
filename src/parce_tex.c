@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:01:07 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/17 17:08:51 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/30 19:53:58 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,21 @@ void	validate_tex_params(t_config *config, char *str)
 void	check_valid_path(t_config *config, char **path)
 {
 	int fd;
+	int len;
+	char *copy;
 
 	fd = open(*path, O_RDONLY);
 	if (fd == -1)
 		exit_cub(12, config);
 	close(fd);
+	len = ft_strlen(*path);
+	copy = ft_strdup(*path);
+	if (copy[len - 1] != 'm' && copy[len - 2] != 'p' && copy[len - 3] != 'x')
+	{
+		free(copy);
+		exit_cub(12, config);
+	}
+	free(copy);
 }
 
 void	parce_tex(t_config *config, char *str)
