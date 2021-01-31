@@ -6,7 +6,7 @@
 /*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 12:38:58 by user              #+#    #+#             */
-/*   Updated: 2021/01/17 19:33:50 by akasha           ###   ########.fr       */
+/*   Updated: 2021/01/31 18:21:37 by akasha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	create_bmp_file_header(t_config *config)
 	config->bmp.file_header[2] = (unsigned char)(file_size);
 	config->bmp.file_header[3] = (unsigned char)(file_size >> 8);
 	config->bmp.file_header[4] = (unsigned char)(file_size >> 16);
-	config->bmp.file_header[4] = (unsigned char)(file_size >> 24);
+	config->bmp.file_header[5] = (unsigned char)(file_size >> 24);
 	config->bmp.file_header[10] = (unsigned char)(54);
 }
 
