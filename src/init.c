@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:19:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/30 20:40:38 by akasha           ###   ########.fr       */
+/*   Updated: 2021/02/11 19:46:54 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	init_struct(t_config *config)
 {
+	int i;
+
+	i = 0;
+	while (i < 9)
+		config->params.has_param[i++] = 0;
 	config->map.has_hero = 0;
 	config->map.height = 0;
 	fill_map(config, ft_lstsize(config->head_map));
