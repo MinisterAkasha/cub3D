@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/24 14:29:15 by akasha           ###   ########.fr       */
+/*   Updated: 2021/02/11 21:03:07 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,26 @@ void	make_screenshot(t_config *config)
 	destroy_images(config);
 }
 
+void	reset_start_params(t_config *config)
+{
+	int i;
+
+	i = 0;
+	while (i < 5)
+		config->img.texture[i++] = NULL;
+	write(1, "1\n", 2);
+	config->map.map = NULL;
+	config->head_param = NULL;
+	config->head_map = NULL;
+	config->sprite_pos = NULL;
+	config->params.north_tex = NULL;
+	config->params.south_tex = NULL;
+	config->params.west_tex = NULL;
+	config->params.east_tex = NULL;
+	config->params.spraite_tex = NULL;
+	config->params.screenshot = 0;
+}
+
 int		main(int argc, char *argv[])
 {
 	int			fd;
@@ -63,6 +83,7 @@ int		main(int argc, char *argv[])
 	if (!(config = (t_config *)malloc(sizeof(t_config))))
 		exit_cub(15, config);
 	init_error(config);
+	reset_start_params(config);
 	check_arguments(argc, argv, config);
 	if ((fd = open(argv[1], O_RDONLY)) == -1)
 		exit_cub(15, config);
@@ -71,9 +92,9 @@ int		main(int argc, char *argv[])
 	fill_map_list(config, fd);
 	close(fd);
 	init_struct(config);
-	if (config->params.screenshot)
+	if (config->params.screenshot == 1)
 		make_screenshot(config);
-	else
+	else if (config->params.screenshot == 0)
 		run_window(config);
 	free_all(config);
 	return (0);

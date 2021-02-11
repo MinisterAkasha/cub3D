@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/02/11 19:56:50 by user             ###   ########.fr       */
+/*   Updated: 2021/02/11 20:52:01 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "get_next_line.h"
 # include <fcntl.h>
 # include <math.h>
-# include "stdio.h"
+# include <stdio.h>
 # include <errno.h>
 
 typedef struct	s_map

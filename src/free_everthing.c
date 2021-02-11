@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_everthing.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:54:31 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/14 20:01:59 by akasha           ###   ########.fr       */
+/*   Updated: 2021/02/11 20:41:29 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	free_texture_arr(t_config *config)
 void	free_map(t_config *config)
 {
 	int i;
-
 	i = ft_lstsize(config->head_map);
 	while (i >= 0)
 		free(config->map.map[i--]);
@@ -52,11 +51,13 @@ void	free_all(t_config *config)
 {
 	if (config->map.map)
 		free_map(config);
-	ft_lstclear(&config->head_map, free);
-	ft_lstclear(&config->head_param, free);
+	if (config->head_map)
+		ft_lstclear(&config->head_map, free);
+	if (config->head_param)
+		ft_lstclear(&config->head_param, free);
 	if (config->sprite_pos)
 		free(config->sprite_pos);
 	free_side_tex(config);
-	free(config);
 	free_texture_arr(config);
+	free(config);
 }
