@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parce_tex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 16:01:07 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/30 21:17:44 by akasha           ###   ########.fr       */
+/*   Updated: 2021/02/11 20:01:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,45 +49,46 @@ void	check_valid_path(t_config *config, char **path)
 	free(copy);
 }
 
-void	find_correct_tex(t_config *config, char *str, char ***tex)
+void	find_correct_tex(t_config *config, char *str)
 {
 	if ((*str == 'N' && *(str + 1) == 'O'))
 	{
 		config->params.has_param[0]++;
-		*tex = &config->params.north_tex;
+		paste_correct_text_path(config, str, &config->params.north_tex);
 	}
 	else if ((*str == 'S' && *(str + 1) == 'O'))
 	{
 		config->params.has_param[1]++;
-		*tex = &config->params.south_tex;
+		paste_correct_text_path(config, str, &config->params.south_tex);
 	}
 	else if ((*str == 'W' && *(str + 1) == 'E'))
 	{
 		config->params.has_param[2]++;
-		*tex = &config->params.west_tex;
+		paste_correct_text_path(config, str, &config->params.west_tex);
 	}
 	else if ((*str == 'E' && *(str + 1) == 'A'))
 	{
 		config->params.has_param[3]++;
-		*tex = &config->params.east_tex;
+		paste_correct_text_path(config, str, &config->params.east_tex);
 	}
 	else if (*str == 'S')
 	{
 		config->params.has_param[4]++;
-		*tex = &config->params.spraite_tex;
+		paste_correct_text_path(config, str, &config->params.spraite_tex);
 	}
 }
 
-void	parce_tex(t_config *config, char *str)
+void	paste_correct_text_path(t_config *config, char *str, char **tex)
 {
-	char	**tex;
-
-	tex = NULL;
-	find_correct_tex(config, str, &tex);
-	validate_tex_params(config, str);
 	while (*str != ' ')
 		str++;
 	str += skip_spaces(str);
 	*tex = ft_strtrim(str, " ");
 	check_valid_path(config, tex);
+}
+
+void	parce_tex(t_config *config, char *str)
+{
+	find_correct_tex(config, str);
+	validate_tex_params(config, str);
 }

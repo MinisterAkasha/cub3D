@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:05:22 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/30 21:17:17 by akasha           ###   ########.fr       */
+/*   Updated: 2021/02/11 19:56:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,7 +357,8 @@ int				parce_window_param(t_config *config, char *str);
 
 void			validate_tex_params(t_config *config, char *str);
 void			check_valid_path(t_config *config, char **path);
-void			find_correct_tex(t_config *config, char *str, char ***tex);
+void			find_correct_tex(t_config *config, char *str);
+void			paste_correct_text_path(t_config *config, char *str, char **tex);
 void			parce_tex(t_config *config, char *str);
 
 /*
