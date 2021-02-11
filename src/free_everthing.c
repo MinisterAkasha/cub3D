@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:54:31 by akasha            #+#    #+#             */
-/*   Updated: 2021/02/11 20:41:29 by user             ###   ########.fr       */
+/*   Updated: 2021/02/11 21:18:20 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	free_texture_arr(t_config *config)
 void	free_map(t_config *config)
 {
 	int i;
+
 	i = ft_lstsize(config->head_map);
 	while (i >= 0)
 		free(config->map.map[i--]);
