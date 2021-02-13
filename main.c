@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:14:04 by akasha            #+#    #+#             */
-/*   Updated: 2021/02/11 21:03:07 by user             ###   ########.fr       */
+/*   Updated: 2021/02/13 14:05:51 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	reset_start_params(t_config *config)
 	i = 0;
 	while (i < 5)
 		config->img.texture[i++] = NULL;
-	write(1, "1\n", 2);
 	config->map.map = NULL;
 	config->head_param = NULL;
 	config->head_map = NULL;
