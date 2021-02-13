@@ -6,11 +6,41 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:32:46 by akasha            #+#    #+#             */
-/*   Updated: 2021/02/13 19:01:35 by user             ###   ########.fr       */
+/*   Updated: 2021/02/13 20:12:23 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+void	check_param_line(char *str, t_config *config)
+{
+	if ((*str == 'S' && (*(str + 1) == 'O' || *(str + 1) == ' '))
+		|| (*str == 'N' && *(str + 1) == 'O')
+		|| (*str == 'E' && *(str + 1) == 'A')
+		|| (*str == 'W' && *(str + 1) == 'E')
+		|| (*str == 'R' && *(str + 1) == ' ')
+		|| *str == '1' || *str == 'F' || *str == 'C')
+		return ;
+	if (*str == 0)
+		return ;
+	while (((*str != 'S' && (*(str + 1) != 'O' || *(str + 1) != ' '))
+		|| (*str != 'N' && *(str + 1) != 'O')
+		|| (*str != 'E' && *(str + 1) != 'A')
+		|| (*str != 'W' && *(str + 1) != 'E')
+		|| (*str != 'R' && *(str + 1) != ' ')
+		|| *str != '1' || *str != 'F' || *str != 'C') && *str)
+	{
+		if ((*str == 'S' && (*(str + 1) == 'O' || *(str + 1) == ' '))
+		|| (*str == 'N' && *(str + 1) == 'O')
+		|| (*str == 'E' && *(str + 1) == 'A')
+		|| (*str == 'W' && *(str + 1) == 'E')
+		|| (*str == 'R' && *(str + 1) == ' ')
+		|| *str == '1' || *str == 'F' || *str == 'C')
+			return ;
+		str++;
+	}
+	exit_cub(14, config);
+}
 
 void	fill_param_list(t_config *config, int fd)
 {
@@ -25,6 +55,7 @@ void	fill_param_list(t_config *config, int fd)
 	{
 		i = skip_spaces(param_line);
 		ret = get_next_line(fd, &param_line);
+		check_param_line(param_line, config);
 		if (param_line[skip_spaces(param_line)] == '1')
 		{
 			ft_lstadd_back(&config->head_map, ft_lstnew(param_line));

@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:19:03 by akasha            #+#    #+#             */
-/*   Updated: 2021/02/11 20:26:52 by user             ###   ########.fr       */
+/*   Updated: 2021/02/13 19:40:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ The color value must be in the range from 0 to 255\n";
 	errors->error[11] = "Error\nInvalid file name\n";
 	errors->error[12] = "Error\nNot valid parametr for texture\n";
 	errors->error[13] = "Error\nDouble key is invalid\n";
+	errors->error[14] = "Error\nNot valid prametrs list\n";
 }
 
 void	init_sprites(t_config *config)
