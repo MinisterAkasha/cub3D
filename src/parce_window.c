@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parce_window.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 15:59:14 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/30 20:38:34 by akasha           ###   ########.fr       */
+/*   Updated: 2021/02/13 19:10:05 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ int		parce_window_param(t_config *config, char *str)
 		&config->params.max_height);
 	skip_not_number(&str);
 	config->params.window_width = ft_atoi(str);
-	if (get_number_len(str) > 6)
+	if (get_number_len(str) > 6 && ft_atoi(str) < 0)
 		config->params.window_width = config->params.max_width;
 	config->params.has_param[7]++;
 	skip_number(&str);
 	skip_not_number(&str);
-	if (get_number_len(str) > 6)
+	if (get_number_len(str) > 6 && ft_atoi(str) < 0)
 		config->params.window_height = config->params.max_height;
 	else
 		config->params.window_height = ft_atoi(str);
