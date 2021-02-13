@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_image.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 20:07:27 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/16 20:26:39 by akasha           ###   ########.fr       */
+/*   Updated: 2021/02/13 19:17:04 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	load_images(t_config *config)
 		config->img.img[index] = mlx_xpm_file_to_image(config->win.mlx, path,
 							&config->img.width[index],
 							&config->img.height[index]);
+		if (!config->img.img[index])
+			exit_cub(12, config);
 		config->img.addr[index] = mlx_get_data_addr(config->img.img[index],
 						&config->img.bits_per_pixel[index],
 						&config->img.line_length[index],
