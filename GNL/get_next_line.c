@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasha <akasha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 19:42:20 by akasha            #+#    #+#             */
-/*   Updated: 2021/01/15 18:06:29 by akasha           ###   ########.fr       */
+/*   Updated: 2021/02/13 14:33:34 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int		read_bytes(char **stat, int fd)
+static int			read_bytes(char **stat, int fd)
 {
 	char	*copy;
 	char	*buffer;
@@ -41,7 +41,7 @@ static int		read_bytes(char **stat, int fd)
 	return (bytes);
 }
 
-static int		ft_return_res(int bytes, char ***line, char **stat)
+static int			ft_return_res(int bytes, char ***line, char **stat)
 {
 	char			*s;
 	char			*copy;
@@ -98,7 +98,8 @@ static t_gnl_list	*ft_get_correct_fd(int fd, t_gnl_list **stat_list)
 	return (*stat_list);
 }
 
-static int		ft_exit(int exit_code, t_gnl_list **stat_list, t_gnl_list **tmp_list)
+static int			ft_exit(int exit_code, t_gnl_list **stat_list,
+	t_gnl_list **tmp_list)
 {
 	t_gnl_list	*stat_copy;
 
@@ -118,7 +119,7 @@ static int		ft_exit(int exit_code, t_gnl_list **stat_list, t_gnl_list **tmp_list
 	return (exit_code);
 }
 
-int				get_next_line(int fd, char **line)
+int					get_next_line(int fd, char **line)
 {
 	static t_gnl_list	*stat_list;
 	t_gnl_list			*tmp_list;
