@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 23:32:46 by akasha            #+#    #+#             */
-/*   Updated: 2021/02/11 20:28:25 by user             ###   ########.fr       */
+/*   Updated: 2021/02/13 19:01:35 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	fill_param_list(t_config *config, int fd)
 	{
 		i = skip_spaces(param_line);
 		ret = get_next_line(fd, &param_line);
-		if (param_line[i] == '1')
+		if (param_line[skip_spaces(param_line)] == '1')
 		{
 			ft_lstadd_back(&config->head_map, ft_lstnew(param_line));
 			return ;
