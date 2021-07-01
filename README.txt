@@ -1,2 +1,6 @@
-gcc -Wall -Wextra -Werror main.c -Iincludes  libft.a GNL/*  libmlx.dylib -framework OpenGL -framework AppKit src/*.c src/*/**.c -o cub3D
-./a.out map.cub 
+# Cub3D
+
+## The goal of cub3d is to make something using raycasting (like Wolfenstein 3D).
+
+![screenshot](https://github.com/MinisterAkasha/cub3D/blob/main/screenshot_1.bmp)
+![screenshot](https://github.com/MinisterAkasha/cub3D/blob/main/screenshot_2.bmp)
