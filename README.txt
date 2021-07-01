@@ -2,8 +2,8 @@
 
 ## The goal of cub3d is to make something using raycasting (like Wolfenstein 3D).
 
-![screenshot_1](https://github.com/MinisterAkasha/cub3D/blob/main/screenshot_1.png?raw=true)
-![screenshot_2](https://github.com/MinisterAkasha/cub3D/blob/main/screenshot_2.png?raw=true)
+![screenshot_1](https://github.com/MinisterAkasha/cub3D/blob/main/screenshot_2.png?raw=true)
+![screenshot_2](https://github.com/MinisterAkasha/cub3D/blob/main/screenshot_1.png?raw=true)
 
 
 - WASD to move, Left/Right directional keys to rotate camera
